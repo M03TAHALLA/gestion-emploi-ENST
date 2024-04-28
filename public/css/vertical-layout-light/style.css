@@ -19059,7 +19059,7 @@ a.text-dark:hover, a.text-dark:focus {
   .table, .jsgrid .jsgrid-table {
     border-collapse: collapse !important;
   }
-  
+
   .table td,
   .jsgrid .jsgrid-table td, .table th, .jsgrid .jsgrid-table th {
     background-color: #ffffff !important;
@@ -28830,8 +28830,8 @@ div.tagsinput span.tag a {
 }
 
 .navbar .navbar-brand-wrapper .brand-logo-mini img {
-  width: calc(70px - 30px);
-  max-width: 100%;
+  width: calc(100px - 70px);
+  max-width: 50%;
   margin: auto;
 }
 
@@ -28850,7 +28850,7 @@ div.tagsinput span.tag a {
 
 @media (max-width: 991px) {
   .navbar .navbar-menu-wrapper {
-    width: calc(100% - 55px);
+    width: calc(100% - 100px);
     padding-left: 15px;
     padding-right: 11px;
   }
@@ -29866,6 +29866,7 @@ div.tagsinput span.tag a {
   }
   .navbar .navbar-brand-wrapper .navbar-brand.brand-logo-mini {
     display: inline-block;
+
   }
   .navbar-collapse {
     display: -webkit-box;
@@ -29875,7 +29876,7 @@ div.tagsinput span.tag a {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1000px) {
   .navbar .navbar-brand-wrapper {
     width: 55px;
   }
