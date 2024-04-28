@@ -8,3 +8,6 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 });
+Route::get('/icons', function () {
+    return view('pages/icons/mdi');
+});
