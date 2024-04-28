@@ -13418,6 +13418,7 @@ input[type="button"].btn-block {
   line-height: inherit;
   white-space: nowrap;
 }
+z
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
 }
@@ -13595,7 +13596,6 @@ input[type="button"].btn-block {
     display: none;
   }
 }
-
 
 @media (max-width: 1199.98px) {
   .navbar-expand-xl > .container,
