@@ -307,6 +307,7 @@ h1, h2, h3, h4, h5,
   margin-bottom: 0px;
   z-index: 1999;
   position: absolute;
+  background-color: white;
   width: 100%; }
   .site-navbar .container-fluid {
     padding-left: 7rem;
@@ -330,7 +331,7 @@ h1, h2, h3, h4, h5,
       display: inline-block; }
       .site-navbar .site-navigation .site-menu > li > a {
         padding: 5px 20px;
-        color: #fff;
+        color: #000000;
         display: inline-block;
         text-decoration: none !important; }
         .site-navbar .site-navigation .site-menu > li > a:hover {
@@ -581,11 +582,11 @@ h1, h2, h3, h4, h5,
     .sticky-wrapper .site-navbar .site-menu > li {
       display: inline-block; }
       .sticky-wrapper .site-navbar .site-menu > li > a.active {
-        color: #fff;
+        color: #000000;
         position: relative; }
         .sticky-wrapper .site-navbar .site-menu > li > a.active:after {
           height: 2px;
-          background: #fff;
+          background: #3119e8;
           content: "";
           position: absolute;
           bottom: 0;
@@ -654,7 +655,7 @@ h1, h2, h3, h4, h5,
     height: 100%;
     width: 100%;
     background: #343a40;
-    opacity: .9;
+    opacity: 0%;
     border-bottom-right-radius: 0px; }
     @media (max-width: 991.98px) {
       .slide-1:before {

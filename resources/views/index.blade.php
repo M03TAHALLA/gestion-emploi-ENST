@@ -44,7 +44,7 @@
 
       <div class="container-fluid">
         <div class="d-flex align-items-center">
-          <div class="site-logo mr-auto w-25"><a href="index.html">OneSchool</a></div>
+          <div class="site-logo mr-auto w-25"><img style="width: 30% " src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/LOGO_ENS_MARTIL_%281%29.png/2039px-LOGO_ENS_MARTIL_%281%29.png"></img></div>
 
           <div class="mx-auto text-center">
             <nav class="site-navigation position-relative text-right" role="navigation">
@@ -72,7 +72,7 @@
 
     <div class="intro-section" id="home-section">
 
-      <div class="slide-1" style="background-image: url('images/hero_1.jpg');" data-stellar-background-ratio="0.5">
+      <div class="slide-1"  style="background-image: url('images/hero_1.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-12">
