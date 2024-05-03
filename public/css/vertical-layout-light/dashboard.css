@@ -33136,7 +33136,7 @@ div.tagsinput span.tag a {
 
 @media (max-width: 991px) {
     .navbar .navbar-menu-wrapper {
-        width: calc(100% - 55px);
+        width: 250px;
         padding-left: 15px;
         padding-right: 11px;
     }
