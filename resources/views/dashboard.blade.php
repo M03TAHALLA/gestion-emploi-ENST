@@ -19,7 +19,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="/images/favicon.png" />
+  <link rel="shortcut icon" href="/images/logo.png" />
 </head>
 <body>
   <div class="container-scroller">
@@ -352,21 +352,21 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"></path>
                 </svg>
-                <a href="">Ajouter un emploi de temps</a> 
+                <a href="" style="color:black">Ajouter un emploi de temps</a> 
               </div>
               <div class="export-operation">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
                   <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707z"></path>
                   <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"></path>
                 </svg>
-                <a href="">Exporter Emploi du temps par enseignat</a>
+                <a href="" style="color:black">Exporter Emploi du temps par enseignat</a>
               </div>
               <div class="export-operation-second">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
                   <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707z"></path>
                   <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"></path>
                 </svg>
-                <a href="">Exporter Emploi du temps par classe</a>
+                <a href="" style="color:black">Exporter Emploi du temps par classe</a>
               </div>
               <div class="afficher-tous">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
@@ -378,7 +378,7 @@
             </div>
           </div>
           <div class="temp-div" style="background-color: #ddd; height:650px; ">
-            temp content
+              Temp Content to change //
           </div>
         </section>
       </div>
