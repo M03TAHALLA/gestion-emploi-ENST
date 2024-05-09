@@ -82,17 +82,18 @@
                 </div>
 
                 <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
-                  <form action="" method="post" class="form-box">
+                  <form action="{{ route('login') }}" method="POST" class="form-box">
+                    @csrf
                     <h3 class="h4 text-black mb-4">LOG IN</h3>
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Email Addresss">
+                      <input type="text" class="form-control" name="email" placeholder="Email Addresss">
                     </div>
                     <div class="form-group">
-                      <input type="password" class="form-control" placeholder="Password">
+                      <input type="password" class="form-control" name="password" placeholder="Password">
                     </div>
-                    <div class="form-group mb-4">
-                      <input type="password" class="form-control" placeholder="Re-type Password">
-                    </div>
+                    @error('email')
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     <div class="form-group">
                       <input type="submit" class="btn btn-primary btn-pill" value="Log In">
                     </div>
