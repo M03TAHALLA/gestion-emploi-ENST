@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Gestion Emploi Temps | Admin</title>
+  <title>Sous Admin's | Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -13,6 +13,8 @@
   <!-- endinject -->
   <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
   <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" type="text/css" href="/js/select.dataTables.min.css">
@@ -21,6 +23,45 @@
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="hhttps://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
+    <style>
+        .button {
+        background-color: #0039a6;
+        color: #ffffff;
+        width: 8.5em;
+        height: 2.9em;
+        font-size: 15px;
+        border: #0039a6 0.2em solid;
+        border-radius: 11px;
+        text-align: right;
+        transition: all 0.2s ease;
+        }
+
+        .button:hover {
+        background-color: #e2e2e2;
+        cursor: pointer;
+        color: black;
+        }
+
+        .button svg {
+        width: 1.6em;
+        margin: -0.2em 0.8em 1em;
+        position: absolute;
+        display: flex;
+        transition: all 0.2s ease;
+        }
+
+        .button:hover svg {
+        transform: translateX(10px);
+        }
+
+        .text {
+        margin: 0 1.5em
+        }
+    </style>
 </head>
 <body>
   <div class="container-scroller">
@@ -299,14 +340,13 @@
           <li class="nav-item">
             <a class="nav-link" href="/dashboard">
               <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Gestion Emploi Temps</span>
+              <span class="menu-title">Gestipn Emploi Temps</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link"  href="/sous_admin" >
                 <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Sous Admin </span>
-
             </a>
           </li>
         </ul>
@@ -315,19 +355,13 @@
         <section>
           <div class="head-section">
             <div class="left-section">
-              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16" style="color:white; margin-bottom:2px; padding:0;">
-                <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"></path>
-                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
-              </svg>
+                <i class="mdi mdi-account-multiple menu-icon" style="height:10% ;color:white; "></i>
               <span class="title-section">
-                Emploi de temps
+                Sous Admin
               </span>
             </div>
             <div class="right-section">
-              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
-                <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
-              </svg>
-              <span>Tableau de board / </span><a href=""> Saisir les emplois de temps</a>
+              <span>Nombre Sous Admins : <span style="color : red;font-weight:bold">10</span>  </span>
             </div>
           </div>
           <div class="operations-section">
@@ -336,33 +370,84 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"></path>
                 </svg>
-                <a href="" style="color:black">Ajouter un emploi de temps</a>
-              </div>
-              <div class="export-operation">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
-                  <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707z"></path>
-                  <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"></path>
-                </svg>
-                <a href="" style="color:black">Exporter Emploi du temps par enseignat</a>
-              </div>
-              <div class="export-operation-second">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
-                  <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707z"></path>
-                  <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"></path>
-                </svg>
-                <a href="" style="color:black">Exporter Emploi du temps par classe</a>
-              </div>
-              <div class="afficher-tous">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
-                  <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"></path>
-                  <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"></path>
-                </svg>
-                <a href="">Afficher tout</a>
+                <a href="" style="color:black">Ajouter un Nauveau Admin</a>
               </div>
             </div>
           </div>
-          <div class="temp-div" style="background-color: #ddd; height:650px; ">
-              Temp Content to change //
+          <div class="temp-div" >
+            <table id="Table" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Roles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tahalla</td>
+                        <td>Mohammed</td>
+                        <td>mohammedtahalla@gmail.com</td>
+                        <td>Tahalla2003</td>
+                        <td> S , E , M </td>
+                        <td>
+                            <button class="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
+                                </svg>
+                                <div class="text">
+                                Roles
+                                </div>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ahmed</td>
+                        <td>Mansof</td>
+                        <td>AhmedMansof@gmail.com</td>
+                        <td>Ahmed2003</td>
+                        <td> S , M </td>
+                        <td>
+                            <button class="button">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
+                                </svg>
+                                <div class="text">
+                                    Roles
+                                </div>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Elyazid</td>
+                        <td>Halim</td>
+                        <td>ElyazidHalim@gmail.com</td>
+                        <td>Elyazid2003</td>
+                        <td> S , E </td>
+                        <td>
+                        <button class="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
+                            </svg>
+                            <div class="text">
+                                Roles
+                            </div>
+                        </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Role</th>
+                    </tr>
+                </tfoot>
+            </table>
           </div>
         </section>
       </div>
@@ -373,7 +458,7 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="/vendors/js/vendor.bundle.base.js"></script>
+  <script src="/vendors/js/vendor.bundle.base.js"></scrip>
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <script src="/vendors/chart.js/Chart.min.js"></script>
