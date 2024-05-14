@@ -18,6 +18,8 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
+  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
+
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
 </head>
@@ -296,9 +298,22 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="/dashboard">
               <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
+              <span class="menu-title">Gestion Emploi Temps</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link"  href="/dashboard/sous_admin" >
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+              <span class="menu-title">Sous Admin </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  href="/dashboard/ressources" >
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+              <span class="menu-title">Ressources</span>
             </a>
           </li>
         </ul>
