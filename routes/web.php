@@ -10,7 +10,6 @@ use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\FilliereController;
 use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\SalleController;
-use App\Http\Controllers\UserController;
 
 
 
@@ -23,10 +22,14 @@ Route::get('/dashboard', function () {
 })->name('dashboard.home');
 
 
-// show all ressources 
+// show all ressources
 Route::get('/dashboard/ressources', function () {
     return view('ressources');
 })->name('dashboard');
+Route::get('/sous_admin', function () {
+    return view('sous_admin');
+})->name('sous_admin');
+
 
 
 // TO CHANGE (temp route)
@@ -43,7 +46,7 @@ Route::get('/icons', function () {
 
 Route::post('/',[LoginController::class,'login'])->name('login');
 
-// create | add admin (test authentification)  
+// create | add admin (test authentification)
 Route::get('users/create',[UserController::class,'create'])->name('create');
 Route::post('users/store',[UserController::class,'store'])->name('store');
 
