@@ -9,7 +9,7 @@ use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\FilliereController;
 use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\SalleController;
-
+use App\Http\Controllers\UserController;
 
 
 
