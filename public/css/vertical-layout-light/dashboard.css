@@ -36265,4 +36265,20 @@ div.tagsinput span.tag a {
     text-align:center;
 }
 
+.container-section section .elems{
+    margin-top: 55px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 35px;
+}
+.container-section section .elems div{
+    background-color: #0039a6;
+    padding:50px;
+    border-radius: 5px;
+    text-align: center;
+}
+.container-section section .elems a{
+    color:white;
+}
+
 /*# sourceMappingURL=../maps/vertical-layout-light/style.css.map */
