@@ -25,7 +25,7 @@ Route::get('/dashboard', function () {
 Route::get('/dashboard/ressources', function () {
     return view('ressources');
 })->name('dashboard');
-Route::get('/sous_admin', function () {
+Route::get('/dashboard/sous_admin', function () {
     return view('sous_admin');
 })->name('sous_admin');
 
