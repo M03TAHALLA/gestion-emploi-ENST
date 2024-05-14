@@ -21,6 +21,8 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
+  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
+
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
 
@@ -61,6 +63,157 @@
         .text {
         margin: 0 1.5em
         }
+        /* radios */
+:root {
+  --checkbox-size: 16px;
+  --margin: 16px;
+  --margin-small: calc(var(--margin) / 2);
+  --text-lighter: #ccc;
+  --brand: #0039a6;
+}
+
+
+fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  align-items: flex-start;
+  min-width: 400px;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.aside {
+  color: var(--text-lighter);
+}
+
+input {
+  position: relative !important;
+  appearance: none;
+  margin: var(--margin-small);
+  box-sizing: content-box;
+  overflow: hidden;
+}
+
+/* circle */
+input:before {
+  content: '';
+  display: block;
+  box-sizing: content-box;
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  border: 2px solid var(--text-lighter);
+  transition: 0.2s border-color ease;
+}
+
+input:checked:before {
+  border-color: var(--brand);
+  transition: 0.5s border-color ease;
+}
+
+input:disabled:before {
+  border-color: var(--text-lighter);
+  background-color: var(--text-lighter);
+}
+
+/* dot */
+input:after {
+  content: '';
+  display: block;
+  position: absolute;
+  box-sizing: content-box;
+  top: 50%;
+  left: 50%;
+  transform-origin: 50% 50%;
+  background-color: var(--brand);
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  border-radius: 100vh;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+input[type="radio"]:before {
+  border-radius: 100vh;
+}
+
+input[type="radio"]:after {
+  width: var(--checkbox-size);
+  height: var(--checkbox-size);
+  border-radius: 100vh;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+input[type="radio"]:checked:after {
+  animation: toggleOnRadio 0.2s ease forwards;
+}
+
+input[type="checkbox"]:before {
+  border-radius: calc(var(--checkbox-size) / 4);
+}
+
+input[type="checkbox"]:after {
+  width: calc(var(--checkbox-size) * 0.6);
+  height: var(--checkbox-size);
+  border-radius: 0;
+  transform: translate(-50%, -85%) scale(0) rotate(45deg);
+  background-color: transparent;
+  box-shadow: 4px 4px 0px 0px var(--brand);
+}
+
+input[type="checkbox"]:checked:after {
+  animation: toggleOnCheckbox 0.2s ease forwards;
+}
+
+input[type="checkbox"].filled:before {
+  border-radius: calc(var(--checkbox-size) / 4);
+  transition: 0.2s border-color ease, 0.2s background-color ease;
+}
+
+input[type="checkbox"]:checked:not(:disabled):before {
+  background-color: var(--brand);
+}
+
+input:not(:disabled):after {
+  box-shadow: 4px 4px 0px 0px white;
+}
+
+@keyframes toggleOnCheckbox {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -85%) scale(0) rotate(45deg);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -85%) scale(0.9) rotate(45deg);
+  }
+
+  100% {
+    transform: translate(-50%, -85%) scale(0.8) rotate(45deg);
+  }
+}
+
+@keyframes toggleOnRadio {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
     </style>
 </head>
 <body>
@@ -340,13 +493,19 @@
           <li class="nav-item">
             <a class="nav-link" href="/dashboard">
               <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Gestipn Emploi Temps</span>
+              <span class="menu-title">Gestion Emploi Temps</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  href="/sous_admin" >
+            <a class="nav-link"  href="/dashboard/sous_admin" >
                 <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Sous Admin </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  href="/dashboard/ressources" >
+                <i class="mdi mdi-book-open-variant menu-icon"></i>
+              <span class="menu-title">Ressources</span>
             </a>
           </li>
         </ul>
@@ -391,16 +550,23 @@
                         <td>Mohammed</td>
                         <td>mohammedtahalla@gmail.com</td>
                         <td>Tahalla2003</td>
-                        <td> S , E , M </td>
                         <td>
-                            <button class="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
-                                </svg>
-                                <div class="text">
-                                Roles
-                                </div>
-                            </button>
+                            <div class="container" style="text-align: center; margin-left: 40%">
+                                <fieldset id="c-group">
+                                  <label for="c1">
+                                    <input type="checkbox" id="c1" name="c-group" checked>
+                                    <span class="label-text">Create</span>
+                                  </label>
+                                  <label for="c2">
+                                    <input type="checkbox" id="c2" name="c-group">
+                                    <span class="label-text">Update</span>
+                                  </label>
+                                  <label for="c3">
+                                    <input type="checkbox" id="c3" name="c-group">
+                                    <span class="label-text">Delete</span>
+                                  </label>
+                                </fieldset>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -408,16 +574,23 @@
                         <td>Mansof</td>
                         <td>AhmedMansof@gmail.com</td>
                         <td>Ahmed2003</td>
-                        <td> S , M </td>
                         <td>
-                            <button class="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
-                                </svg>
-                                <div class="text">
-                                    Roles
-                                </div>
-                            </button>
+                            <div class="container" style="text-align: center; margin-left: 40%">
+                                <fieldset id="c-group">
+                                  <label for="c11">
+                                    <input type="checkbox" id="c11" name="c-group" checked>
+                                    <span class="label-text">Create</span>
+                                  </label>
+                                  <label for="c22">
+                                    <input type="checkbox" id="c22" name="c-group">
+                                    <span class="label-text">Update</span>
+                                  </label>
+                                  <label for="c33">
+                                    <input type="checkbox" id="c33" name="c-group">
+                                    <span class="label-text">Delete</span>
+                                  </label>
+                                </fieldset>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -425,16 +598,23 @@
                         <td>Halim</td>
                         <td>ElyazidHalim@gmail.com</td>
                         <td>Elyazid2003</td>
-                        <td> S , E </td>
                         <td>
-                        <button class="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"></path>
-                            </svg>
-                            <div class="text">
-                                Roles
+                            <div class="container" style="text-align: center; margin-left: 40%">
+                                <fieldset id="c-group">
+                                  <label for="c111">
+                                    <input type="checkbox" id="c111" name="c-group" checked>
+                                    <span class="label-text">Create</span>
+                                  </label>
+                                  <label for="c222">
+                                    <input type="checkbox" id="c222" name="c-group">
+                                    <span class="label-text">Update</span>
+                                  </label>
+                                  <label for="c333">
+                                    <input type="checkbox" id="c333" name="c-group">
+                                    <span class="label-text">Delete</span>
+                                  </label>
+                                </fieldset>
                             </div>
-                        </button>
                         </td>
                     </tr>
                 </tbody>

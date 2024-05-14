@@ -19,6 +19,8 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
+  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
+
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
 </head>
@@ -303,28 +305,16 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-              <i class="icon-grid-2 menu-icon"></i>
-              <span class="menu-title">Tables</span>
-              <i class="menu-arrow"></i>
+            <a class="nav-link"  href="/dashboard/sous_admin" >
+                <i class="mdi mdi-account-multiple menu-icon"></i>
+              <span class="menu-arrow">Sous Admin </span>
             </a>
-            <div class="collapse" id="tables">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
-              </ul>
-            </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="icon-contract menu-icon"></i>
-              <span class="menu-title">Icons</span>
-              <i class="menu-arrow"></i>
+            <a class="nav-link"  href="dashboard/sous_admin" >
+                <i class="mdi mdi-book-open-variant menu-icon"></i>
+              <span class="menu-arrow">Ressources</span>
             </a>
-            <div class="collapse" id="icons">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="/icons">Mdi icons</a></li>
-              </ul>
-            </div>
           </li>
         </ul>
       </nav>
