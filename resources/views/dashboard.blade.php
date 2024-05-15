@@ -295,23 +295,24 @@
         </div>
       </div>
       <!-- partial -->
+
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="/dashboard">
+            <a class="nav-link" href="">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Gestion Emploi Temps</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  href="/dashboard/sous_admin" >
+            <a class="nav-link" href="/dashboard/sous_admin">
                 <i class="mdi mdi-account-multiple menu-icon"></i>
-              <span class="menu-arrow">Sous Admin </span>
+                <span class="menu-arrow">Sous Admin</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  href="dashboard/ressources" >
+            <a class="nav-link"  href="dashboard/sous_admin" >
                 <i class="mdi mdi-book-open-variant menu-icon"></i>
               <span class="menu-arrow">Ressources</span>
             </a>

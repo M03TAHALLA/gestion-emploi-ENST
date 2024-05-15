@@ -311,7 +311,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  href="/dashboard/ressources" >
+            <a class="nav-link"  href="{{route('dashboard.ressources')}}" >
                 <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Ressources</span>
             </a>
@@ -322,32 +322,32 @@
         <section>
             <div class="elems">
                 <div class="elem-salles">
-                    <a href="">
+                    <a href="{{ route('salles') }}">
                         <span>Liste des salles</span>
                     </a>
                   </div>
                   <div class="elem-profs">
-                    <a href="">
+                    <a href="{{ route('enseignants') }}">
                         <span>Liste des enseignants</span>
                     </a>
                   </div>
                   <div class="elem-modules">
-                    <a href="">
+                    <a href="{{ route('modules') }}">
                         <span>Liste des modules</span>
                     </a>
                   </div>
                   <div class="elem-fil">
-                    <a href="">
+                    <a href="{{ route('filieres') }}">
                         <span>Liste des filiéres</span>
                     </a>
                   </div>
                   <div class="elem-dep">
-                    <a href="">
+                    <a href="{{ route('departements') }}">
                         <span>Liste des départements</span>
                     </a>
                   </div>
                   <div class="elem-etd">
-                    <a href="">
+                    <a href="{{ route('etudiants') }}">
                         <span>Liste des étudiants</span>
                     </a>
                   </div>
