@@ -19,6 +19,8 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
   <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/css/AjouterEmploi/style.css">
+
 
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
@@ -101,10 +103,10 @@
               <img src="/images/faces/face28.jpg" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                <a href="{{ route('Profile') }}" class="dropdown-item">
-                    <i class="ti-user text-primary"></i>
-                    Profile
-                  </a>
+              <a href="{{ route('Profile') }}" class="dropdown-item">
+                <i class="ti-user text-primary"></i>
+                Profil
+              </a>
               <a class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>
                 Logout
@@ -311,115 +313,196 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link"  href="/dashboard/sous_admin" >
+            <a class="nav-link"  href="sous_admin" >
                 <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Sous Admin </span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  href="/dashboard/ressources" >
-                <i class="mdi mdi-book-open-variant menu-icon"></i>
+            <a class="nav-link"  href="{{route('dashboard.ressources')}}" >
+                <i class="mdi mdi-account-multiple menu-icon"></i>
               <span class="menu-title">Ressources</span>
             </a>
           </li>
         </ul>
       </nav>
-      <div class="container-section">
-        <section>
-          <div class="head-section">
-            <div class="left-section">
-              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16" style="color:white; margin-bottom:2px; padding:0;">
-                <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"></path>
-                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
-              </svg>
-              <span class="title-section">
-                Gestion des salles
-              </span>
+      <div class="formbold-main-wrapper">
+        <!-- Author: FormBold Team -->
+        <!-- Learn More: https://formbold.com -->
+        <div class="formbold-form-wrapper">
+            <h2 style="margin-bottom: 5%;text-align:center" class=""> Emploi Temps</h2>
+          <form action="https://formbold.com/s/FORM_ID" method="POST">
+
+            <div class="formbold-input-flex">
+                <div>
+              <label class="formbold-form-label">
+                Class Name
+              </label>
+
+              <select class="formbold-form-select" name="occupation" id="occupation">
+                <option value="Class Name">Class Name</option>
+                <option value="designer">UX/UI Designer</option>
+                <option value="fullstack">Full Stack Developer</option>
+                <option value="frontend">Front End Developer</option>
+              </select>
             </div>
-            <div class="right-section">
-              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
-                <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
-              </svg>
-              <span>Tableau de board / </span><a href=""> Salles de l'ENS</a>
+            <div>
+                <label class="formbold-form-label">
+                    Groupe Name
+                  </label>
+
+                  <select class="formbold-form-select" name="occupation" id="occupation">
+                    <option value="Groupe Name">Groupe Name</option>
+                    <option value="designer">UX/UI Designer</option>
+                    <option value="fullstack">Full Stack Developer</option>
+                    <option value="frontend">Front End Developer</option>
+                  </select>
             </div>
-          </div>
-          <div class="add-operation mt-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"></path>
-            </svg>
-            <a href="" style="color:black">Ajouter une salle</a>
-          </div>
-          <table class="table table-striped mt-5">
-            <thead>
-              <tr>
-                <th scope="col">Numero</th>
-                <th scope="col">TypeSalle</th>
-                <th scope="col">Capacité</th>
-                <th scope="col">Département</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Amphie</td>
-                <td>120</td>
-                <td>Informatique</td>
-                <td class="td-crud-operations">
-                  <a href="" class="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                    </svg>
-                  </a>
-                  <a href="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                      <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                    </svg>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Amphie</td>
-                <td>90</td>
-                <td>Science</td>
-                <td class="td-crud-operations">
-                  <a href="" class="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                    </svg>
-                  </a>
-                  <a href="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                      <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                    </svg>
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Amphie</td>
-                <td>100</td>
-                <td>Informatique</td>
-                <td class="td-crud-operations">
-                  <a href="" class="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                    </svg>
-                  </a>
-                  <a href="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                      <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                    </svg>
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
+            </div>
+
+            <div>
+                <label class="formbold-form-label">
+                   Semestre
+                  </label>
+
+                  <select class="formbold-form-select" name="occupation" id="occupation">
+                    <option value="Semestre1">Semestre 1 </option>
+                    <option value="Semestre2">Semestre 2 </option>
+                    <option value="Semestre3">Semestre 3 </option>
+                    <option value="Semestre4">Semestre 4 </option>
+                    <option value="Semestre5">Semestre 5 </option>
+                    <option value="Semestre6">Semestre 6 </option>
+                    <option value="Semestre7">Semestre 7 </option>
+                    <option value="Semestre8">Semestre 8 </option>
+                    <option value="Semestre9">Semestre 9 </option>
+                    <option value="Semestre10">Semestre 10 </option>
+                  </select>
+            </div>
+
+
+            <div class="formbold-input-group">
+                <label class="formbold-form-label">
+                  Matiere
+                </label>
+
+                <select class="formbold-form-select" name="occupation" id="occupation">
+                  <option value="Matiere">Matiere</option>
+                  <option value="designer">UX/UI Designer</option>
+                  <option value="fullstack">Full Stack Developer</option>
+                  <option value="frontend">Front End Developer</option>
+                </select>
+              </div>
+
+              <div class="formbold-input-group">
+                <label class="formbold-form-label">
+                  Enseignant
+                </label>
+
+                <select class="formbold-form-select" name="occupation" id="occupation">
+                  <option value="Enseignant">Enseignant</option>
+                  <option value="designer">UX/UI Designer</option>
+                  <option value="fullstack">Full Stack Developer</option>
+                  <option value="frontend">Front End Developer</option>
+                </select>
+              </div>
+
+              <div class="formbold-input-group">
+                <label class="formbold-form-label">
+                  Jour
+                </label>
+
+                <select class="formbold-form-select" name="occupation" id="occupation">
+                  <option value="Jour">Jour</option>
+                  <option value="designer">UX/UI Designer</option>
+                  <option value="fullstack">Full Stack Developer</option>
+                  <option value="frontend">Front End Developer</option>
+                </select>
+              </div>
+              <div class="formbold-input-flex">
+                <div>
+              <label class="formbold-form-label">
+               Heurs Debut
+              </label>
+
+              <select class="formbold-form-select" name="occupation" id="occupation">
+                <option value="Heurs Debut">08h</option>
+                <option value="Heurs Debut">09h</option>
+                <option value="Heurs Debut">10h</option>
+                <option value="Heurs Debut">11h</option>
+                <option value="Heurs Debut">12h</option>
+                <option value="Heurs Debut">14h</option>
+                <option value="Heurs Debut">15h</option>
+                <option value="Heurs Debut">16h</option>
+                <option value="Heurs Debut">17h</option>
+                <option value="Heurs Debut">18h</option>
+              </select>
+            </div>
+            <div>
+                <label class="formbold-form-label">
+                    Heurs Fin
+                  </label>
+
+                  <select class="formbold-form-select" name="occupation" id="occupation">
+                        <option value="Heurs Debut">08h</option>
+                        <option value="Heurs Debut">09h</option>
+                        <option value="Heurs Debut">10h</option>
+                        <option value="Heurs Debut">11h</option>
+                        <option value="Heurs Debut">12h</option>
+                        <option value="Heurs Debut">14h</option>
+                        <option value="Heurs Debut">15h</option>
+                        <option value="Heurs Debut">16h</option>
+                        <option value="Heurs Debut">17h</option>
+                        <option value="Heurs Debut">18h</option>
+                  </select>
+            </div>
+            </div>
+            <div class="formbold-input-radio-wrapper">
+                <label for="ans" class="formbold-form-label">
+                  Type Salle
+                </label>
+
+                <div class="formbold-radio-flex">
+                  <div class="formbold-radio-group">
+                    <label class="formbold-radio-label">
+                      <input
+                        class="formbold-input-radio"
+                        type="radio"
+                        name="ans"
+                        id="ans"
+                      />
+                      Amphi
+                      <span class="formbold-radio-checkmark"></span>
+                    </label>
+                  </div>
+
+                  <div class="formbold-radio-group">
+                    <label class="formbold-radio-label">
+                      <input
+                        class="formbold-input-radio"
+                        type="radio"
+                        name="ans"
+                        id="ans"
+                      />
+                      Salle
+                      <span class="formbold-radio-checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+            <div class="formbold-input-group">
+                <label for="name" class="formbold-form-label"> Salle </label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Enter Numero Salle"
+                  class="formbold-form-input"
+                />
+              </div>
+            <button class="formbold-btn">Ajouter Une Emploi Temps</button>
+          </form>
+        </div>
       </div>
       <!-- main-panel ends -->
     </div>

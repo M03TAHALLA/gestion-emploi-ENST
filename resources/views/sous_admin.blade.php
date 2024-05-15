@@ -294,10 +294,10 @@ input:not(:disabled):after {
               <img src="/images/faces/face28.jpg" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="ti-settings text-primary"></i>
-                Settings
-              </a>
+                <a href="{{ route('Profile') }}" class="dropdown-item">
+                    <i class="ti-user text-primary"></i>
+                    Profile
+                  </a>
               <a class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>
                 Logout
@@ -490,6 +490,12 @@ input:not(:disabled):after {
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{  route('AjouterEmploiTemps') }}">
+                    <i class="mdi mdi-archive menu-icon"></i>
+                  <span class="menu-title">Saisie Emploi Temps</span>
+                </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="/dashboard">
               <i class="icon-grid menu-icon"></i>
