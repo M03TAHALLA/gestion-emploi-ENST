@@ -336,14 +336,14 @@
             <div class="formbold-input-flex">
                 <div>
               <label class="formbold-form-label">
-                Class Name
+                Filliere Name
               </label>
 
               <select class="formbold-form-select" name="occupation" id="occupation">
-                <option value="Class Name">Class Name</option>
-                <option value="designer">UX/UI Designer</option>
-                <option value="fullstack">Full Stack Developer</option>
-                <option value="frontend">Front End Developer</option>
+                <option value="Class Name">LDW</option>
+                <option value="designer">SIL</option>
+                <option value="fullstack">SMPC</option>
+                <option value="frontend">JIF</option>
               </select>
             </div>
             <div>
@@ -352,10 +352,10 @@
                   </label>
 
                   <select class="formbold-form-select" name="occupation" id="occupation">
-                    <option value="Groupe Name">Groupe Name</option>
-                    <option value="designer">UX/UI Designer</option>
-                    <option value="fullstack">Full Stack Developer</option>
-                    <option value="frontend">Front End Developer</option>
+                    <option value="Groupe Name">Groupe 1</option>
+                    <option value="designer">Groupe 2</option>
+                    <option value="fullstack">Groupe 3</option>
+                    <option value="frontend">Groupe 4</option>
                   </select>
             </div>
             </div>
@@ -386,10 +386,10 @@
                 </label>
 
                 <select class="formbold-form-select" name="occupation" id="occupation">
-                  <option value="Matiere">Matiere</option>
-                  <option value="designer">UX/UI Designer</option>
-                  <option value="fullstack">Full Stack Developer</option>
-                  <option value="frontend">Front End Developer</option>
+                  <option value="Matiere">JEE</option>
+                  <option value="designer">Symfony</option>
+                  <option value="fullstack">PHP</option>
+                  <option value="frontend">UML</option>
                 </select>
               </div>
 
@@ -399,10 +399,10 @@
                 </label>
 
                 <select class="formbold-form-select" name="occupation" id="occupation">
-                  <option value="Enseignant">Enseignant</option>
-                  <option value="designer">UX/UI Designer</option>
-                  <option value="fullstack">Full Stack Developer</option>
-                  <option value="frontend">Front End Developer</option>
+                  <option value="Enseignant">PROF1</option>
+                  <option value="designer">PROF2</option>
+                  <option value="fullstack">PROF3</option>
+                  <option value="frontend">PROF4</option>
                 </select>
               </div>
 
@@ -412,10 +412,12 @@
                 </label>
 
                 <select class="formbold-form-select" name="occupation" id="occupation">
-                  <option value="Jour">Jour</option>
-                  <option value="designer">UX/UI Designer</option>
-                  <option value="fullstack">Full Stack Developer</option>
-                  <option value="frontend">Front End Developer</option>
+                  <option value="Jour">Lundi</option>
+                  <option value="designer">Mardi</option>
+                  <option value="fullstack">Mercredi</option>
+                  <option value="frontend">Jeudi</option>
+                  <option value="frontend">Vendredi</option>
+                  <option value="frontend">Samedi</option>
                 </select>
               </div>
               <div class="formbold-input-flex">
@@ -455,6 +457,18 @@
                         <option value="Heurs Debut">18h</option>
                   </select>
             </div>
+            </div>
+            <div>
+                <label class="formbold-form-label">
+                    Departement
+                  </label>
+
+                  <select class="formbold-form-select" name="occupation" id="occupation">
+                    <option value="Departement">INFORMATIQUE</option>
+                    <option value="designer">METHEMATIQUE</option>
+                    <option value="fullstack">SCIENCE</option>
+                    <option value="frontend">LANGUE</option>
+                  </select>
             </div>
             <div class="formbold-input-radio-wrapper">
                 <label for="ans" class="formbold-form-label">
