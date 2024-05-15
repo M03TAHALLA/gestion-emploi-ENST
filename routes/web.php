@@ -44,6 +44,14 @@ Route::get('/dashboard/ressources/filieres', function(){ return view('ressources
 Route::get('/dashboard/ressources/departements', function(){ return view('ressources-pages.departements');})->name('departements');
 Route::get('/dashboard/ressources/etudiants', function(){ return view('ressources-pages.etudiants');})->name('etudiants');
 
+Route::get('/dashboard/ressources/salles/create', function(){ return view('create-pages.salles-form');})->name('salles.form');
+Route::get('/dashboard/ressources/enseignants/create', function(){ return view('create-pages.enseignants-form');})->name('enseignants.form');
+Route::get('/dashboard/ressources/modules/create', function(){ return view('create-pages.modules-form');})->name('modules.form');
+
+
+
+
+
 Route::get('/icons', function () {
     return view('pages/icons/mdi');
 });
