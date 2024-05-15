@@ -311,7 +311,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  href="dashboard/sous_admin" >
+            <a class="nav-link"  href="dashboard/ressources" >
                 <i class="mdi mdi-book-open-variant menu-icon"></i>
               <span class="menu-arrow">Ressources</span>
             </a>
