@@ -14,7 +14,7 @@ class LoginController extends Controller
         $credentials = ['email'=>$email, 'password'=>$password];
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return to_route('dashboard.home');
+            return to_route('AjouterEmploiTemps');
         }else{
             return back()->withErrors([
                 'email'=>'email ou mot de passe incorrect.'

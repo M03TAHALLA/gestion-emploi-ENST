@@ -20,7 +20,191 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
   <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
+    <style>
+        .schedule-table table thead th {
+padding: 25px 50px;
+color: #000000;
+text-align: center;
+font-size: 20px;
+font-weight: 800;
+position: relative;
+border: 0;
 
+}
+.schedule-table table thead th:before {
+content: "";
+width: 3px;
+height: 35px;
+position: absolute;
+right: -1px;
+top: 50%;
+transform: translateY(-50%);
+}
+.schedule-table table thead th.last:before {
+content: none;
+}
+.schedule-table table tbody td {
+vertical-align: middle;
+border: 1px solid rgba(98, 98, 100, 0.877);
+font-weight: 500;
+padding: 30px;
+text-align: center;
+}
+.schedule-table table tbody td.day {
+font-size: 22px;
+font-weight: 600;
+background: #f0f1f3;
+border: 1px solid #e4e4e4;
+position: relative;
+transition: all 0.3s linear 0s;
+min-width: 165px;
+}
+.schedule-table table tbody td.active {
+position: relative;
+z-index: 10;
+transition: all 0.3s linear 0s;
+min-width: 165px;
+}
+.schedule-table table tbody td.active h4 {
+font-weight: 700;
+color: #000;
+font-size: 20px;
+margin-bottom: 5px;
+}
+.schedule-table table tbody td.active p {
+font-size: 16px;
+line-height: normal;
+margin-bottom: 0;
+}
+.schedule-table table tbody td .hover h4 {
+font-weight: 700;
+font-size: 20px;
+color: #ffffff;
+margin-bottom: 5px;
+}
+.schedule-table table tbody td .hover p {
+font-size: 16px;
+margin-bottom: 5px;
+color: #ffffff;
+line-height: normal;
+}
+.schedule-table table tbody td .hover span {
+color: #ffffff;
+font-weight: 600;
+font-size: 18px;
+}
+
+#Table{
+    margin-top: 5%;
+}
+.schedule-table table tbody td.active::before {
+position: absolute;
+content: "";
+min-width: 100%;
+min-height: 100%;
+transform: scale(0);
+top: 0;
+left: 0;
+z-index: -1;
+border-radius: 0.25rem;
+transition: all 0.3s linear 0s;
+}
+.schedule-table table tbody td .hover {
+position: absolute;
+left: 50%;
+top: 50%;
+width: 120%;
+height: 120%;
+transform: translate(-50%, -50%) scale(0.8);
+z-index: 99;
+background: #86d4f5;
+border-radius: 0.25rem;
+padding: 25px 0;
+visibility: hidden;
+opacity: 0;
+transition: all 0.3s linear 0s;
+}
+.schedule-table table tbody td.active:hover .hover {
+transform: translate(-50%, -50%) scale(1);
+visibility: visible;
+opacity: 1;
+}
+.schedule-table table tbody td.day:hover {
+background: #86d4f5;
+color: #fff;
+border: 1px solid #86d4f5;
+}
+@media screen and (max-width: 1199px) {
+.schedule-table {
+display: block;
+width: 100%;
+overflow-x: auto;
+}
+.schedule-table table thead th {
+padding: 25px 40px;
+}
+.schedule-table table tbody td {
+padding: 20px;
+}
+.schedule-table table tbody td.active h4 {
+font-size: 18px;
+}
+.schedule-table table tbody td.active p {
+font-size: 15px;
+}
+.schedule-table table tbody td.day {
+font-size: 20px;
+}
+.schedule-table table tbody td .hover {
+padding: 15px 0;
+}
+.schedule-table table tbody td .hover span {
+font-size: 17px;
+}
+}
+@media screen and (max-width: 991px) {
+.schedule-table table thead th {
+font-size: 18px;
+padding: 20px;
+}
+.schedule-table table tbody td.day {
+font-size: 18px;
+}
+.schedule-table table tbody td.active h4 {
+font-size: 17px;
+}
+}
+@media screen and (max-width: 767px) {
+.schedule-table table thead th {
+padding: 15px;
+}
+.schedule-table table tbody td {
+padding: 15px;
+}
+.schedule-table table tbody td.active h4 {
+font-size: 16px;
+}
+.schedule-table table tbody td.active p {
+font-size: 14px;
+}
+.schedule-table table tbody td .hover {
+padding: 10px 0;
+}
+.schedule-table table tbody td.day {
+font-size: 18px;
+}
+.schedule-table table tbody td .hover span {
+font-size: 15px;
+}
+}
+@media screen and (max-width: 575px) {
+.schedule-table table tbody td.day {
+min-width: 135px;
+}
+}
+
+
+    </style>
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
 </head>
@@ -102,10 +286,10 @@
               <img src="/images/faces/face28.jpg" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="ti-settings text-primary"></i>
-                Settings
-              </a>
+                <a href="{{ route('Profile') }}" class="dropdown-item">
+                    <i class="ti-user text-primary"></i>
+                    Profile
+                  </a>
               <a class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>
                 Logout
@@ -299,22 +483,28 @@
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
+          <li style="background: white;" >
+                <a class="nav-link" href="{{  route('AjouterEmploiTemps') }}">
+                    <i style="color:#6C7383" class="mdi mdi-archive menu-icon"></i>
+                  <span style="color:#6C7383" class="menu-title"> Saisie Emploi Temps</span>
+                </a>
+          </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{{  route('dashboard.home') }}">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Gestion Emploi Temps</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard/sous_admin">
-                <i class="mdi mdi-account-multiple menu-icon"></i>
-                <span class="menu-arrow">Sous Admin</span>
+          <li style="background: white;" >
+            <a class="nav-link" href="{{route('sous_admin') }}">
+                <i style="color:#6C7383" class="mdi mdi-account-multiple menu-icon"></i>
+                <span style="color:#6C7383" class="menu-arrow">Sous Admin</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link"  href="dashboard/sous_admin" >
-                <i class="mdi mdi-book-open-variant menu-icon"></i>
-              <span class="menu-arrow">Ressources</span>
+          <li style="background: white;" >
+            <a class="nav-link"  href="{{route('dashboard.ressources') }}" >
+                <i style="color:#6C7383" class="mdi mdi-book-open-variant menu-icon"></i>
+              <span style="color:#6C7383" class="menu-arrow">Ressources</span>
             </a>
           </li>
         </ul>
@@ -369,15 +559,203 @@
               </div>
             </div>
           </div>
-          <div class="temp-div" style="background-color: #ddd; height:650px; ">
-              Temp Content to change //
-          </div>
-        </section>
-      </div>
+    <div id="Table">
+          <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="schedule-table">
+                        <table class="table bg-white">
+                            <thead>
+                                <tr>
+                                    <th>Class Name</th>
+                                    <th>08h - 10h</th>
+                                    <th>10h - 12h</th>
+                                    <th>14h - 16h</th>
+                                    <th class="last">16h - 18h</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="day">Lundi</td>
+                                    <td class="active">
+                                        <h4>UML</h4>
+                                        <p>08h - 10h</p>
+                                        <div class="hover">
+                                            <h4>UML</h4>
+                                            <p>08h - 10h</p>
+                                            <span>PROF ....</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td class="active">
+                                        <h4>Symfony</h4>
+                                        <p>14h - 16h</p>
+                                        <div class="hover">
+                                            <h4>Symfony</h4>
+                                            <p>10h - 12h</p>
+                                            <span>PROF BENDEHMAN</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="day">Mardi</td>
+                                    <td></td>
+                                    <td class="active">
+                                        <h4>PHP</h4>
+                                        <p>10h - 12h</p>
+                                        <div class="hover">
+                                            <h4>PHP</h4>
+                                            <p>10H - 12 h</p>
+                                            <span>PROF ....</span>
+                                        </div>
+                                    </td>
+                                    <td class="active">
+                                        <h4>JEE</h4>
+                                        <p>14h - 16h</p>
+                                        <div class="hover">
+                                            <h4>JEE</h4>
+                                            <p>14h - 16h</p>
+                                            <span>PROF BENDEHMAN</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="day">Mercredi</td>
+                                    <td class="active">
+                                        <h4>JEE</h4>
+                                        <p>08h - 09h</p>
+                                        <h4>ANGLAIS</h4>
+                                        <p>09h - 10h</p>
+                                        <div class="hover">
+                                            <h4>JEE</h4>
+                                            <p>08h - 09h</p>
+                                            <span>PROF 1 </span>
+                                            <h4>ANGLAIS</h4>
+                                            <p>09h - 10h</p>
+                                            <span>PROF 2 </span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td class="active">
+                                        <h4>ANGLAIS</h4>
+                                        <p>14h - 16h</p>
+                                        <div class="hover">
+                                            <h4>ANGLAIS</h4>
+                                            <p>14h - 16 h</p>
+                                            <span>PROF ...</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="day">Jeudi</td>
+                                    <td class="active">
+                                        <h4>PHP</h4>
+                                        <p>08h - 10h</p>
+                                        <div class="hover">
+                                            <h4>PHP</h4>
+                                            <p>08h - 10h</p>
+                                            <span>PROF .....</span>
+                                        </div>
+                                    </td>
+                                    <td class="active">
+                                        <h4>UML</h4>
+                                        <p>10h - 12h</p>
+                                        <div class="hover">
+                                            <h4>UML</h4>
+                                            <p>10h - 12h</p>
+                                            <span>PROF ....</span>
+                                        </div>
+                                    </td>
+                                    <td class="active">
+                                        <h4>Symfony</h4>
+                                        <p>14h - 16h</p>
+                                        <div class="hover">
+                                            <h4>Symfony</h4>
+                                            <p>14h - 16h</p>
+                                            <span>PROF BENDEHMAN</span>
+                                        </div>
+                                    </td>
+                                    <td class="active">
+                                        <h4>JEE</h4>
+                                        <p>16h - 17h</p>
+                                        <h4>Symfony</h4>
+                                        <p>17h - 18h</p>
+                                        <div class="hover">
+                                            <h4>JEE</h4>
+                                            <p>16h - 17h</p>
+                                            <span>PROF 1 </span>
+                                            <h4>Symfony</h4>
+                                            <p>17h - 18h</p>
+                                            <span>PROF 2 </span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="day">Vendredi</td>
+                                    <td></td>
+                                    <td class="active">
+                                        <h4>PHP</h4>
+                                        <p>10h - 12 h</p>
+                                        <div class="hover">
+                                            <h4>PHP</h4>
+                                            <p>10h - 12h</p>
+                                            <span>PROF ....</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td class="active">
+                                        <h4>Symfony</h4>
+                                        <p>16h - 18h</p>
+                                        <div class="hover">
+                                            <h4>Symfony</h4>
+                                            <p>16h - 18h</p>
+                                            <span>PROF BENDEHMAN</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="day">Samedi</td>
+                                    <td class="active">
+                                        <h4>JEE</h4>
+                                        <p>08h - 10h</p>
+                                        <div class="hover">
+                                            <h4>JEE</h4>
+                                            <p>08h - 10h</p>
+                                            <span>PROF BENDEHMAN</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td class="active">
+                                        <h4>PHP</h4>
+                                        <p>14h - 16h</p>
+                                        <div class="hover">
+                                            <h4>PHP</h4>
+                                            <p>14h - 16h</p>
+                                            <span>PROF ....</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+</div>
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
-  </div>
   <!-- container-scroller -->
 
   <!-- plugins:js -->

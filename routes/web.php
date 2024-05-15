@@ -18,11 +18,19 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard.home');
 
+Route::get('/dashboard/Profile', function () {
+    return view('Profile');
+})->name('Profile');
+
+Route::get('/dashboard/AjouterEmploiTemps', function () {
+    return view('AjouterEmploiTemps');
+})->name('AjouterEmploiTemps');
+
 
 // show all ressources
 Route::get('/dashboard/ressources', function () {
     return view('ressources');
-})->name('dashboard');
+})->name('dashboard.ressources');
 Route::get('/dashboard/sous_admin', function () {
     return view('sous_admin');
 })->name('sous_admin');
