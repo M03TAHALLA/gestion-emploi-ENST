@@ -22,7 +22,7 @@ Route::get('/dashboard', function () {
 // show all ressources
 Route::get('/dashboard/ressources', function () {
     return view('ressources');
-})->name('dashboard.ressources');
+})->name('dashboard');
 Route::get('/dashboard/sous_admin', function () {
     return view('sous_admin');
 })->name('sous_admin');

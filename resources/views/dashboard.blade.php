@@ -295,7 +295,7 @@
         </div>
       </div>
       <!-- partial -->
-      
+
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
@@ -312,7 +312,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link"  href="{{ route('dashboard.ressources') }}" >
+            <a class="nav-link"  href="dashboard/sous_admin" >
                 <i class="mdi mdi-book-open-variant menu-icon"></i>
               <span class="menu-arrow">Ressources</span>
             </a>
