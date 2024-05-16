@@ -18,7 +18,7 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
-  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/../../vendors/mdi/css/materialdesignicons.min.css">
 
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
@@ -359,7 +359,7 @@
                     <label for="ans" class="formbold-form-label">
                       Type Salle
                     </label>
-    
+
                     <div class="formbold-radio-flex">
                       <div class="formbold-radio-group">
                         <label class="formbold-radio-label">
@@ -373,7 +373,7 @@
                           <span class="formbold-radio-checkmark"></span>
                         </label>
                       </div>
-    
+
                       <div class="formbold-radio-group">
                         <label class="formbold-radio-label">
                           <input
@@ -388,7 +388,7 @@
                       </div>
                     </div>
                   </div>
-    
+
                   <div class="formbold-input-group">
                     <label for="capacite" class="formbold-form-label"> Capacité de salle </label>
                     <input
@@ -404,7 +404,7 @@
                     <label class="formbold-form-label">
                         Departement
                       </label>
-    
+
                       <select class="formbold-form-select" name="occupation" id="occupation">
                         <option value="Departement">INFORMATIQUE</option>
                         <option value="designer">METHEMATIQUE</option>

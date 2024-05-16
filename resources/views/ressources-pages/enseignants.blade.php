@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../../vendors/ti-icons/css/themify-icons.css">
+
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
@@ -19,6 +21,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
   <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
+
 
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
@@ -347,7 +350,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"></path>
             </svg>
-            <a href="" style="color:black">Ajouter un enseignant</a>
+            <a href="{{ route('enseignants.form') }}" style="color:black">Ajouter un enseignant</a>
           </div>
           <table class="table table-striped mt-5">
             <thead>
