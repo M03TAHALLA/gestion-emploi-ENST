@@ -18,7 +18,7 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
-  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/../../vendors/mdi/css/materialdesignicons.min.css">
 
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />

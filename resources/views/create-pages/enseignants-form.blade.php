@@ -18,7 +18,7 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
-  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/../../vendors/mdi/css/materialdesignicons.min.css">
 
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
@@ -385,14 +385,14 @@
                       class="formbold-form-input"
                     />
                   </div>
-                 
-                
+
+
 
                 <div>
                   <label class="formbold-form-label">
                       Departement
                     </label>
-  
+
                     <select class="formbold-form-select" name="occupation" id="occupation">
                       <option value="Departement">INFORMATIQUE</option>
                       <option value="designer">METHEMATIQUE</option>
