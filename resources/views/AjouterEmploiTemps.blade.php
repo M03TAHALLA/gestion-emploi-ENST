@@ -445,7 +445,6 @@
                   </label>
 
                   <select class="formbold-form-select" name="occupation" id="occupation">
-                        <option value="Heurs Debut">08h</option>
                         <option value="Heurs Debut">09h</option>
                         <option value="Heurs Debut">10h</option>
                         <option value="Heurs Debut">11h</option>

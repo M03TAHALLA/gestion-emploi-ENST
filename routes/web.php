@@ -49,6 +49,8 @@ Route::get('/dashboard/ressources/enseignants/create', function(){ return view('
 Route::get('/dashboard/ressources/modules/create', function(){ return view('create-pages.modules-form');})->name('modules.form');
 Route::get('/dashboard/ressources/departement/create', function(){ return view('create-pages.departement-form');})->name('departement.form');
 Route::get('/dashboard/ressources/filliere/create', function(){ return view('create-pages.filieres-form');})->name('filieres.form');
+Route::get('/dashboard/ressources/sous-admin/create', function(){ return view('create-pages.sous-admin-form');})->name('sous-admin.form');
+
 
 
 
