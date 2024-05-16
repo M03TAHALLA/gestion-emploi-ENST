@@ -5,29 +5,216 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title>Gestion Emploi Temps | Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
+  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
   <!-- Plugin css for this page -->
   <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" type="text/css" href="/js/select.dataTables.min.css">
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="/css/vertical-layout-light/style.css">
+  <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
+  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
+    <style>
+        .schedule-table table thead th {
+padding: 25px 50px;
+color: #000000;
+text-align: center;
+font-size: 20px;
+font-weight: 800;
+position: relative;
+border: 0;
+
+}
+.schedule-table table thead th:before {
+content: "";
+width: 3px;
+height: 35px;
+position: absolute;
+right: -1px;
+top: 50%;
+transform: translateY(-50%);
+}
+.schedule-table table thead th.last:before {
+content: none;
+}
+.schedule-table table tbody td {
+vertical-align: middle;
+border: 1px solid rgba(98, 98, 100, 0.877);
+font-weight: 500;
+padding: 30px;
+text-align: center;
+}
+.schedule-table table tbody td.day {
+font-size: 22px;
+font-weight: 600;
+background: #f0f1f3;
+border: 1px solid #e4e4e4;
+position: relative;
+transition: all 0.3s linear 0s;
+min-width: 165px;
+}
+.schedule-table table tbody td.active {
+position: relative;
+z-index: 10;
+transition: all 0.3s linear 0s;
+min-width: 165px;
+}
+.schedule-table table tbody td.active h4 {
+font-weight: 700;
+color: #000;
+font-size: 20px;
+margin-bottom: 5px;
+}
+.schedule-table table tbody td.active p {
+font-size: 16px;
+line-height: normal;
+margin-bottom: 0;
+}
+.schedule-table table tbody td .hover h4 {
+font-weight: 700;
+font-size: 20px;
+color: #ffffff;
+margin-bottom: 5px;
+}
+.schedule-table table tbody td .hover p {
+font-size: 16px;
+margin-bottom: 5px;
+color: #ffffff;
+line-height: normal;
+}
+.schedule-table table tbody td .hover span {
+color: #ffffff;
+font-weight: 600;
+font-size: 18px;
+}
+
+#Table{
+    margin-top: 5%;
+}
+.schedule-table table tbody td.active::before {
+position: absolute;
+content: "";
+min-width: 100%;
+min-height: 100%;
+transform: scale(0);
+top: 0;
+left: 0;
+z-index: -1;
+border-radius: 0.25rem;
+transition: all 0.3s linear 0s;
+}
+.schedule-table table tbody td .hover {
+position: absolute;
+left: 50%;
+top: 50%;
+width: 120%;
+height: 120%;
+transform: translate(-50%, -50%) scale(0.8);
+z-index: 99;
+background: #86d4f5;
+border-radius: 0.25rem;
+padding: 25px 0;
+visibility: hidden;
+opacity: 0;
+transition: all 0.3s linear 0s;
+}
+.schedule-table table tbody td.active:hover .hover {
+transform: translate(-50%, -50%) scale(1);
+visibility: visible;
+opacity: 1;
+}
+.schedule-table table tbody td.day:hover {
+background: #86d4f5;
+color: #fff;
+border: 1px solid #86d4f5;
+}
+@media screen and (max-width: 1199px) {
+.schedule-table {
+display: block;
+width: 100%;
+overflow-x: auto;
+}
+.schedule-table table thead th {
+padding: 25px 40px;
+}
+.schedule-table table tbody td {
+padding: 20px;
+}
+.schedule-table table tbody td.active h4 {
+font-size: 18px;
+}
+.schedule-table table tbody td.active p {
+font-size: 15px;
+}
+.schedule-table table tbody td.day {
+font-size: 20px;
+}
+.schedule-table table tbody td .hover {
+padding: 15px 0;
+}
+.schedule-table table tbody td .hover span {
+font-size: 17px;
+}
+}
+@media screen and (max-width: 991px) {
+.schedule-table table thead th {
+font-size: 18px;
+padding: 20px;
+}
+.schedule-table table tbody td.day {
+font-size: 18px;
+}
+.schedule-table table tbody td.active h4 {
+font-size: 17px;
+}
+}
+@media screen and (max-width: 767px) {
+.schedule-table table thead th {
+padding: 15px;
+}
+.schedule-table table tbody td {
+padding: 15px;
+}
+.schedule-table table tbody td.active h4 {
+font-size: 16px;
+}
+.schedule-table table tbody td.active p {
+font-size: 14px;
+}
+.schedule-table table tbody td .hover {
+padding: 10px 0;
+}
+.schedule-table table tbody td.day {
+font-size: 18px;
+}
+.schedule-table table tbody td .hover span {
+font-size: 15px;
+}
+}
+@media screen and (max-width: 575px) {
+.schedule-table table tbody td.day {
+min-width: 135px;
+}
+}
+
+
+    </style>
   <!-- endinject -->
-  <link rel="shortcut icon" href="/images/favicon.png" />
+  <link rel="shortcut icon" href="/images/logo.png" />
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo ens-logo" href="index.html"><img src="/images/ENSlogo-removebg-preview.png" alt="logo" style="width:140px; height:70px;"/>ENST</a>
-        <a class="navbar-brand brand-logo-mini ens-logo" href="index.html"><img src="/images/ENSlogo-removebg-preview.png" style="width:140px; height:70px;" alt="logo"/></a>
+        <a class="navbar-brand brand-logo ens-logo" href="/dashboard"><img src="/images/ENSlogo-removebg-preview.png" alt="logo" style="width:140px; height:70px;"/>ENST</a>
+        <a class="navbar-brand brand-logo-mini ens-logo" href="/dashboard" style="margin-left: 35px">ENST</a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -99,10 +286,10 @@
               <img src="/images/faces/face28.jpg" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="ti-settings text-primary"></i>
-                Settings
-              </a>
+                <a href="{{ route('Profile') }}" class="dropdown-item">
+                    <i class="ti-user text-primary"></i>
+                    Profile
+                  </a>
               <a class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>
                 Logout
@@ -292,46 +479,283 @@
         </div>
       </div>
       <!-- partial -->
+
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
+          <li style="background: white;" >
+                <a class="nav-link" href="{{  route('AjouterEmploiTemps') }}">
+                    <i style="color:#6C7383" class="mdi mdi-archive menu-icon"></i>
+                  <span style="color:#6C7383" class="menu-title"> Saisie Emploi Temps</span>
+                </a>
+          </li>
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{  route('dashboard.home') }}">
               <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
+              <span class="menu-title">Gestion Emploi Temps</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-              <i class="icon-grid-2 menu-icon"></i>
-              <span class="menu-title">Tables</span>
-              <i class="menu-arrow"></i>
+          <li style="background: white;" >
+            <a class="nav-link" href="{{route('sous_admin') }}">
+                <i style="color:#6C7383" class="mdi mdi-account-multiple menu-icon"></i>
+                <span style="color:#6C7383" class="menu-arrow">Sous Admin</span>
             </a>
-            <div class="collapse" id="tables">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
-              </ul>
-            </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="icon-contract menu-icon"></i>
-              <span class="menu-title">Icons</span>
-              <i class="menu-arrow"></i>
+          <li style="background: white;" >
+            <a class="nav-link"  href="{{route('dashboard.ressources') }}" >
+                <i style="color:#6C7383" class="mdi mdi-book-open-variant menu-icon"></i>
+              <span style="color:#6C7383" class="menu-arrow">Ressources</span>
             </a>
-            <div class="collapse" id="icons">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="/icons">Mdi icons</a></li>
-              </ul>
-            </div>
           </li>
         </ul>
       </nav>
+      <div class="container-section">
+        <section>
+          <div class="head-section">
+            <div class="left-section">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16" style="color:white; margin-bottom:2px; padding:0;">
+                <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"></path>
+                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
+              </svg>
+              <span class="title-section">
+                Emploi de temps
+              </span>
+            </div>
+            <div class="right-section">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
+                <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
+              </svg>
+              <span>Tableau de board / </span><a href=""> Saisir les emplois de temps</a>
+            </div>
+          </div>
+          <div class="operations-section">
+            <div class="container">
+              <div class="add-operation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"></path>
+                </svg>
+                <a href="" style="color:black">Ajouter un emploi de temps</a>
+              </div>
+              <div class="export-operation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
+                  <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707z"></path>
+                  <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"></path>
+                </svg>
+                <a href="" style="color:black">Exporter Emploi du temps par enseignat</a>
+              </div>
+              <div class="export-operation-second">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
+                  <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707z"></path>
+                  <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"></path>
+                </svg>
+                <a href="" style="color:black">Exporter Emploi du temps par classe</a>
+              </div>
+              <div class="afficher-tous">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
+                  <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"></path>
+                  <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"></path>
+                </svg>
+                <a href="">Afficher tout</a>
+              </div>
+            </div>
+          </div>
+    <div id="Table">
+          <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="schedule-table">
+                        <table class="table bg-white">
+                            <thead>
+                                <tr>
+                                    <th>Class Name</th>
+                                    <th>08h - 10h</th>
+                                    <th>10h - 12h</th>
+                                    <th>14h - 16h</th>
+                                    <th class="last">16h - 18h</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="day">Lundi</td>
+                                    <td class="active">
+                                        <h4>UML</h4>
+                                        <p>08h - 10h</p>
+                                        <div class="hover">
+                                            <h4>UML</h4>
+                                            <p>08h - 10h</p>
+                                            <span>PROF ....</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td class="active">
+                                        <h4>Symfony</h4>
+                                        <p>14h - 16h</p>
+                                        <div class="hover">
+                                            <h4>Symfony</h4>
+                                            <p>10h - 12h</p>
+                                            <span>PROF BENDEHMAN</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
 
+                                <tr>
+                                    <td class="day">Mardi</td>
+                                    <td></td>
+                                    <td class="active">
+                                        <h4>PHP</h4>
+                                        <p>10h - 12h</p>
+                                        <div class="hover">
+                                            <h4>PHP</h4>
+                                            <p>10H - 12 h</p>
+                                            <span>PROF ....</span>
+                                        </div>
+                                    </td>
+                                    <td class="active">
+                                        <h4>JEE</h4>
+                                        <p>14h - 16h</p>
+                                        <div class="hover">
+                                            <h4>JEE</h4>
+                                            <p>14h - 16h</p>
+                                            <span>PROF BENDEHMAN</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="day">Mercredi</td>
+                                    <td class="active">
+                                        <h4>JEE</h4>
+                                        <p>08h - 09h</p>
+                                        <h4>ANGLAIS</h4>
+                                        <p>09h - 10h</p>
+                                        <div class="hover">
+                                            <h4>JEE</h4>
+                                            <p>08h - 09h</p>
+                                            <span>PROF 1 </span>
+                                            <h4>ANGLAIS</h4>
+                                            <p>09h - 10h</p>
+                                            <span>PROF 2 </span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td class="active">
+                                        <h4>ANGLAIS</h4>
+                                        <p>14h - 16h</p>
+                                        <div class="hover">
+                                            <h4>ANGLAIS</h4>
+                                            <p>14h - 16 h</p>
+                                            <span>PROF ...</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td class="day">Jeudi</td>
+                                    <td class="active">
+                                        <h4>PHP</h4>
+                                        <p>08h - 10h</p>
+                                        <div class="hover">
+                                            <h4>PHP</h4>
+                                            <p>08h - 10h</p>
+                                            <span>PROF .....</span>
+                                        </div>
+                                    </td>
+                                    <td class="active">
+                                        <h4>UML</h4>
+                                        <p>10h - 12h</p>
+                                        <div class="hover">
+                                            <h4>UML</h4>
+                                            <p>10h - 12h</p>
+                                            <span>PROF ....</span>
+                                        </div>
+                                    </td>
+                                    <td class="active">
+                                        <h4>Symfony</h4>
+                                        <p>14h - 16h</p>
+                                        <div class="hover">
+                                            <h4>Symfony</h4>
+                                            <p>14h - 16h</p>
+                                            <span>PROF BENDEHMAN</span>
+                                        </div>
+                                    </td>
+                                    <td class="active">
+                                        <h4>JEE</h4>
+                                        <p>16h - 17h</p>
+                                        <h4>Symfony</h4>
+                                        <p>17h - 18h</p>
+                                        <div class="hover">
+                                            <h4>JEE</h4>
+                                            <p>16h - 17h</p>
+                                            <span>PROF 1 </span>
+                                            <h4>Symfony</h4>
+                                            <p>17h - 18h</p>
+                                            <span>PROF 2 </span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="day">Vendredi</td>
+                                    <td></td>
+                                    <td class="active">
+                                        <h4>PHP</h4>
+                                        <p>10h - 12 h</p>
+                                        <div class="hover">
+                                            <h4>PHP</h4>
+                                            <p>10h - 12h</p>
+                                            <span>PROF ....</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td class="active">
+                                        <h4>Symfony</h4>
+                                        <p>16h - 18h</p>
+                                        <div class="hover">
+                                            <h4>Symfony</h4>
+                                            <p>16h - 18h</p>
+                                            <span>PROF BENDEHMAN</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="day">Samedi</td>
+                                    <td class="active">
+                                        <h4>JEE</h4>
+                                        <p>08h - 10h</p>
+                                        <div class="hover">
+                                            <h4>JEE</h4>
+                                            <p>08h - 10h</p>
+                                            <span>PROF BENDEHMAN</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                    <td class="active">
+                                        <h4>PHP</h4>
+                                        <p>14h - 16h</p>
+                                        <div class="hover">
+                                            <h4>PHP</h4>
+                                            <p>14h - 16h</p>
+                                            <span>PROF ....</span>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+</div>
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
-  </div>
   <!-- container-scroller -->
 
   <!-- plugins:js -->
