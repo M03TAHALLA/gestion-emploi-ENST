@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>OneSchool &mdash; Website by Colorlib</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    
-    <!-- <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet"> -->
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+<head>
+  <title>ENSTETOUAN &mdash; Website by Winners</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet"> -->
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
 
-    <link rel="stylesheet" href="css/aos.css">
+  <link rel="stylesheet" href="css/jquery.fancybox.min.css">
 
-    <link rel="stylesheet" href="css/style.css">
-    
-  </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-  
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+  <link rel="stylesheet" href="css/aos.css">
+
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
   <div class="site-wrap">
 
     <div class="site-mobile-menu site-navbar-target">
@@ -38,10 +40,10 @@
       </div>
       <div class="site-mobile-menu-body"></div>
     </div>
-   
-    
+
+
     <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
-      
+
       <div class="container-fluid">
         <div class="d-flex align-items-center">
           <div class="site-logo mr-auto w-25"><a href="index.html">OneSchool</a></div>
@@ -67,11 +69,11 @@
           </div>
         </div>
       </div>
-      
+
     </header>
 
     <div class="intro-section single-cover" id="home-section">
-      
+
       <div class="slide-1 " style="background-image: url('images/img_2.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center">
@@ -82,15 +84,15 @@
                   <p data-aos="fade-up" data-aos-delay="100">4 Lessons / 12 Week &bullet; 2,193 students &bullet; <a href="#" class="text-white">6 comments</a></p>
                 </div>
 
-                
+
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
     </div>
-    
+
     <div class="site-section">
       <div class="container">
         <div class="row">
@@ -169,19 +171,19 @@
                             <p><a href="#" class="reply">Reply</a></p>
                           </div>
 
-                            <ul class="children">
-                              <li class="comment">
-                                <div class="vcard bio">
-                                  <img src="images/person_1.jpg" alt="Image placeholder">
-                                </div>
-                                <div class="comment-body">
-                                  <h3>Jean Doe</h3>
-                                  <div class="meta">January 9, 2018 at 2:21pm</div>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                  <p><a href="#" class="reply">Reply</a></p>
-                                </div>
-                              </li>
-                            </ul>
+                          <ul class="children">
+                            <li class="comment">
+                              <div class="vcard bio">
+                                <img src="images/person_1.jpg" alt="Image placeholder">
+                              </div>
+                              <div class="comment-body">
+                                <h3>Jean Doe</h3>
+                                <div class="meta">January 9, 2018 at 2:21pm</div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                <p><a href="#" class="reply">Reply</a></p>
+                              </div>
+                            </li>
+                          </ul>
                         </li>
                       </ul>
                     </li>
@@ -201,7 +203,7 @@
                 </li>
               </ul>
               <!-- END comment-list -->
-              
+
               <div class="comment-form-wrap pt-5">
                 <h3 class="mb-5">Leave a comment</h3>
                 <form action="#" class="p-5 bg-light">
@@ -238,7 +240,7 @@
             <div class="mb-5 text-center border rounded course-instructor">
               <h3 class="mb-5 text-black text-uppercase h6 border-bottom pb-3">Course Instructor</h3>
               <div class="mb-4 text-center">
-                <img src="images/person_2.jpg" alt="Image" class="w-25 rounded-circle mb-4">  
+                <img src="images/person_2.jpg" alt="Image" class="w-25 rounded-circle mb-4">
                 <h3 class="h5 text-black mb-4">Christine Downeyy</h3>
                 <p>Lorem ipsum dolor sit amet sectetur adipisicing elit. Ipsa porro expedita libero pariatur vero eos.</p>
               </div>
@@ -258,7 +260,7 @@
         </div>
       </div>
     </div>
-    <div class="site-section courses-entry-wrap"  data-aos="fade" data-aos-delay="100">
+    <div class="site-section courses-entry-wrap" data-aos="fade" data-aos-delay="100">
       <div class="container">
         <div class="row">
 
@@ -364,7 +366,7 @@
 
           </div>
 
-         
+
 
         </div>
         <div class="row justify-content-center">
@@ -375,7 +377,7 @@
         </div>
       </div>
     </div>
-     
+
     <footer class="footer-section bg-light">
       <div class="container">
         <div class="row">
@@ -410,20 +412,22 @@
         <div class="row pt-5 mt-5 text-center">
           <div class="col-md-12">
             <div class="border-top pt-5">
-            <p>
-        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-      </p>
+              <p>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;<script>
+                  document.write(new Date().getFullYear());
+                </script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              </p>
             </div>
           </div>
-          
+
         </div>
       </div>
     </footer>
 
-  
-    
+
+
   </div> <!-- .site-wrap -->
 
   <script src="js/jquery-3.3.1.min.js"></script>
@@ -440,8 +444,9 @@
   <script src="js/jquery.fancybox.min.js"></script>
   <script src="js/jquery.sticky.js"></script>
 
-  
+
   <script src="js/main.js"></script>
-    
-  </body>
+
+</body>
+
 </html>

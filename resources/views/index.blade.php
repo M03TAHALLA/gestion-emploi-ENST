@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>ENSTETOUAN &mdash; Emploi Temps</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<head>
+  <title>ENSTETOUAN &mdash; Emploi Temps</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="fonts/icomoon/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/jquery-ui.css">
-    <link rel="stylesheet" href="/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/jquery-ui.css">
+  <link rel="stylesheet" href="/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="/css/owl.theme.default.min.css">
 
-    <link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css">
 
-    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
 
-    <link rel="stylesheet" href="/fonts/flaticon/font/flaticon.css">
+  <link rel="stylesheet" href="/fonts/flaticon/font/flaticon.css">
 
-    <link rel="stylesheet" href="/css/aos.css">
+  <link rel="stylesheet" href="/css/aos.css">
 
-    <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
 
-  </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
   <div class="site-wrap">
 
@@ -48,11 +50,12 @@
 
           <div class="mx-auto text-center">
             <nav class="site-navigation position-relative text-right" role="navigation">
-                <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
-                    <li><a href="#home-section" class="nav-link">Home</a></li>
-                    <li><a href="#courses-section" class="nav-link">About</a></li>
-                    <li><a href="#programs-section" class="nav-link">Policy</a></li>
-                </ul>
+              <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
+                <li><a href="#home-section" class="nav-link">Home</a></li>
+                <li><a href="#about-section" class="nav-link">About</a></li>
+                <li><a href="#programs-section" class="nav-link">Policy</a></li>
+
+              </ul>
             </nav>
           </div>
 
@@ -71,14 +74,14 @@
 
     <div class="intro-section" id="home-section">
 
-      <div class="slide-1"  style="background-image: url('images/hero_1.jpg');" data-stellar-background-ratio="0.5">
+      <div class="slide-1" style="background-image: url('images/hero_1.jpg');" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-12">
               <div class="row align-items-center">
                 <div class="col-lg-6 mb-4">
-                  <h1  data-aos="fade-up" data-aos-delay="100">ENS TETOUAN <span style="font-size: 50%">Emploi Temps <span></h1>
-                  <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">Optimisez votre emploi du temps à l'École Normale Supérieure de Tétouan grâce à notre plateforme intuitive</p>
+                  <h1 data-aos="fade-up" data-aos-delay="100">ENS TETOUAN <span style="font-size: 50%">Emploi Temps <span></h1>
+                  <p class="mb-4" data-aos="fade-up" data-aos-delay="200">Optimisez votre emploi du temps à l'École Normale Supérieure de Tétouan grâce à notre plateforme intuitive</p>
                 </div>
 
                 <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
@@ -106,53 +109,63 @@
         </div>
       </div>
     </div>
-    <div class="site-section bg-light" id="contact-section">
+    <div class="site-section bg-light" id="about-section">
       <div class="container">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-7">
+              <h2 class="section-title mb-3">About</h2>
+              <p class="mb-3">L´Ecole Normale Supérieure de Tétouan a été créée le 1er octobre 1987, elle a été construite sur une superficie totale de 73.370 m². La surface construite est de 15.700 m².</p>
 
-        <div class="row justify-content-center">
-          <div class="col-md-7">
-
-
-
-            <h2 class="section-title mb-3">Message Us</h2>
-            <p class="mb-5">Nous sommes là pour vous aider ! Si vous avez des questions, des commentaires ou des suggestions, n'hésitez pas à nous contacter. Notre équipe dévouée est disponible pour répondre à toutes vos demandes et vous assister dans l'utilisation de notre plateforme. Envoyez-nous un message et nous vous répondrons dès que possible. Votre satisfaction est notre priorité !</p>
-
-            <form method="post" data-aos="fade">
-              <div class="form-group row">
-                <div class="col-md-6 mb-3 mb-lg-0">
-                  <input type="text" class="form-control" placeholder="First name">
-                </div>
-                <div class="col-md-6">
-                  <input type="text" class="form-control" placeholder="Last name">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Subject">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="email" class="form-control" placeholder="Email">
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <textarea class="form-control" id="" cols="30" rows="10" placeholder="Write your message here."></textarea>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-md-6">
-
-                  <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Send Message">
-                </div>
-              </div>
-
-            </form>
+            </div>
           </div>
+        </div>
+
+        <div class="container" id="contact-section">
+          <div class="row justify-content-center">
+            <div class="col-md-7">
+              <h2 class="section-title mb-3">Message Us</h2>
+              <p class="mb-5">Nous sommes là pour vous aider ! Si vous avez des questions, des commentaires ou des suggestions, n'hésitez pas à nous contacter. Notre équipe dévouée est disponible pour répondre à toutes vos demandes et vous assister dans l'utilisation de notre plateforme. Envoyez-nous un message et nous vous répondrons dès que possible. Votre satisfaction est notre priorité !</p>
+
+              <form method="post" data-aos="fade">
+                <div class="form-group row">
+                  <div class="col-md-6 mb-3 mb-lg-0">
+                    <input type="text" class="form-control" placeholder="First name">
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" class="form-control" placeholder="Last name">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <input type="text" class="form-control" placeholder="Subject">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <input type="email" class="form-control" placeholder="Email">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <textarea class="form-control" id="" cols="30" rows="10" placeholder="Write your message here."></textarea>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-md-6">
+
+                    <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Send Message">
+                  </div>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -162,7 +175,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-4">
-            <h3>About OneSchool</h3>
+            <h3>About ENS TETOUAN</h3>
             <p>L´Ecole Normale Supérieure de Tétouan a été créée le 1er octobre 1987, elle a été construite sur une superficie totale de 73.370 m². La surface construite est de 15.700 m².
             </p>
           </div>
@@ -176,9 +189,8 @@
             <h3>Links</h3>
             <ul class="list-unstyled footer-links">
               <li><a href="#">Home</a></li>
-              <li><a href="#">Courses</a></li>
-              <li><a href="#">Programs</a></li>
-              <li><a href="#">Teachers</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Policy</a></li>
             </ul>
           </div>
 
@@ -189,9 +201,9 @@
         <div class="row pt-5 mt-5 text-center">
           <div class="col-md-12">
             <div class="border-top pt-5">
-            <p>
-        ENS TETOUAN 2024
-      </p>
+              <p>
+                ENS TETOUAN 2024
+              </p>
             </div>
           </div>
 
@@ -220,5 +232,6 @@
 
   <script src="js/main.js"></script>
 
-  </body>
+</body>
+
 </html>
