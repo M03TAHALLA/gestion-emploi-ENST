@@ -44,7 +44,7 @@
 
       <div class="container-fluid">
         <div class="d-flex align-items-center">
-          <div class="site-logo mr-auto w-25"><img style="width: 30% " src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/LOGO_ENS_MARTIL_%281%29.png/2039px-LOGO_ENS_MARTIL_%281%29.png"></img></div>
+          <div class="site-logo mr-auto w-25"><img style="width: 30% " src="/images/LOGO_ENS.png"></img></div>
 
           <div class="mx-auto text-center">
             <nav class="site-navigation position-relative text-right" role="navigation">
@@ -176,10 +176,9 @@
           <div class="col-md-2 ml-auto">
             <h3>Links</h3>
             <ul class="list-unstyled footer-links">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Courses</a></li>
-              <li><a href="#">Programs</a></li>
-              <li><a href="#">Teachers</a></li>
+                <li><a href="#home-section" >Home</a></li>
+                <li><a href="#courses-section">About</a></li>
+                <li><a href="#programs-section">Policy</a></li>
             </ul>
           </div>
 

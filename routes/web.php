@@ -67,12 +67,4 @@ Route::post('/',[LoginController::class,'login'])->name('login');
 Route::get('users/create',[UserController::class,'create'])->name('create');
 Route::post('users/store',[UserController::class,'store'])->name('store');
 
-Route::resource('admins', AdminController::class);
-Route::resource('departements', DepartementController::class);
-Route::resource('emploi-temps', EmploiTempsController::class);
-Route::resource('etudiants', EtudiantController::class);
-Route::resource('fillieres', FilliereController::class);
-Route::resource('matieres', MatiereController::class);
-Route::resource('salles', SalleController::class);
-Route::resource('users', UserController::class);
 
