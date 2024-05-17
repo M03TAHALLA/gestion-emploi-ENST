@@ -2,13 +2,6 @@
 
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\DepartementController;
-use App\Http\Controllers\EmploiTempsController;
-use App\Http\Controllers\EtudiantController;
-use App\Http\Controllers\FilliereController;
-use App\Http\Controllers\MatiereController;
-use App\Http\Controllers\SalleController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
@@ -50,10 +43,6 @@ Route::get('/dashboard/ressources/modules/create', function(){ return view('crea
 Route::get('/dashboard/ressources/departement/create', function(){ return view('create-pages.departement-form');})->name('departement.form');
 Route::get('/dashboard/ressources/filliere/create', function(){ return view('create-pages.filieres-form');})->name('filieres.form');
 Route::get('/dashboard/ressources/sous-admin/create', function(){ return view('create-pages.sous-admin-form');})->name('sous-admin.form');
-
-
-
-
 
 
 Route::get('/icons', function () {
