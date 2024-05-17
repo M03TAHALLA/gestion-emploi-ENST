@@ -68,3 +68,5 @@ Route::get('users/create',[UserController::class,'create'])->name('create');
 Route::post('users/store',[UserController::class,'store'])->name('store');
 
 
+
+
