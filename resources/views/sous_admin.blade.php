@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Sous Admin's | Admin</title>
+  <title>Dashboard | Sous - Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -30,189 +30,189 @@
   <script src="hhttps://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
   <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
     <style>
-        .button {
-        background-color: #0039a6;
-        color: #ffffff;
-        width: 8.5em;
-        height: 2.9em;
-        font-size: 15px;
-        border: #0039a6 0.2em solid;
-        border-radius: 11px;
-        text-align: right;
-        transition: all 0.2s ease;
-        }
+            .button {
+            background-color: #0039a6;
+            color: #ffffff;
+            width: 8.5em;
+            height: 2.9em;
+            font-size: 15px;
+            border: #0039a6 0.2em solid;
+            border-radius: 11px;
+            text-align: right;
+            transition: all 0.2s ease;
+            }
 
-        .button:hover {
-        background-color: #e2e2e2;
-        cursor: pointer;
-        color: black;
-        }
+            .button:hover {
+            background-color: #e2e2e2;
+            cursor: pointer;
+            color: black;
+            }
 
-        .button svg {
-        width: 1.6em;
-        margin: -0.2em 0.8em 1em;
-        position: absolute;
-        display: flex;
-        transition: all 0.2s ease;
-        }
+            .button svg {
+            width: 1.6em;
+            margin: -0.2em 0.8em 1em;
+            position: absolute;
+            display: flex;
+            transition: all 0.2s ease;
+            }
 
-        .button:hover svg {
-        transform: translateX(10px);
-        }
+            .button:hover svg {
+            transform: translateX(10px);
+            }
 
-        .text {
-        margin: 0 1.5em
-        }
-        /* radios */
-:root {
-  --checkbox-size: 16px;
-  --margin: 16px;
-  --margin-small: calc(var(--margin) / 2);
-  --text-lighter: #ccc;
-  --brand: #0039a6;
-}
+            .text {
+            margin: 0 1.5em
+            }
+            /* radios */
+            :root {
+            --checkbox-size: 16px;
+            --margin: 16px;
+            --margin-small: calc(var(--margin) / 2);
+            --text-lighter: #ccc;
+            --brand: #0039a6;
+            }
 
 
-fieldset {
-  border: none;
-  display: flex;
-  flex-direction: column;
-  margin: 20px;
-  align-items: flex-start;
-  min-width: 400px;
-}
+            fieldset {
+            border: none;
+            display: flex;
+            flex-direction: column;
+            margin: 20px;
+            align-items: flex-start;
+            min-width: 400px;
+            }
 
-label {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
+            label {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            }
 
-.aside {
-  color: var(--text-lighter);
-}
+            .aside {
+            color: var(--text-lighter);
+            }
 
-input {
-  position: relative !important;
-  appearance: none;
-  margin: var(--margin-small);
-  box-sizing: content-box;
-  overflow: hidden;
-}
+            input {
+            position: relative !important;
+            appearance: none;
+            margin: var(--margin-small);
+            box-sizing: content-box;
+            overflow: hidden;
+            }
 
-/* circle */
-input:before {
-  content: '';
-  display: block;
-  box-sizing: content-box;
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  border: 2px solid var(--text-lighter);
-  transition: 0.2s border-color ease;
-}
+            /* circle */
+            input:before {
+            content: '';
+            display: block;
+            box-sizing: content-box;
+            width: var(--checkbox-size);
+            height: var(--checkbox-size);
+            border: 2px solid var(--text-lighter);
+            transition: 0.2s border-color ease;
+            }
 
-input:checked:before {
-  border-color: var(--brand);
-  transition: 0.5s border-color ease;
-}
+            input:checked:before {
+            border-color: var(--brand);
+            transition: 0.5s border-color ease;
+            }
 
-input:disabled:before {
-  border-color: var(--text-lighter);
-  background-color: var(--text-lighter);
-}
+            input:disabled:before {
+            border-color: var(--text-lighter);
+            background-color: var(--text-lighter);
+            }
 
-/* dot */
-input:after {
-  content: '';
-  display: block;
-  position: absolute;
-  box-sizing: content-box;
-  top: 50%;
-  left: 50%;
-  transform-origin: 50% 50%;
-  background-color: var(--brand);
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  border-radius: 100vh;
-  transform: translate(-50%, -50%) scale(0);
-}
+            /* dot */
+            input:after {
+            content: '';
+            display: block;
+            position: absolute;
+            box-sizing: content-box;
+            top: 50%;
+            left: 50%;
+            transform-origin: 50% 50%;
+            background-color: var(--brand);
+            width: var(--checkbox-size);
+            height: var(--checkbox-size);
+            border-radius: 100vh;
+            transform: translate(-50%, -50%) scale(0);
+            }
 
-input[type="radio"]:before {
-  border-radius: 100vh;
-}
+            input[type="radio"]:before {
+            border-radius: 100vh;
+            }
 
-input[type="radio"]:after {
-  width: var(--checkbox-size);
-  height: var(--checkbox-size);
-  border-radius: 100vh;
-  transform: translate(-50%, -50%) scale(0);
-}
+            input[type="radio"]:after {
+            width: var(--checkbox-size);
+            height: var(--checkbox-size);
+            border-radius: 100vh;
+            transform: translate(-50%, -50%) scale(0);
+            }
 
-input[type="radio"]:checked:after {
-  animation: toggleOnRadio 0.2s ease forwards;
-}
+            input[type="radio"]:checked:after {
+            animation: toggleOnRadio 0.2s ease forwards;
+            }
 
-input[type="checkbox"]:before {
-  border-radius: calc(var(--checkbox-size) / 4);
-}
+            input[type="checkbox"]:before {
+            border-radius: calc(var(--checkbox-size) / 4);
+            }
 
-input[type="checkbox"]:after {
-  width: calc(var(--checkbox-size) * 0.6);
-  height: var(--checkbox-size);
-  border-radius: 0;
-  transform: translate(-50%, -85%) scale(0) rotate(45deg);
-  background-color: transparent;
-  box-shadow: 4px 4px 0px 0px var(--brand);
-}
+            input[type="checkbox"]:after {
+            width: calc(var(--checkbox-size) * 0.6);
+            height: var(--checkbox-size);
+            border-radius: 0;
+            transform: translate(-50%, -85%) scale(0) rotate(45deg);
+            background-color: transparent;
+            box-shadow: 4px 4px 0px 0px var(--brand);
+            }
 
-input[type="checkbox"]:checked:after {
-  animation: toggleOnCheckbox 0.2s ease forwards;
-}
+            input[type="checkbox"]:checked:after {
+            animation: toggleOnCheckbox 0.2s ease forwards;
+            }
 
-input[type="checkbox"].filled:before {
-  border-radius: calc(var(--checkbox-size) / 4);
-  transition: 0.2s border-color ease, 0.2s background-color ease;
-}
+            input[type="checkbox"].filled:before {
+            border-radius: calc(var(--checkbox-size) / 4);
+            transition: 0.2s border-color ease, 0.2s background-color ease;
+            }
 
-input[type="checkbox"]:checked:not(:disabled):before {
-  background-color: var(--brand);
-}
+            input[type="checkbox"]:checked:not(:disabled):before {
+            background-color: var(--brand);
+            }
 
-input:not(:disabled):after {
-  box-shadow: 4px 4px 0px 0px white;
-}
+            input:not(:disabled):after {
+            box-shadow: 4px 4px 0px 0px white;
+            }
 
-@keyframes toggleOnCheckbox {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -85%) scale(0) rotate(45deg);
-  }
+            @keyframes toggleOnCheckbox {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -85%) scale(0) rotate(45deg);
+            }
 
-  70% {
-    opacity: 1;
-    transform: translate(-50%, -85%) scale(0.9) rotate(45deg);
-  }
+            70% {
+                opacity: 1;
+                transform: translate(-50%, -85%) scale(0.9) rotate(45deg);
+            }
 
-  100% {
-    transform: translate(-50%, -85%) scale(0.8) rotate(45deg);
-  }
-}
+            100% {
+                transform: translate(-50%, -85%) scale(0.8) rotate(45deg);
+            }
+            }
 
-@keyframes toggleOnRadio {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0);
-  }
+            @keyframes toggleOnRadio {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
 
-  70% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(0.9);
-  }
+            70% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
 
-  100% {
-    transform: translate(-50%, -50%) scale(0.8);
-  }
-}
+            100% {
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            }
 
     </style>
 </head>
@@ -488,34 +488,8 @@ input:not(:disabled):after {
       </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{{  route('AjouterEmploiTemps') }}">
-                    <i class="mdi mdi-archive menu-icon"></i>
-                  <span class="menu-title">Saisie Emploi Temps</span>
-                </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Gestion Emploi Temps</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"  href="/dashboard/sous_admin" >
-                <i class="mdi mdi-account-multiple menu-icon"></i>
-              <span class="menu-title">Sous Admin </span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"  href="/dashboard/ressources" >
-                <i class="mdi mdi-book-open-variant menu-icon"></i>
-              <span class="menu-title">Ressources</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      @include('Layout.sidebar')
+
       <div class="container-section">
         <section>
           <div class="head-section">

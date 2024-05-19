@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard | Admin</title>
+  <title>Dashboard | Filliere</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -295,35 +295,9 @@
       </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{{  route('AjouterEmploiTemps') }}">
-                    <i class="mdi mdi-archive menu-icon"></i>
-                  <span class="menu-title">Saisie Emploi Temps</span>
-                </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Gestion Emploi Temps</span>
-            </a>
-          </li>
 
-          <li class="nav-item">
-            <a class="nav-link"  href="/dashboard/sous_admin" >
-                <i class="mdi mdi-account-multiple menu-icon"></i>
-              <span class="menu-title">Sous Admin </span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"  href="/dashboard/ressources" >
-                <i class="mdi mdi-book-open-variant menu-icon"></i>
-              <span class="menu-title">Ressources</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      @include('Layout.sidebar')
+
       <div class="container-section">
         <section>
           <div class="head-section">
@@ -344,41 +318,52 @@
             </div>
           </div>
           <div class="formbold-form-wrapper">
-            <form action="https://formbold.com/s/FORM_ID" method="POST">
+            <form action="{{ route('fillieres.store') }}" method="POST">
+                @csrf
                 <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label"> Code </label>
+                    <label for="numero" class="formbold-form-label"> Nom Filliere </label>
                     <input
                       type="text"
-                      name="matricule"
-                      id="matricule"
-                      placeholder="Code Departement"
+                      name="NomFilliere"
+                      id="Filliere"
+                      placeholder="Nom Filliere"
                       class="formbold-form-input"
+                      required
                     />
                   </div>
-              <div class="formbold-input-group">
-                  <label for="name" class="formbold-form-label"> Nom Filliere </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Nom Filliere"
-                    class="formbold-form-input"
-                  />
-                </div>
                 <div>
                     <label class="formbold-form-label">
-                        Departement
+                        Nom Departement
                       </label>
 
-                      <select class="formbold-form-select" name="occupation" id="occupation">
+                      <select class="formbold-form-select" name="NomDepartement" id="NomDepartement">
                         <option value="Departement">INFORMATIQUE</option>
                         <option value="designer">METHEMATIQUE</option>
                         <option value="fullstack">SCIENCE</option>
                         <option value="frontend">LANGUE</option>
                       </select>
                 </div>
-
-              <button class="formbold-btn">Ajouter une Filliere</button>
+                <div class="formbold-input-group">
+                    <label for="numero" class="formbold-form-label"> Cordinateur </label>
+                    <input required
+                      type="text"
+                      name="Cordinateur"
+                      id="Cordinateur"
+                      placeholder="Cordinateur"
+                      class="formbold-form-input"
+                    />
+                  </div>
+                  <div class="formbold-input-group">
+                    <label for="numero" class="formbold-form-label">Nombre Semestre </label>
+                    <input required
+                      type="number"
+                      name="Semestre"
+                      id="Semestre"
+                      placeholder="Semestre"
+                      class="formbold-form-input"
+                    />
+                  </div>
+              <button type="submit" class="formbold-btn">Ajouter une Filliere</button>
             </form>
           </div>
         </section>

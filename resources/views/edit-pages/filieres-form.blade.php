@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard | Saisie Emploi Temps</title>
+  <title>Dashboard | Filliere</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -18,9 +18,7 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
-  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="/css/AjouterEmploi/style.css">
-
+  <link rel="stylesheet" href="/../../vendors/mdi/css/materialdesignicons.min.css">
 
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
@@ -103,10 +101,10 @@
               <img src="/images/faces/face28.jpg" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a href="{{ route('Profile') }}" class="dropdown-item">
-                <i class="ti-user text-primary"></i>
-                Profil
-              </a>
+                <a href="{{ route('Profile') }}" class="dropdown-item">
+                    <i class="ti-user text-primary"></i>
+                    Profile
+                  </a>
               <a class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>
                 Logout
@@ -297,198 +295,79 @@
       </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
+
       @include('Layout.sidebar')
 
-      <div class="formbold-main-wrapper">
-        <!-- Author: FormBold Team -->
-        <!-- Learn More: https://formbold.com -->
-        <div class="formbold-form-wrapper">
-            <h2 style="margin-bottom: 5%;text-align:center" class=""> Emploi Temps</h2>
-          <form action="https://formbold.com/s/FORM_ID" method="POST">
-
-            <div class="formbold-input-flex">
-                <div>
-              <label class="formbold-form-label">
-                Filliere Name
-              </label>
-
-              <select class="formbold-form-select" name="occupation" id="occupation">
-                <option value="Class Name">LDW</option>
-                <option value="designer">SIL</option>
-                <option value="fullstack">SMPC</option>
-                <option value="frontend">JIF</option>
-              </select>
+      <div class="container-section">
+        <section>
+          <div class="head-section">
+            <div class="left-section">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16" style="color:white; margin-bottom:2px; padding:0;">
+                <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"></path>
+                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
+              </svg>
+              <span class="title-section">
+                Gestion des Enseignants
+              </span>
             </div>
-            <div>
-                <label class="formbold-form-label">
-                    Groupe Name
-                  </label>
-
-                  <select class="formbold-form-select" name="occupation" id="occupation">
-                    <option value="Groupe Name">Groupe 1</option>
-                    <option value="designer">Groupe 2</option>
-                    <option value="fullstack">Groupe 3</option>
-                    <option value="frontend">Groupe 4</option>
-                  </select>
+            <div class="right-section">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
+                <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
+              </svg>
+              <span>Tableau de board / </span><a href=""> Enseignants de l'ENS</a>
             </div>
-            </div>
-
-            <div>
-                <label class="formbold-form-label">
-                   Semestre
-                  </label>
-
-                  <select class="formbold-form-select" name="occupation" id="occupation">
-                    <option value="Semestre1">Semestre 1 </option>
-                    <option value="Semestre2">Semestre 2 </option>
-                    <option value="Semestre3">Semestre 3 </option>
-                    <option value="Semestre4">Semestre 4 </option>
-                    <option value="Semestre5">Semestre 5 </option>
-                    <option value="Semestre6">Semestre 6 </option>
-                    <option value="Semestre7">Semestre 7 </option>
-                    <option value="Semestre8">Semestre 8 </option>
-                    <option value="Semestre9">Semestre 9 </option>
-                    <option value="Semestre10">Semestre 10 </option>
-                  </select>
-            </div>
-
-
-            <div class="formbold-input-group">
-                <label class="formbold-form-label">
-                  Matiere
-                </label>
-
-                <select class="formbold-form-select" name="occupation" id="occupation">
-                  <option value="Matiere">JEE</option>
-                  <option value="designer">Symfony</option>
-                  <option value="fullstack">PHP</option>
-                  <option value="frontend">UML</option>
-                </select>
-              </div>
-
-              <div class="formbold-input-group">
-                <label class="formbold-form-label">
-                  Enseignant
-                </label>
-
-                <select class="formbold-form-select" name="occupation" id="occupation">
-                  <option value="Enseignant">PROF1</option>
-                  <option value="designer">PROF2</option>
-                  <option value="fullstack">PROF3</option>
-                  <option value="frontend">PROF4</option>
-                </select>
-              </div>
-
-              <div class="formbold-input-group">
-                <label class="formbold-form-label">
-                  Jour
-                </label>
-
-                <select class="formbold-form-select" name="occupation" id="occupation">
-                  <option value="Jour">Lundi</option>
-                  <option value="designer">Mardi</option>
-                  <option value="fullstack">Mercredi</option>
-                  <option value="frontend">Jeudi</option>
-                  <option value="frontend">Vendredi</option>
-                  <option value="frontend">Samedi</option>
-                </select>
-              </div>
-              <div class="formbold-input-flex">
-                <div>
-              <label class="formbold-form-label">
-               Heurs Debut
-              </label>
-
-              <select class="formbold-form-select" name="occupation" id="occupation">
-                <option value="Heurs Debut">08h</option>
-                <option value="Heurs Debut">09h</option>
-                <option value="Heurs Debut">10h</option>
-                <option value="Heurs Debut">11h</option>
-                <option value="Heurs Debut">12h</option>
-                <option value="Heurs Debut">14h</option>
-                <option value="Heurs Debut">15h</option>
-                <option value="Heurs Debut">16h</option>
-                <option value="Heurs Debut">17h</option>
-                <option value="Heurs Debut">18h</option>
-              </select>
-            </div>
-            <div>
-                <label class="formbold-form-label">
-                    Heurs Fin
-                  </label>
-
-                  <select class="formbold-form-select" name="occupation" id="occupation">
-                        <option value="Heurs Debut">09h</option>
-                        <option value="Heurs Debut">10h</option>
-                        <option value="Heurs Debut">11h</option>
-                        <option value="Heurs Debut">12h</option>
-                        <option value="Heurs Debut">14h</option>
-                        <option value="Heurs Debut">15h</option>
-                        <option value="Heurs Debut">16h</option>
-                        <option value="Heurs Debut">17h</option>
-                        <option value="Heurs Debut">18h</option>
-                  </select>
-            </div>
-            </div>
-            <div>
-                <label class="formbold-form-label">
-                    Departement
-                  </label>
-
-                  <select class="formbold-form-select" name="occupation" id="occupation">
-                    <option value="Departement">INFORMATIQUE</option>
-                    <option value="designer">METHEMATIQUE</option>
-                    <option value="fullstack">SCIENCE</option>
-                    <option value="frontend">LANGUE</option>
-                  </select>
-            </div>
-            <div class="formbold-input-radio-wrapper">
-                <label for="ans" class="formbold-form-label">
-                  Type Salle
-                </label>
-
-                <div class="formbold-radio-flex">
-                  <div class="formbold-radio-group">
-                    <label class="formbold-radio-label">
-                      <input
-                        class="formbold-input-radio"
-                        type="radio"
-                        name="ans"
-                        id="ans"
-                      />
-                      Amphi
-                      <span class="formbold-radio-checkmark"></span>
-                    </label>
+          </div>
+          <div class="formbold-form-wrapper">
+            <form action="{{ route('fillieres.update',$filliere->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="formbold-input-group">
+                    <label for="numero" class="formbold-form-label"> Nom Filliere </label>
+                    <input
+                      type="text"
+                      name="NomFilliere"
+                      id="Filliere"
+                      placeholder="Nom Filliere"
+                      class="formbold-form-input"
+                      value="{{ $filliere->NomFilliere }}"
+                      required
+                    />
                   </div>
-
-                  <div class="formbold-radio-group">
-                    <label class="formbold-radio-label">
-                      <input
-                        class="formbold-input-radio"
-                        type="radio"
-                        name="ans"
-                        id="ans"
-                      />
-                      Salle
-                      <span class="formbold-radio-checkmark"></span>
-                    </label>
-                  </div>
+                  <div>
+                    <label class="formbold-form-label">Nom Departement</label>
+                    <select class="formbold-form-select" name="NomDepartement" id="NomDepartement">
+                        <option value="INFORMATIQUE" {{ $filliere->NomDepartement == 'INFORMATIQUE' ? 'selected' : '' }}>INFORMATIQUE</option>
+                        <option value="METHEMATIQUE" {{ $filliere->NomDepartement == 'METHEMATIQUE' ? 'selected' : '' }}>METHEMATIQUE</option>
+                        <option value="SCIENCE" {{ $filliere->NomDepartement == 'SCIENCE' ? 'selected' : '' }}>SCIENCE</option>
+                        <option value="LANGUE" {{ $filliere->NomDepartement == 'LANGUE' ? 'selected' : '' }}>LANGUE</option>
+                    </select>
                 </div>
-              </div>
-
-            <div class="formbold-input-group">
-                <label for="name" class="formbold-form-label"> Salle </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="Enter Numero Salle"
-                  class="formbold-form-input"
-                />
-              </div>
-            <button class="formbold-btn">Ajouter Une Emploi Temps</button>
-          </form>
-        </div>
+                <div class="formbold-input-group">
+                    <label for="numero" class="formbold-form-label"> Cordinateur </label>
+                    <input required
+                      type="text"
+                      name="Cordinateur"
+                      id="Cordinateur"
+                      placeholder="Cordinateur"
+                      class="formbold-form-input"
+                      value="{{ $filliere->Cordinateur }}"
+                    />
+                  </div>
+                  <div class="formbold-input-group">
+                    <label for="numero" class="formbold-form-label">Nombre Semestre </label>
+                    <input required
+                      type="number"
+                      name="Semestre"
+                      id="Semestre"
+                      placeholder="Semestre"
+                      class="formbold-form-input"
+                      value="{{ $filliere->Semestre }}"
+                    />
+                  </div>
+              <button type="submit" class="formbold-btn">Ajouter une Filliere</button>
+            </form>
+          </div>
+        </section>
       </div>
       <!-- main-panel ends -->
     </div>

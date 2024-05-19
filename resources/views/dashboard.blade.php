@@ -481,34 +481,9 @@ min-width: 135px;
       <!-- partial -->
 
       <!-- partial:partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-          <li style="background: white;" >
-                <a class="nav-link" href="{{  route('AjouterEmploiTemps') }}">
-                    <i style="color:#6C7383" class="mdi mdi-archive menu-icon"></i>
-                  <span style="color:#6C7383" class="menu-title"> Saisie Emploi Temps</span>
-                </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{  route('dashboard.home') }}">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Gestion Emploi Temps</span>
-            </a>
-          </li>
-          <li style="background: white;" >
-            <a class="nav-link" href="{{route('sous_admin') }}">
-                <i style="color:#6C7383" class="mdi mdi-account-multiple menu-icon"></i>
-                <span style="color:#6C7383" class="menu-arrow">Sous Admin</span>
-            </a>
-          </li>
-          <li style="background: white;" >
-            <a class="nav-link"  href="{{route('dashboard.ressources') }}" >
-                <i style="color:#6C7383" class="mdi mdi-book-open-variant menu-icon"></i>
-              <span style="color:#6C7383" class="menu-arrow">Ressources</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+
+      @include('Layout.sidebar')
+
       <div class="container-section">
         <section>
           <div class="head-section">

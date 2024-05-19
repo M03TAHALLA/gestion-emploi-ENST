@@ -24,6 +24,7 @@ Route::get('/dashboard/AjouterEmploiTemps', function () {
 Route::get('/dashboard/ressources', function () {
     return view('ressources');
 })->name('dashboard.ressources');
+
 Route::get('/dashboard/sous_admin', function () {
     return view('sous_admin');
 })->name('sous_admin');
@@ -33,7 +34,6 @@ Route::get('/dashboard/sous_admin', function () {
 Route::get('/dashboard/ressources/salles', function(){ return view('ressources-pages.salles');})->name('salles');
 Route::get('/dashboard/ressources/enseignants', function(){ return view('ressources-pages.enseignants');})->name('enseignants');
 Route::get('/dashboard/ressources/modules', function(){ return view('ressources-pages.modules');})->name('modules');
-Route::get('/dashboard/ressources/filieres', function(){ return view('ressources-pages.filieres');})->name('filieres');
 Route::get('/dashboard/ressources/departements', function(){ return view('ressources-pages.departements');})->name('departements');
 Route::get('/dashboard/ressources/etudiants', function(){ return view('ressources-pages.etudiants');})->name('etudiants');
 
@@ -41,7 +41,6 @@ Route::get('/dashboard/ressources/salles/create', function(){ return view('creat
 Route::get('/dashboard/ressources/enseignants/create', function(){ return view('create-pages.enseignants-form');})->name('enseignants.form');
 Route::get('/dashboard/ressources/modules/create', function(){ return view('create-pages.modules-form');})->name('modules.form');
 Route::get('/dashboard/ressources/departement/create', function(){ return view('create-pages.departement-form');})->name('departement.form');
-Route::get('/dashboard/ressources/filliere/create', function(){ return view('create-pages.filieres-form');})->name('filieres.form');
 Route::get('/dashboard/ressources/sous-admin/create', function(){ return view('create-pages.sous-admin-form');})->name('sous-admin.form');
 
 
@@ -55,6 +54,9 @@ Route::post('/',[LoginController::class,'login'])->name('login');
 // create | add admin (test authentification)
 Route::get('users/create',[UserController::class,'create'])->name('create');
 Route::post('users/store',[UserController::class,'store'])->name('store');
+
+
+Route::resource('fillieres', FilliereController::class);
 
 
 
