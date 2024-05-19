@@ -31,7 +31,7 @@
         </a>
     </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('fillieres.index') }}">
             <i class="mdi mdi-plus-network menu-icon" style="font-size: 22px;"></i>
           <span class="menu-title">Gestion Fillieres</span>
         </a>
