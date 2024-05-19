@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard | Admin</title>
+  <title>Dashboard | Saisie Emploi Temps</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -297,35 +297,8 @@
       </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{{  route('AjouterEmploiTemps') }}">
-                    <i class="mdi mdi-archive menu-icon"></i>
-                  <span class="menu-title">Saisie Emploi Temps</span>
-                </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/dashboard">
-              <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Gestion Emploi Temps</span>
-            </a>
-          </li>
+      @include('Layout.sidebar')
 
-          <li class="nav-item">
-            <a class="nav-link"  href="sous_admin" >
-                <i class="mdi mdi-account-multiple menu-icon"></i>
-              <span class="menu-title">Sous Admin </span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"  href="{{route('dashboard.ressources')}}" >
-                <i class="mdi mdi-account-multiple menu-icon"></i>
-              <span class="menu-title">Ressources</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
       <div class="formbold-main-wrapper">
         <!-- Author: FormBold Team -->
         <!-- Learn More: https://formbold.com -->
