@@ -12,7 +12,12 @@ class EmploiTempsController extends Controller
      */
     public function index()
     {
-        //
+        return view('Emploi-Temps.EmploiTemps');
+    }
+
+
+    public function Recherche(){
+        return view('Emploi-Temps.EmploiTemps');
     }
 
     /**
@@ -20,7 +25,7 @@ class EmploiTempsController extends Controller
      */
     public function create()
     {
-        //
+        return view('Emploi-Temps.AjouterEmploiTemps');
     }
 
     /**

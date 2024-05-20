@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard | Departement</title>
+  <title>Dashboard | Filliere</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -27,6 +27,9 @@
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     @include('Layout.navbar')
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+
       @include('Layout.sidebar')
 
       <div class="container-section">
@@ -49,29 +52,64 @@
             </div>
           </div>
           <div class="formbold-form-wrapper">
-            <form action="https://formbold.com/s/FORM_ID" method="POST">
+            <form action="{{ route('fillieres.update',$filliere->id) }}" method="POST">
+                @csrf
+                @method('PUT')
                 <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label"> Code </label>
+                    <label for="numero" class="formbold-form-label"> Nom Filliere </label>
                     <input
                       type="text"
-                      name="matricule"
-                      id="matricule"
-                      placeholder="Code Departement"
+                      name="NomFilliere"
+                      id="Filliere"
+                      placeholder="Nom Filliere"
                       class="formbold-form-input"
+                      value="{{ $filliere->NomFilliere }}"
+                      required
                     />
                   </div>
-              <div class="formbold-input-group">
-                  <label for="name" class="formbold-form-label"> Nom Departement </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Nom Departement"
-                    class="formbold-form-input"
-                  />
+                  <div>
+                    <label class="formbold-form-label">Nom Departement</label>
+                    <select class="formbold-form-select" name="NomDepartement" id="NomDepartement">
+                        <option value="INFORMATIQUE" {{ $filliere->NomDepartement == 'INFORMATIQUE' ? 'selected' : '' }}>INFORMATIQUE</option>
+                        <option value="METHEMATIQUE" {{ $filliere->NomDepartement == 'METHEMATIQUE' ? 'selected' : '' }}>METHEMATIQUE</option>
+                        <option value="SCIENCE" {{ $filliere->NomDepartement == 'SCIENCE' ? 'selected' : '' }}>SCIENCE</option>
+                        <option value="LANGUE" {{ $filliere->NomDepartement == 'LANGUE' ? 'selected' : '' }}>LANGUE</option>
+                    </select>
                 </div>
-
-              <button class="formbold-btn">Ajouter une Departement</button>
+                <div class="formbold-input-group">
+                    <label for="numero" class="formbold-form-label"> Cordinateur </label>
+                    <input required
+                      type="text"
+                      name="Cordinateur"
+                      id="Cordinateur"
+                      placeholder="Cordinateur"
+                      class="formbold-form-input"
+                      value="{{ $filliere->Cordinateur }}"
+                    />
+                  </div>
+                  <div class="formbold-input-group">
+                    <label for="numero" class="formbold-form-label">Nombre Semestre </label>
+                    <input required
+                      type="number"
+                      name="Semestre"
+                      id="Semestre"
+                      placeholder="Semestre"
+                      class="formbold-form-input"
+                      value="{{ $filliere->Semestre }}"
+                    />
+                  </div>
+                  <div class="formbold-input-group">
+                    <label for="numero" class="formbold-form-label">Nombre Groupe </label>
+                    <input required
+                      type="number"
+                      name="Groupe"
+                      id="Groupe"
+                      placeholder="Nombre Groupe"
+                      class="formbold-form-input"
+                      value="{{ $filliere->NombreGroupe }}"
+                    />
+                  </div>
+              <button type="submit" class="formbold-btn">Ajouter une Filliere</button>
             </form>
           </div>
         </section>

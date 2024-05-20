@@ -14,9 +14,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard.home');
+
 
 Route::get('/dashboard/Profile', function () {
     return view('Profile');
@@ -66,8 +64,14 @@ Route::post('/',[LoginController::class,'login'])->name('login');
 Route::get('users/create',[UserController::class,'create'])->name('create');
 Route::post('users/store',[UserController::class,'store'])->name('store');
 
+Route::post('dashboard/EmploiTemps-Rech',[EmploiTempsController::class,'Recherche'])->name('Recherche');
+
+
+
+
 
 Route::resource('fillieres', FilliereController::class);
+Route::resource('Emploitemps',EmploiTempsController::class);
 
 
 

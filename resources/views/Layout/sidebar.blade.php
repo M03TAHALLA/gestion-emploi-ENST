@@ -1,13 +1,13 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{{ route('Emploitemps.create') }}">
                 <i class="mdi mdi-calendar-plus menu-icon" style="font-size: 22px;"></i>
               <span class="menu-title">Saisie Emploi Temps</span>
             </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{ route('Emploitemps.index') }}">
           <i class="mdi mdi-calendar menu-icon"  style="font-size: 22px;"></i>
           <span class="menu-title">Gestion Emploi Temps</span>
         </a>
