@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Filliere;
+use App\Models\Departement;
 use Illuminate\Http\Request;
 
 class FilliereController extends Controller
@@ -13,7 +14,14 @@ class FilliereController extends Controller
     public function index()
     {
         $fillieres = Filliere::all();
-        return view('Fillieres.filieres',compact('fillieres'));
+        $Departement = Departement::all();
+
+
+        return view('Fillieres.filieres',[
+            'fillieres'=>$fillieres,
+            'Departement'=>$Departement
+
+        ]);
     }
 
     /**
@@ -21,7 +29,12 @@ class FilliereController extends Controller
      */
     public function create()
     {
-        return view('Fillieres.filieres-form');
+        $Departement = Departement::all();
+        return view('Fillieres.filieres-form',[
+            'Departement'=>$Departement
+
+        ]);
+
     }
 
     /**

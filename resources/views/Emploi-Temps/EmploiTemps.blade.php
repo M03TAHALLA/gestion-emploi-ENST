@@ -76,10 +76,10 @@
                       </label>
 
                       <select class="formbold-form-select" name="Filliere" id="occupation">
-                        <option value="Logicieles developement Web">LDW</option>
-                        <option value="SIL">SIL</option>
-                        <option value="SMPC">SMPC</option>
-                        <option value="Genie Informatique">Genie Informatique</option>
+                        @foreach ( $Fillieres as $Fillieres )
+                        <option value="{{ $Fillieres->NomFilliere }}">{{ $Fillieres->NomFilliere }}</option>
+                        @endforeach
+
                       </select>
                     </div>
                     <div>

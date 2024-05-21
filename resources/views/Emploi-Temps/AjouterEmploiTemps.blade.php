@@ -40,6 +40,42 @@
   .w-full {
     width: 100%;
   }
+  .alert {
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+        .alert ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
   </style>
 
 
@@ -55,9 +91,20 @@
       @include('Layout.sidebar')
 
       <div class="formbold-main-wrapper">
+
         <!-- Author: FormBold Team -->
         <!-- Learn More: https://formbold.com -->
         <div class="formbold-form-wrapper">
+            @if ($errors->any())
+            <div id="message" class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
             <h2 style="margin-bottom: 5%;text-align:center" class=""> Emploi Temps</h2>
           <form action="{{ route('Emploitemps.store') }}" method="POST">
             @csrf
@@ -65,12 +112,10 @@
                     <label class="formbold-form-label">
                       Nom Departement
                     </label>
-
                     <select class="formbold-form-select" name="Departement" id="occupation">
-                      <option value="Mathematique">Mathematique</option>
-                      <option value="Langue">Langue</option>
-                      <option value="Informatique">Informatique</option>
-                      <option value="Biologique">Biologique</option>
+                        @foreach ($Departement as $Departement)
+                      <option value="{{ $Departement->NomDepartement }}">{{ $Departement->NomDepartement }}</option>
+                      @endforeach
                     </select>
                   </div>
                 <div>
@@ -79,10 +124,11 @@
               </label>
 
               <select  class="formbold-form-select" name="Filliere" id="occupation">
-                <option value="Logicieles developement Web">LDW</option>
-                <option value="SIL">SIL</option>
-                <option value="SMPC">SMPC</option>
-                <option value="Anglais">JIF</option>
+                @foreach ($Fillieres as $Fillieres)
+                <option value="{{ $Fillieres->NomFilliere }}" {{ isset($resultat) && $resultat->NomFilliere == $Fillieres->NomFilliere ? 'selected' : '' }}>
+                    {{ $Fillieres->NomFilliere }}
+                </option>
+                @endforeach
               </select>
             </div>
             <div>
@@ -102,7 +148,7 @@
                 <div class="w-full sm:w-half formbold-px-3">
                   <div class="formbold-mb-5 w-full">
                     <label for="date" class="formbold-form-label"> Craunaux Debut </label>
-                    <input
+                    <input value="{{ old('CraunauxDebut') }}"
                       type="time"
                       name="CraunauxDebut"
                       id="date"
@@ -114,7 +160,7 @@
                 <div class="w-full sm:w-half formbold-px-3">
                   <div class="formbold-mb-5">
                     <label for="time" class="formbold-form-label">  Craunaux Fin </label>
-                    <input
+                    <input value="{{ old('CraunauxFin') }}"
                       type="time"
                       name="CraunauxFin"
                       id="time"
@@ -154,6 +200,18 @@
   <!-- Custom js for this page-->
   <script src="/js/dashboard.js"></script>
   <script src="/js/Chart.roundedBarCharts.js"></script>
+  <script>
+    setTimeout(function() {
+        var messageElement = document.getElementById('message');
+        if (messageElement) {
+            messageElement.style.transition = 'opacity 0.5s';
+            messageElement.style.opacity = '0';
+            setTimeout(function() {
+                messageElement.style.display = 'none';
+            }, 2000);
+        }
+    }, 3000);
+</script>
   <!-- End custom js for this page-->
 </body>
 

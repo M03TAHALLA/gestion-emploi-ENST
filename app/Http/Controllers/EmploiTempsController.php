@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departement;
 use App\Models\EmploiTemps;
 use Illuminate\Http\Request;
 use App\Models\emploitempsstock;
+use App\Models\Filliere;
 
 class EmploiTempsController extends Controller
 {
@@ -13,12 +15,23 @@ class EmploiTempsController extends Controller
      */
     public function index()
     {
-        return view('Emploi-Temps.EmploiTemps');
+        $fillieres = Filliere::all();
+        $Departement = Departement::all();
+        return view('Emploi-Temps.EmploiTemps',[
+            'Fillieres'=>$fillieres,
+            'Departement'=>$Departement
+        ]);
     }
 
 
     public function Recherche(){
-        return view('Emploi-Temps.EmploiTemps');
+        $fillieres = Filliere::all();
+        $Departement = Departement::all();
+        return view('Emploi-Temps.EmploiTemps',[
+            'Fillieres'=>$fillieres,
+            'Departement'=>$Departement
+
+        ]);
     }
 
     /**
@@ -26,20 +39,47 @@ class EmploiTempsController extends Controller
      */
     public function create()
     {
-        return view('Emploi-Temps.AjouterEmploiTemps');
+        $fillieres = Filliere::all();
+        $Departement = Departement::all();
+        return view('Emploi-Temps.AjouterEmploiTemps',[
+            'Fillieres'=>$fillieres,
+            'Departement'=>$Departement
+        ]);
     }
 
     public function store(Request $request)
-        {
-            // Validation des données
-            $validatedData = $request->validate([
-                'Departement' => 'required|string|max:255',
-                'Filliere' => 'required|string|max:255',
-                'Groupe' => 'required|string|max:255',
-                'CraunauxDebut' => 'required|date_format:H:i',
-                'CraunauxFin' => 'required|date_format:H:i',
-            ]);
+{
+    // Validation des données
+    $validatedData = $request->validate([
+        'Departement' => 'required|string|max:255',
+        'Filliere' => 'required|string|max:255',
+        'Groupe' => 'required|string|max:255',
+        'CraunauxDebut' => 'required|date_format:H:i',
+        'CraunauxFin' => 'required|date_format:H:i',
+    ]);
 
+    // Sélectionner tous les NomFilliere de la table Filliere avec le NomDepartement donné
+    $fillieres = Filliere::where('NomDepartement', $validatedData['Departement'])->pluck('NomFilliere');
+
+    // Vérifier si le NomFilliere donné est dans la liste des fillieres récupérées
+    if ($fillieres->contains($validatedData['Filliere'])) {
+        // Récupérer le nombre maximal de groupes pour la filière spécifiée
+        $nombreMaxGroupe = Filliere::where('NomFilliere', $validatedData['Filliere'])->value('NombreGroupe');
+
+        // Vérifier si le groupe spécifié dépasse ou est égal au nombre maximal de groupes
+        if ($validatedData['Groupe'] > $nombreMaxGroupe) {
+            return redirect()->back()->withErrors(['Groupe' => 'Le groupe spécifié dépasse le nombre maximal de groupes pour cette filière.']);
+        }
+
+        // Vérifier si la combinaison Groupe et Filliere existe déjà dans la table Emploitemps
+        $existingEmploitemps = Emploitemps::where('NomFilliere', $validatedData['Filliere'])
+                                           ->where('Groupe', $validatedData['Groupe'])
+                                           ->exists();
+
+        if ($existingEmploitemps) {
+            // Retourner un message d'erreur si la combinaison Groupe et Filliere existe déjà
+            return redirect()->back()->withErrors(['Groupe' => 'La combinaison de groupe et de filière existe déjà dans l\'emploi du temps.']);
+        } else {
             // Création d'un nouvel enregistrement dans la base de données
             Emploitemps::create([
                 'NomDepartement' => $validatedData['Departement'],
@@ -49,20 +89,35 @@ class EmploiTempsController extends Controller
                 'CraunauxFin' => $validatedData['CraunauxFin'],
             ]);
 
+            $nombreLignes = Emploitemps::where('NomFilliere', $validatedData['Filliere'])->count();
+            $nombreMaxGroupe = Filliere::where('NomFilliere', $validatedData['Filliere'])->value('NombreGroupe');
+
+                if ($nombreLignes == $nombreMaxGroupe) {
+                    // Editer la valeur de EmploiTempsDispo dans la table Filliere
+                    Filliere::where('NomFilliere', $validatedData['Filliere'])->update(['EmploiTempsDispo' => 1]);
+                }
+
+
             // Rediriger ou retourner une réponse appropriée
             return redirect()->route('Emploitemps.index')->with('success', 'Emploi du temps ajouté avec succès');
         }
+    } else {
+        // Retourner un message d'erreur si le NomFilliere n'est pas trouvé
+        return redirect()->back()->withErrors(['Filliere' => 'La filière spécifiée n\'appartient pas au département donné.']);
+    }
+}
+
+
+
 
 
         public function ResultatRecherche(Request $request)
         {
-            // Validation des données du formulaire
             $validatedData = $request->validate([
                 'Filliere' => 'required|string|max:255',
                 'Groupe' => 'required|string|max:255',
             ]);
 
-            // Rechercher l'enregistrement dans la base de données en fonction des critères
             $resultat = Emploitemps::where('NomFilliere', $validatedData['Filliere'])
                                    ->where('Groupe', $validatedData['Groupe'])
                                    ->first();
@@ -72,17 +127,19 @@ class EmploiTempsController extends Controller
                             ->get();
 
 
+            $fillieres = Filliere::all();
+            $Departement = Departement::all();
 
 
 
 
 
 
-
-            // Retourner la vue avec le résultat de la recherche
             return view('Emploi-Temps.RechercheEmploiTemps',[
                 'resultat'=>$resultat,
-                'resultatRech'=>$resultatRech
+                'resultatRech'=>$resultatRech,
+                'Fillieres'=>  $fillieres,
+                'Departement'=>$Departement
 
             ]);
         }

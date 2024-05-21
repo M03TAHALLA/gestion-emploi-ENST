@@ -48,6 +48,7 @@
               <span>Tableau de board / </span><a href=""> Enseignants de l'ENS</a>
             </div>
           </div>
+          
           <div class="formbold-form-wrapper">
             <form action="{{ route('fillieres.store') }}" method="POST">
                 @csrf
@@ -68,10 +69,9 @@
                       </label>
 
                       <select class="formbold-form-select" name="NomDepartement" id="NomDepartement">
-                        <option value="Departement">INFORMATIQUE</option>
-                        <option value="designer">METHEMATIQUE</option>
-                        <option value="fullstack">SCIENCE</option>
-                        <option value="frontend">LANGUE</option>
+                        @foreach ($Departement as $Departement)
+                      <option value="{{ $Departement->NomDepartement }}">{{ $Departement->NomDepartement }}</option>
+                      @endforeach
                       </select>
                 </div>
                 <div class="formbold-input-group">
