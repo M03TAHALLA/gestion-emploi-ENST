@@ -21,6 +21,27 @@
   <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="/css/AjouterEmploi/style.css">
 
+  <style>
+     .formbold--mx-3 {
+    margin-left: -12px;
+    margin-right: -12px;
+  }
+  .formbold-px-3 {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .flex {
+    display: flex;
+  }
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+  </style>
+
 
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
@@ -38,19 +59,30 @@
         <!-- Learn More: https://formbold.com -->
         <div class="formbold-form-wrapper">
             <h2 style="margin-bottom: 5%;text-align:center" class=""> Emploi Temps</h2>
-          <form action="https://formbold.com/s/FORM_ID" method="POST">
+          <form action="{{ route('Emploitemps.store') }}" method="POST">
+            @csrf
+                <div>
+                    <label class="formbold-form-label">
+                      Nom Departement
+                    </label>
 
-            <div class="formbold-input-flex">
+                    <select class="formbold-form-select" name="Departement" id="occupation">
+                      <option value="Mathematique">Mathematique</option>
+                      <option value="Langue">Langue</option>
+                      <option value="Informatique">Informatique</option>
+                      <option value="Biologique">Biologique</option>
+                    </select>
+                  </div>
                 <div>
               <label class="formbold-form-label">
-                Filliere Name
+               Nom Filliere
               </label>
 
-              <select class="formbold-form-select" name="occupation" id="occupation">
-                <option value="Class Name">LDW</option>
-                <option value="designer">SIL</option>
-                <option value="fullstack">SMPC</option>
-                <option value="frontend">JIF</option>
+              <select  class="formbold-form-select" name="Filliere" id="occupation">
+                <option value="Logicieles developement Web">LDW</option>
+                <option value="SIL">SIL</option>
+                <option value="SMPC">SMPC</option>
+                <option value="Anglais">JIF</option>
               </select>
             </div>
             <div>
@@ -58,167 +90,39 @@
                     Groupe Name
                   </label>
 
-                  <select class="formbold-form-select" name="occupation" id="occupation">
-                    <option value="Groupe Name">Groupe 1</option>
-                    <option value="designer">Groupe 2</option>
-                    <option value="fullstack">Groupe 3</option>
-                    <option value="frontend">Groupe 4</option>
-                  </select>
-            </div>
-            </div>
-
-            <div>
-                <label class="formbold-form-label">
-                   Semestre
-                  </label>
-
-                  <select class="formbold-form-select" name="occupation" id="occupation">
-                    <option value="Semestre1">Semestre 1 </option>
-                    <option value="Semestre2">Semestre 2 </option>
-                    <option value="Semestre3">Semestre 3 </option>
-                    <option value="Semestre4">Semestre 4 </option>
-                    <option value="Semestre5">Semestre 5 </option>
-                    <option value="Semestre6">Semestre 6 </option>
-                    <option value="Semestre7">Semestre 7 </option>
-                    <option value="Semestre8">Semestre 8 </option>
-                    <option value="Semestre9">Semestre 9 </option>
-                    <option value="Semestre10">Semestre 10 </option>
+                  <select class="formbold-form-select" name="Groupe" id="occupation">
+                    <option value="1">Groupe 1</option>
+                    <option value="2">Groupe 2</option>
+                    <option value="3">Groupe 3</option>
+                    <option value="4">Groupe 4</option>
                   </select>
             </div>
 
-
-            <div class="formbold-input-group">
-                <label class="formbold-form-label">
-                  Matiere
-                </label>
-
-                <select class="formbold-form-select" name="occupation" id="occupation">
-                  <option value="Matiere">JEE</option>
-                  <option value="designer">Symfony</option>
-                  <option value="fullstack">PHP</option>
-                  <option value="frontend">UML</option>
-                </select>
-              </div>
-
-              <div class="formbold-input-group">
-                <label class="formbold-form-label">
-                  Enseignant
-                </label>
-
-                <select class="formbold-form-select" name="occupation" id="occupation">
-                  <option value="Enseignant">PROF1</option>
-                  <option value="designer">PROF2</option>
-                  <option value="fullstack">PROF3</option>
-                  <option value="frontend">PROF4</option>
-                </select>
-              </div>
-
-              <div class="formbold-input-group">
-                <label class="formbold-form-label">
-                  Jour
-                </label>
-
-                <select class="formbold-form-select" name="occupation" id="occupation">
-                  <option value="Jour">Lundi</option>
-                  <option value="designer">Mardi</option>
-                  <option value="fullstack">Mercredi</option>
-                  <option value="frontend">Jeudi</option>
-                  <option value="frontend">Vendredi</option>
-                  <option value="frontend">Samedi</option>
-                </select>
-              </div>
-              <div class="formbold-input-flex">
-                <div>
-              <label class="formbold-form-label">
-               Heurs Debut
-              </label>
-
-              <select class="formbold-form-select" name="occupation" id="occupation">
-                <option value="Heurs Debut">08h</option>
-                <option value="Heurs Debut">09h</option>
-                <option value="Heurs Debut">10h</option>
-                <option value="Heurs Debut">11h</option>
-                <option value="Heurs Debut">12h</option>
-                <option value="Heurs Debut">14h</option>
-                <option value="Heurs Debut">15h</option>
-                <option value="Heurs Debut">16h</option>
-                <option value="Heurs Debut">17h</option>
-                <option value="Heurs Debut">18h</option>
-              </select>
-            </div>
-            <div>
-                <label class="formbold-form-label">
-                    Heurs Fin
-                  </label>
-
-                  <select class="formbold-form-select" name="occupation" id="occupation">
-                        <option value="Heurs Debut">09h</option>
-                        <option value="Heurs Debut">10h</option>
-                        <option value="Heurs Debut">11h</option>
-                        <option value="Heurs Debut">12h</option>
-                        <option value="Heurs Debut">14h</option>
-                        <option value="Heurs Debut">15h</option>
-                        <option value="Heurs Debut">16h</option>
-                        <option value="Heurs Debut">17h</option>
-                        <option value="Heurs Debut">18h</option>
-                  </select>
-            </div>
-            </div>
-            <div>
-                <label class="formbold-form-label">
-                    Departement
-                  </label>
-
-                  <select class="formbold-form-select" name="occupation" id="occupation">
-                    <option value="Departement">INFORMATIQUE</option>
-                    <option value="designer">METHEMATIQUE</option>
-                    <option value="fullstack">SCIENCE</option>
-                    <option value="frontend">LANGUE</option>
-                  </select>
-            </div>
-            <div class="formbold-input-radio-wrapper">
-                <label for="ans" class="formbold-form-label">
-                  Type Salle
-                </label>
-
-                <div class="formbold-radio-flex">
-                  <div class="formbold-radio-group">
-                    <label class="formbold-radio-label">
-                      <input
-                        class="formbold-input-radio"
-                        type="radio"
-                        name="ans"
-                        id="ans"
-                      />
-                      Amphi
-                      <span class="formbold-radio-checkmark"></span>
-                    </label>
-                  </div>
-
-                  <div class="formbold-radio-group">
-                    <label class="formbold-radio-label">
-                      <input
-                        class="formbold-input-radio"
-                        type="radio"
-                        name="ans"
-                        id="ans"
-                      />
-                      Salle
-                      <span class="formbold-radio-checkmark"></span>
-                    </label>
+            <div class="flex flex-wrap formbold--mx-3">
+                <div class="w-full sm:w-half formbold-px-3">
+                  <div class="formbold-mb-5 w-full">
+                    <label for="date" class="formbold-form-label"> Craunaux Debut </label>
+                    <input
+                      type="time"
+                      name="CraunauxDebut"
+                      id="date"
+                      class="formbold-form-input"
+                      required
+                    />
                   </div>
                 </div>
-              </div>
-
-            <div class="formbold-input-group">
-                <label for="name" class="formbold-form-label"> Salle </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="Enter Numero Salle"
-                  class="formbold-form-input"
-                />
+                <div class="w-full sm:w-half formbold-px-3">
+                  <div class="formbold-mb-5">
+                    <label for="time" class="formbold-form-label">  Craunaux Fin </label>
+                    <input
+                      type="time"
+                      name="CraunauxFin"
+                      id="time"
+                      class="formbold-form-input"
+                      required
+                    />
+                  </div>
+                </div>
               </div>
             <button class="formbold-btn">Ajouter Une Emploi Temps</button>
           </form>

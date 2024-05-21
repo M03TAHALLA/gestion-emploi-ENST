@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\EmploiStockController;
 use App\Http\Controllers\EmploiTempsController;
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\FilliereController;
@@ -64,7 +65,7 @@ Route::post('/',[LoginController::class,'login'])->name('login');
 Route::get('users/create',[UserController::class,'create'])->name('create');
 Route::post('users/store',[UserController::class,'store'])->name('store');
 
-Route::post('dashboard/EmploiTemps-Rech',[EmploiTempsController::class,'Recherche'])->name('Recherche');
+Route::post('dashboard/EmploiTemps-Rech',[EmploiTempsController::class,'ResultatRecherche'])->name('ResultatRecherche');
 
 
 
@@ -72,6 +73,11 @@ Route::post('dashboard/EmploiTemps-Rech',[EmploiTempsController::class,'Recherch
 
 Route::resource('fillieres', FilliereController::class);
 Route::resource('Emploitemps',EmploiTempsController::class);
+Route::resource('EmploiStock',EmploiStockController::class);
+Route::post('/emploitempsstock/store', [EmploiStockController::class, 'store'])->name('EmploiStock.store');
+Route::get('/emploitemps/edit/{NomFilliere}/{Groupe}', [EmploiStockController::class, 'show'])->name('EmploiStock.show');
+
+
 
 
 
