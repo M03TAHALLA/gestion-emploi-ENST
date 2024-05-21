@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard | Departement</title>
+  <title>Dashboard | Filliere</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -25,8 +25,8 @@
 </head>
 <body>
   <div class="container-scroller">
-    <!-- partial:partials/_navbar.html -->
     @include('Layout.navbar')
+
       @include('Layout.sidebar')
 
       <div class="container-section">
@@ -49,29 +49,62 @@
             </div>
           </div>
           <div class="formbold-form-wrapper">
-            <form action="https://formbold.com/s/FORM_ID" method="POST">
+            <form action="{{ route('fillieres.store') }}" method="POST">
+                @csrf
                 <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label"> Code </label>
+                    <label for="numero" class="formbold-form-label"> Nom Filliere </label>
                     <input
                       type="text"
-                      name="matricule"
-                      id="matricule"
-                      placeholder="Code Departement"
+                      name="NomFilliere"
+                      id="Filliere"
+                      placeholder="Nom Filliere"
+                      class="formbold-form-input"
+                      required
+                    />
+                  </div>
+                <div>
+                    <label class="formbold-form-label">
+                        Nom Departement
+                      </label>
+
+                      <select class="formbold-form-select" name="NomDepartement" id="NomDepartement">
+                        <option value="Departement">INFORMATIQUE</option>
+                        <option value="designer">METHEMATIQUE</option>
+                        <option value="fullstack">SCIENCE</option>
+                        <option value="frontend">LANGUE</option>
+                      </select>
+                </div>
+                <div class="formbold-input-group">
+                    <label for="numero" class="formbold-form-label"> Cordinateur </label>
+                    <input required
+                      type="text"
+                      name="Cordinateur"
+                      id="Cordinateur"
+                      placeholder="Cordinateur"
                       class="formbold-form-input"
                     />
                   </div>
-              <div class="formbold-input-group">
-                  <label for="name" class="formbold-form-label"> Nom Departement </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Nom Departement"
-                    class="formbold-form-input"
-                  />
-                </div>
-
-              <button class="formbold-btn">Ajouter une Departement</button>
+                  <div class="formbold-input-group">
+                    <label for="numero" class="formbold-form-label">Nombre Semestre </label>
+                    <input required
+                      type="number"
+                      name="Semestre"
+                      id="Semestre"
+                      placeholder="Semestre"
+                      class="formbold-form-input"
+                    />
+                  </div>
+                  <div class="formbold-input-group">
+                    <label for="numero" class="formbold-form-label">Nombre Groupe </label>
+                    <input required
+                      type="number"
+                      name="Groupe"
+                      id="Groupe"
+                      placeholder="Nombre Groupe"
+                      class="formbold-form-input"
+                    />
+                  </div>
+              <button type="submit" class="formbold-btn">Ajouter une Filliere</button>
             </form>
           </div>
         </section>

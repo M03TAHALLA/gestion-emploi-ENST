@@ -2,16 +2,20 @@
 
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\EmploiTempsController;
+use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\FilliereController;
 use App\Http\Controllers\SalleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EmploiStockController;
+
 
 Route::get('/', function () {
     return view('index');
 });
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard.home');
+
 
 Route::get('/dashboard/Profile', function () {
     return view('Profile');
@@ -30,6 +34,7 @@ Route::get('/dashboard/ressources', function () {
 Route::get('/dashboard/sous_admin', function () {
     return view('sous_admin');
 })->name('sous_admin');
+
 
 
 // TO CHANGE (temp route)
@@ -57,8 +62,20 @@ Route::post('/',[LoginController::class,'login'])->name('login');
 Route::get('users/create',[UserController::class,'create'])->name('create');
 Route::post('users/store',[UserController::class,'store'])->name('store');
 
+Route::post('dashboard/EmploiTemps-Rech',[EmploiTempsController::class,'ResultatRecherche'])->name('ResultatRecherche');
+
+
+
+
 
 Route::resource('fillieres', FilliereController::class);
+Route::resource('Emploitemps',EmploiTempsController::class);
+Route::resource('EmploiStock',EmploiStockController::class);
+Route::post('/emploi-stock', [EmploiStockController::class, 'store'])->name('EmploiStock.store');
+Route::get('/emploitemps/edit/{NomFilliere}/{Groupe}', [EmploiStockController::class, 'show'])->name('EmploiStock.show');
+
+
+
 
 
 

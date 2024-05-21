@@ -5,12 +5,13 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard | Departement</title>
+  <title>Gestion Emploi Temps | Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
+  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
   <!-- Plugin css for this page -->
   <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -18,15 +19,26 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
-  <link rel="stylesheet" href="/../../vendors/mdi/css/materialdesignicons.min.css">
-
+  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/css/AjouterEmploi/EmploiTempsStyle.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
+  <style>
+    .alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    margin: 2%;
+}
+  </style>
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     @include('Layout.navbar')
+
+      <!-- partial:partials/_sidebar.html -->
+
       @include('Layout.sidebar')
 
       <div class="container-section">
@@ -38,48 +50,63 @@
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
               </svg>
               <span class="title-section">
-                Gestion des Enseignants
+                Emploi de temps
               </span>
             </div>
             <div class="right-section">
               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
                 <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
               </svg>
-              <span>Tableau de board / </span><a href=""> Enseignants de l'ENS</a>
+              <span>Tableau de board / </span><a href=""> Saisir les emplois de temps</a>
             </div>
           </div>
-          <div class="formbold-form-wrapper">
-            <form action="https://formbold.com/s/FORM_ID" method="POST">
-                <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label"> Code </label>
-                    <input
-                      type="text"
-                      name="matricule"
-                      id="matricule"
-                      placeholder="Code Departement"
-                      class="formbold-form-input"
-                    />
-                  </div>
-              <div class="formbold-input-group">
-                  <label for="name" class="formbold-form-label"> Nom Departement </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Nom Departement"
-                    class="formbold-form-input"
-                  />
-                </div>
 
-              <button class="formbold-btn">Ajouter une Departement</button>
-            </form>
-          </div>
-        </section>
-      </div>
+          @if (session('success'))
+                <div id="success-message" class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+          <form action="{{ route('ResultatRecherche') }}" method="POST" >
+            @csrf
+                <div>
+                    <div style="margin-top: 3%" class="formbold-input-flex">
+                        <div>
+                      <label class="formbold-form-label">
+                        Filliere Name
+                      </label>
+
+                      <select class="formbold-form-select" name="Filliere" id="occupation">
+                        <option value="Logicieles developement Web">LDW</option>
+                        <option value="SIL">SIL</option>
+                        <option value="SMPC">SMPC</option>
+                        <option value="Genie Informatique">Genie Informatique</option>
+                      </select>
+                    </div>
+                    <div>
+                        <label class="formbold-form-label">
+                            Groupe Name
+                          </label>
+
+                          <select class="formbold-form-select" name="Groupe" id="occupation">
+                            <option value="1">Groupe 1</option>
+                            <option value="2">Groupe 2</option>
+                            <option value="3">Groupe 3</option>
+                            <option value="4">Groupe 4</option>
+                          </select>
+                    </div>
+                    <button type="submit" class="button-1" role="button">Recherche
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50"
+                style="fill:#FFFFFF;">
+                <path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path>
+                </svg>
+                    </button>
+                    </div>
+                </form>
+    </section>
+</div>
       <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
-  </div>
   <!-- container-scroller -->
 
   <!-- plugins:js -->
@@ -102,6 +129,18 @@
   <!-- Custom js for this page-->
   <script src="/js/dashboard.js"></script>
   <script src="/js/Chart.roundedBarCharts.js"></script>
+  <script>
+    setTimeout(function() {
+        var messageElement = document.getElementById('success-message');
+        if (messageElement) {
+            messageElement.style.transition = 'opacity 0.5s';
+            messageElement.style.opacity = '0';
+            setTimeout(function() {
+                messageElement.style.display = 'none';
+            }, 2000);
+        }
+    }, 3000);
+</script>
   <!-- End custom js for this page-->
 </body>
 

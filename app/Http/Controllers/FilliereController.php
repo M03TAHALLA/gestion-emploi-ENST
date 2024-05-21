@@ -13,7 +13,7 @@ class FilliereController extends Controller
     public function index()
     {
         $fillieres = Filliere::all();
-        return view('ressources-pages.filieres',compact('fillieres'));
+        return view('Fillieres.filieres',compact('fillieres'));
     }
 
     /**
@@ -21,7 +21,7 @@ class FilliereController extends Controller
      */
     public function create()
     {
-        return view('create-pages.filieres-form');
+        return view('Fillieres.filieres-form');
     }
 
     /**
@@ -34,6 +34,7 @@ class FilliereController extends Controller
             'NomDepartement' => 'required|string|max:255',
             'Cordinateur' => 'required|string|max:255',
             'Semestre' => 'required|integer',
+            'Groupe' => 'required|integer',
         ]);
 
         $filliere = new Filliere();
@@ -41,6 +42,7 @@ class FilliereController extends Controller
         $filliere->NomDepartement = $validatedData['NomDepartement'];
         $filliere->Cordinateur = $validatedData['Cordinateur'];
         $filliere->Semestre = $validatedData['Semestre'];
+        $filliere->NombreGroupe = $validatedData['Groupe'];
         $filliere->save();
 
         return redirect()->route('fillieres.index')->with('success', 'Filliere créée avec succès');
@@ -59,7 +61,7 @@ class FilliereController extends Controller
      */
     public function edit(Filliere $filliere)
     {
-        return view('edit-pages.filieres-form', compact('filliere'));
+        return view('Fillieres.filieres-form-edit', compact('filliere'));
     }
 
     /**
@@ -72,6 +74,7 @@ class FilliereController extends Controller
             'NomDepartement' => 'required|string|max:255',
             'Cordinateur' => 'required|string|max:255',
             'Semestre' => 'required|integer',
+            'Groupe' => 'required|integer',
         ]);
 
         $filliere->update($validatedData);

@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class EmploiTemps extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'NomDepartement',
+        'NomFilliere',
+        'Groupe',
+        'CraunauxDebut',
+        'CraunauxFin',
+    ];
 }
