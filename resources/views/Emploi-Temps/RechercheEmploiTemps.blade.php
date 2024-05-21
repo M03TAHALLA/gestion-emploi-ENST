@@ -60,6 +60,50 @@
               <span>Tableau de board / </span><a href=""> Resultat Recherche :</a>
             </div>
           </div>
+          @if (is_null($resultat) || session('resultat'))
+          <form action="{{ route('ResultatRecherche') }}" method="POST">
+            @csrf
+                <div>
+                    <div style="margin-top: 3%" class="formbold-input-flex">
+                        <div>
+                      <label class="formbold-form-label">
+                        Filliere Name
+                      </label>
+
+                      <select class="formbold-form-select" name="Filliere" id="occupation">
+                        <option value="Logicieles developement Web" {{ isset($resultat) && $resultat->NomFilliere == 'Logicieles developement Web' ? 'selected' : '' }}>LDW</option>
+                        <option value="SIL" {{ isset($resultat) && $resultat->NomFilliere == 'SIL' ? 'selected' : '' }}>SIL</option>
+                        <option value="SMPC" {{ isset($resultat) && $resultat->NomFilliere == 'SMPC' ? 'selected' : '' }}>SMPC</option>
+                        <option value="Genie Informatique" {{ isset($resultat) && $resultat->NomFilliere == 'Genie Informatique' ? 'selected' : '' }}>Genie Informatique</option>
+                    </select>
+                    </div>
+                    <div>
+                        <label class="formbold-form-label">
+                            Groupe Name
+                          </label>
+
+                          <select class="formbold-form-select" name="Groupe" id="occupation">
+                            <option value="1" {{ isset($resultat) && $resultat->Groupe == '1' ? 'selected' : '' }}>Groupe 1</option>
+                            <option value="2" {{ isset($resultat) && $resultat->Groupe == '2' ? 'selected' : '' }}>Groupe 2</option>
+                            <option value="3" {{ isset($resultat) && $resultat->Groupe == '3' ? 'selected' : '' }}>Groupe 3</option>
+                            <option value="4" {{ isset($resultat) && $resultat->Groupe == '4' ? 'selected' : '' }}>Groupe 4</option>
+                        </select>
+
+                    </div>
+                    <button type="submit" class="button-1" role="button">Recherche
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50"
+                style="fill:#FFFFFF;">
+                <path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path>
+                </svg>
+                    </button>
+                    </div>
+                </form>
+                <div id="Table">
+                    <div id="success-message" class="alert alert-success">
+                        Emploi Temps Non Disponible Pour Cette Filliere Ou Groupe
+                    </div>
+                </div>
+@else
           <div class="operations-section">
             <div class="container">
               <div class="add-operation">
@@ -97,7 +141,7 @@
                         <option value="Logicieles developement Web" {{ isset($resultat) && $resultat->NomFilliere == 'Logicieles developement Web' ? 'selected' : '' }}>LDW</option>
                         <option value="SIL" {{ isset($resultat) && $resultat->NomFilliere == 'SIL' ? 'selected' : '' }}>SIL</option>
                         <option value="SMPC" {{ isset($resultat) && $resultat->NomFilliere == 'SMPC' ? 'selected' : '' }}>SMPC</option>
-                        <option value="Anglais" {{ isset($resultat) && $resultat->NomFilliere == 'Anglais' ? 'selected' : '' }}>JIF</option>
+                        <option value="Genie Informatique" {{ isset($resultat) && $resultat->NomFilliere == 'Genie Informatique' ? 'selected' : '' }}>Genie Informatique</option>
                     </select>
                     </div>
                     <div>
@@ -121,13 +165,8 @@
                     </button>
                     </div>
                 </form>
-@if (is_null($resultat))
-                <div id="Table">
-                    <div id="success-message" class="alert alert-success">
-                        Emploi Temps Non Disponible Pour Cette Filliere Ou Groupe
-                    </div>
-                </div>
-@else
+
+
                 <h3 style="text-align: center">{{ $resultat->NomFilliere }} </h3>
 
 
@@ -156,7 +195,7 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Lundi")
-                                @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeursFin,0,2) == '10')
+                                @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
 
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
@@ -164,7 +203,7 @@
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
                                     <p>{{ $resultat->TypeSalle }}</p>
-                                    <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                    <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                     </div>
                                 @endif
                         @endif
@@ -173,14 +212,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Lundi")
-                                @if (substr($resultat->HeurDebut,0,2) == '10' && substr($resultat->HeursFin,0,2) == '12')
+                                @if (substr($resultat->HeurDebut,0,2) == '10' && substr($resultat->HeurFin,0,2) == '12')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -189,14 +228,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Lundi")
-                                @if (substr($resultat->HeurDebut,0,2) == '14' && substr($resultat->HeursFin,0,2) == '16')
+                                @if (substr($resultat->HeurDebut,0,2) == '14' && substr($resultat->HeurFin,0,2) == '16')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -205,14 +244,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Lundi")
-                                @if (substr($resultat->HeurDebut,0,2) == '16' && substr($resultat->HeursFin,0,2) == '18')
+                                @if (substr($resultat->HeurDebut,0,2) == '16' && substr($resultat->HeurFin,0,2) == '18')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -226,7 +265,7 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Mardi")
-                                @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeursFin,0,2) == '10')
+                                @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
 
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
@@ -234,7 +273,7 @@
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
                                     <p>{{ $resultat->TypeSalle }}</p>
-                                    <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                    <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                     </div>
                                 @endif
                         @endif
@@ -243,14 +282,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Mardi")
-                                @if (substr($resultat->HeurDebut,0,2) == '10' && substr($resultat->HeursFin,0,2) == '12')
+                                @if (substr($resultat->HeurDebut,0,2) == '10' && substr($resultat->HeurFin,0,2) == '12')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -259,14 +298,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Mardi")
-                                @if (substr($resultat->HeurDebut,0,2) == '14' && substr($resultat->HeursFin,0,2) == '16')
+                                @if (substr($resultat->HeurDebut,0,2) == '14' && substr($resultat->HeurFin,0,2) == '16')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -275,14 +314,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Mardi")
-                                @if (substr($resultat->HeurDebut,0,2) == '16' && substr($resultat->HeursFin,0,2) == '18')
+                                @if (substr($resultat->HeurDebut,0,2) == '16' && substr($resultat->HeurFin,0,2) == '18')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -295,7 +334,7 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Mercredi")
-                                @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeursFin,0,2) == '10')
+                                @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
 
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
@@ -303,7 +342,7 @@
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
                                     <p>{{ $resultat->TypeSalle }}</p>
-                                    <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                    <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                     </div>
                                 @endif
                         @endif
@@ -312,14 +351,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Mercredi")
-                                @if (substr($resultat->HeurDebut,0,2) == '10' && substr($resultat->HeursFin,0,2) == '12')
+                                @if (substr($resultat->HeurDebut,0,2) == '10' && substr($resultat->HeurFin,0,2) == '12')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -328,14 +367,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Mercredi")
-                                @if (substr($resultat->HeurDebut,0,2) == '14' && substr($resultat->HeursFin,0,2) == '16')
+                                @if (substr($resultat->HeurDebut,0,2) == '14' && substr($resultat->HeurFin,0,2) == '16')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -344,14 +383,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Mercredi")
-                                @if (substr($resultat->HeurDebut,0,2) == '16' && substr($resultat->HeursFin,0,2) == '18')
+                                @if (substr($resultat->HeurDebut,0,2) == '16' && substr($resultat->HeurFin,0,2) == '18')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -364,7 +403,7 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Jeudi")
-                                @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeursFin,0,2) == '10')
+                                @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
 
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
@@ -372,7 +411,7 @@
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
                                     <p>{{ $resultat->TypeSalle }}</p>
-                                    <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                    <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                     </div>
                                 @endif
                         @endif
@@ -381,14 +420,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Jeudi")
-                                @if (substr($resultat->HeurDebut,0,2) == '10' && substr($resultat->HeursFin,0,2) == '12')
+                                @if (substr($resultat->HeurDebut,0,2) == '10' && substr($resultat->HeurFin,0,2) == '12')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -397,14 +436,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Jeudi")
-                                @if (substr($resultat->HeurDebut,0,2) == '14' && substr($resultat->HeursFin,0,2) == '16')
+                                @if (substr($resultat->HeurDebut,0,2) == '14' && substr($resultat->HeurFin,0,2) == '16')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -413,14 +452,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Jeudi")
-                                @if (substr($resultat->HeurDebut,0,2) == '16' && substr($resultat->HeursFin,0,2) == '18')
+                                @if (substr($resultat->HeurDebut,0,2) == '16' && substr($resultat->HeurFin,0,2) == '18')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -433,7 +472,7 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Vendredi")
-                                @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeursFin,0,2) == '10')
+                                @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
 
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
@@ -441,7 +480,7 @@
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
                                     <p>{{ $resultat->TypeSalle }}</p>
-                                    <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                    <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                     </div>
                                 @endif
                         @endif
@@ -450,14 +489,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Vendredi")
-                                @if (substr($resultat->HeurDebut,0,2) == '10' && substr($resultat->HeursFin,0,2) == '12')
+                                @if (substr($resultat->HeurDebut,0,2) == '10' && substr($resultat->HeurFin,0,2) == '12')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -466,14 +505,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Vendredi")
-                                @if (substr($resultat->HeurDebut,0,2) == '14' && substr($resultat->HeursFin,0,2) == '16')
+                                @if (substr($resultat->HeurDebut,0,2) == '14' && substr($resultat->HeurFin,0,2) == '16')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -482,14 +521,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Vendredi")
-                                @if (substr($resultat->HeurDebut,0,2) == '16' && substr($resultat->HeursFin,0,2) == '18')
+                                @if (substr($resultat->HeurDebut,0,2) == '16' && substr($resultat->HeurFin,0,2) == '18')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -502,7 +541,7 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Samedi")
-                                @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeursFin,0,2) == '10')
+                                @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
 
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
@@ -510,7 +549,7 @@
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
                                     <p>{{ $resultat->TypeSalle }}</p>
-                                    <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                    <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                     </div>
                                 @endif
                         @endif
@@ -519,14 +558,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Samedi")
-                                @if (substr($resultat->HeurDebut,0,2) == '10' && substr($resultat->HeursFin,0,2) == '12')
+                                @if (substr($resultat->HeurDebut,0,2) == '10' && substr($resultat->HeurFin,0,2) == '12')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -535,14 +574,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Samedi")
-                                @if (substr($resultat->HeurDebut,0,2) == '14' && substr($resultat->HeursFin,0,2) == '16')
+                                @if (substr($resultat->HeurDebut,0,2) == '14' && substr($resultat->HeurFin,0,2) == '16')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif
@@ -551,14 +590,14 @@
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Samedi")
-                                @if (substr($resultat->HeurDebut,0,2) == '16' && substr($resultat->HeursFin,0,2) == '18')
+                                @if (substr($resultat->HeurDebut,0,2) == '16' && substr($resultat->HeurFin,0,2) == '18')
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
-                                <span>Mr . {{ $resultat->NomEnseignant }}</span>
+                                <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
                                 @endif
                         @endif

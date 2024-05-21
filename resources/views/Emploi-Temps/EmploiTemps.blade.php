@@ -60,7 +60,7 @@
               <span>Tableau de board / </span><a href=""> Saisir les emplois de temps</a>
             </div>
           </div>
-          
+
           @if (session('success'))
                 <div id="success-message" class="alert alert-success">
                     {{ session('success') }}
@@ -79,7 +79,7 @@
                         <option value="Logicieles developement Web">LDW</option>
                         <option value="SIL">SIL</option>
                         <option value="SMPC">SMPC</option>
-                        <option value="Anglais">JIF</option>
+                        <option value="Genie Informatique">Genie Informatique</option>
                       </select>
                     </div>
                     <div>

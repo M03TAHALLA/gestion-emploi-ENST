@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EmploiTemps;
 use Illuminate\Http\Request;
+use App\Models\emploitempsstock;
 
 class EmploiTempsController extends Controller
 {
@@ -66,9 +67,10 @@ class EmploiTempsController extends Controller
                                    ->where('Groupe', $validatedData['Groupe'])
                                    ->first();
 
-            $resultatRech = Emploitemps::where('NomFilliere', $validatedData['Filliere'])
-                                        ->where('Groupe', $validatedData['Groupe'])
-                                        ->get();
+            $resultatRech = emploitempsstock::where('NomFilliere', $validatedData['Filliere'])
+                            ->where('NomGroupe', $validatedData['Groupe'])
+                            ->get();
+
 
 
 
@@ -80,7 +82,7 @@ class EmploiTempsController extends Controller
             // Retourner la vue avec le résultat de la recherche
             return view('Emploi-Temps.RechercheEmploiTemps',[
                 'resultat'=>$resultat,
-                'resultatRech'=>$resultatRech,
+                'resultatRech'=>$resultatRech
 
             ]);
         }
@@ -97,7 +99,7 @@ class EmploiTempsController extends Controller
      */
     public function edit($NomFilliere,$Groupe)
     {
-       
+
     }
 
     /**

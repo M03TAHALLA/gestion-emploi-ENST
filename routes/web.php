@@ -36,6 +36,7 @@ Route::get('/dashboard/sous_admin', function () {
 })->name('sous_admin');
 
 
+
 // TO CHANGE (temp route)
 Route::get('/dashboard/ressources/salles', function(){ return view('ressources-pages.salles');})->name('salles');
 Route::get('/dashboard/ressources/enseignants', function(){ return view('ressources-pages.enseignants');})->name('enseignants');
@@ -70,8 +71,9 @@ Route::post('dashboard/EmploiTemps-Rech',[EmploiTempsController::class,'Resultat
 Route::resource('fillieres', FilliereController::class);
 Route::resource('Emploitemps',EmploiTempsController::class);
 Route::resource('EmploiStock',EmploiStockController::class);
-Route::post('/emploitempsstock/store', [EmploiStockController::class, 'store'])->name('EmploiStock.store');
+Route::post('/emploi-stock', [EmploiStockController::class, 'store'])->name('EmploiStock.store');
 Route::get('/emploitemps/edit/{NomFilliere}/{Groupe}', [EmploiStockController::class, 'show'])->name('EmploiStock.show');
+
 
 
 

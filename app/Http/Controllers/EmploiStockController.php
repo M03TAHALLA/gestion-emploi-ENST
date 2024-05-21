@@ -13,8 +13,28 @@ class EmploiStockController extends Controller
      */
     public function index()
     {
-        //
+        $NomFilliere = session('NomFilliere');
+        $NomGroupe = session('NomGroupe');
+
+        if ($NomFilliere && $NomGroupe) {
+            $resultat = Emploitemps::where('NomFilliere', $NomFilliere)
+                                   ->where('Groupe', $NomGroupe)
+                                   ->first();
+
+            $resultatRech = emploitempsstock::where('NomFilliere', $NomFilliere)
+                                            ->where('NomGroupe', $NomGroupe)
+                                            ->get();
+        } else {
+            $resultat = null;
+            $resultatRech = collect(); // Empty collection
+        }
+
+        return view('Emploi-Temps.RechercheEmploiTemps', [
+            'resultat' => $resultat,
+            'resultatRech' => $resultatRech,
+        ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,38 +48,42 @@ class EmploiStockController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        // Validation des données
-        $validatedData = $request->validate([
-            'NomFilliere' => 'required|string|max:255',
-            'NomGroupe' => 'required|string|max:255',
-            'NomModule' => 'required|string|max:255',
-            'Jour' => 'required|string|max:255',
-            'HeurDebut' => 'required|date_format:H:i',
-            'HeurFin' => 'required|date_format:H:i',
-            'NumSalle' => 'required|string|max:255',
-            'TypeSalle' => 'required|string|max:255',
-            'NomEnseignant' => 'required|string|max:255',
-            'PrenomEnseignant' => 'required|string|max:255',
-        ]);
+{
+    // dd($request->all());
 
-        // Création d'un nouvel enregistrement dans la table emploitempsstock
-        emploitempsstock::create([
-            'NomFilliere' => $validatedData['NomFilliere'],
-            'NomGroupe' => $validatedData['NomGroupe'],
-            'NomModule' => $validatedData['NomModule'],
-            'Jour' => $validatedData['Jour'],
-            'HeurDebut' => $validatedData['HeurDebut'],
-            'HeurFin' => $validatedData['HeurFin'],
-            'NumSalle' => $validatedData['NumSalle'],
-            'TypeSalle' => $validatedData['TypeSalle'],
-            'NomEnseignant' => $validatedData['NomEnseignant'],
-            'PrenomEnseignant' => $validatedData['PrenomEnseignant'],
-        ]);
+    $validatedData = $request->validate([
+        'NomFilliere' => 'required|string|max:255',
+        'NomGroupe' => 'required|string|max:255',
+        'NomModule' => 'required|string|max:255',
+        'Jour' => 'required|string|max:255',
+        'HeurDebut' => 'required|date_format:H:i',
+        'HeurFin' => 'required|date_format:H:i',
+        'NumSalle' => 'required|integer',
+        'TypeSalle' => 'required|string|max:255',
+        'NomEnseignant' => 'required|string|max:255',
+        'PrenomEnseignant' => 'required|string|max:255',
+    ]);
 
-        // Rediriger ou retourner une réponse appropriée
-        return redirect()->route('fillieres.index')->with('success', 'Emploi du temps stocké avec succès');
-    }
+    emploitempsstock::create([
+        'NomFilliere' => $validatedData['NomFilliere'],
+        'NomGroupe' => $validatedData['NomGroupe'],
+        'NomModule' => $validatedData['NomModule'],
+        'Jour' => $validatedData['Jour'],
+        'HeurDebut' => $validatedData['HeurDebut'],
+        'HeurFin' => $validatedData['HeurFin'],
+        'NumSalle' => $validatedData['NumSalle'],
+        'TypeSalle' => $validatedData['TypeSalle'],
+        'NomEnseignant' => $validatedData['NomEnseignant'],
+        'PrenomEnseignant' => $validatedData['PrenomEnseignant'],
+    ]);
+
+    return redirect()->route('EmploiStock.index')->with([
+        'NomFilliere' => $validatedData['NomFilliere'],
+        'NomGroupe' => $validatedData['NomGroupe']
+    ]);
+}
+
+
 
     /**
      * Display the specified resource.
