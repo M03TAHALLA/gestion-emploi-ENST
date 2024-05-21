@@ -71,10 +71,12 @@
                       </label>
 
                       <select class="formbold-form-select" name="Filliere" id="occupation">
-                        <option value="Logicieles developement Web" {{ isset($resultat) && $resultat->NomFilliere == 'Logicieles developement Web' ? 'selected' : '' }}>LDW</option>
-                        <option value="SIL" {{ isset($resultat) && $resultat->NomFilliere == 'SIL' ? 'selected' : '' }}>SIL</option>
-                        <option value="SMPC" {{ isset($resultat) && $resultat->NomFilliere == 'SMPC' ? 'selected' : '' }}>SMPC</option>
-                        <option value="Genie Informatique" {{ isset($resultat) && $resultat->NomFilliere == 'Genie Informatique' ? 'selected' : '' }}>Genie Informatique</option>
+                        @foreach ($Fillieres as $Fillieres)
+                        <option value="{{ $Fillieres->NomFilliere }}" {{ isset($resultat) && $resultat->NomFilliere == $Fillieres->NomFilliere ? 'selected' : '' }}>
+                            {{ $Fillieres->NomFilliere }}
+                        </option>
+                        @endforeach
+
                     </select>
                     </div>
                     <div>
@@ -138,10 +140,11 @@
                       </label>
 
                       <select class="formbold-form-select" name="Filliere" id="occupation">
-                        <option value="Logicieles developement Web" {{ isset($resultat) && $resultat->NomFilliere == 'Logicieles developement Web' ? 'selected' : '' }}>LDW</option>
-                        <option value="SIL" {{ isset($resultat) && $resultat->NomFilliere == 'SIL' ? 'selected' : '' }}>SIL</option>
-                        <option value="SMPC" {{ isset($resultat) && $resultat->NomFilliere == 'SMPC' ? 'selected' : '' }}>SMPC</option>
-                        <option value="Genie Informatique" {{ isset($resultat) && $resultat->NomFilliere == 'Genie Informatique' ? 'selected' : '' }}>Genie Informatique</option>
+                        @foreach ($Fillieres as $Fillieres)
+                        <option value="{{ $Fillieres->NomFilliere }}" {{ isset($resultat) && $resultat->NomFilliere == $Fillieres->NomFilliere ? 'selected' : '' }}>
+                            {{ $Fillieres->NomFilliere }}
+                        </option>
+                        @endforeach
                     </select>
                     </div>
                     <div>
@@ -155,7 +158,6 @@
                             <option value="3" {{ isset($resultat) && $resultat->Groupe == '3' ? 'selected' : '' }}>Groupe 3</option>
                             <option value="4" {{ isset($resultat) && $resultat->Groupe == '4' ? 'selected' : '' }}>Groupe 4</option>
                         </select>
-
                     </div>
                     <button type="submit" class="button-1" role="button">Recherche
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50"

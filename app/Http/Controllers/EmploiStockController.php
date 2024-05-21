@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\emploitempsstock;
 use App\Models\Emploitemps;
+use App\Models\Filliere;
+
 use Illuminate\Http\Request;
 
 class EmploiStockController extends Controller
@@ -26,12 +28,14 @@ class EmploiStockController extends Controller
                                             ->get();
         } else {
             $resultat = null;
-            $resultatRech = collect(); // Empty collection
+            $resultatRech = collect();
         }
+        $fillieres = Filliere::all();
 
         return view('Emploi-Temps.RechercheEmploiTemps', [
             'resultat' => $resultat,
             'resultatRech' => $resultatRech,
+            'Fillieres'=>  $fillieres,
         ]);
     }
 
@@ -49,7 +53,6 @@ class EmploiStockController extends Controller
      */
     public function store(Request $request)
 {
-    // dd($request->all());
 
     $validatedData = $request->validate([
         'NomFilliere' => 'required|string|max:255',
