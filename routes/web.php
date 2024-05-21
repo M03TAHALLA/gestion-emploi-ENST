@@ -3,6 +3,8 @@
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FilliereController;
+use App\Http\Controllers\SalleController;
 
 Route::get('/', function () {
     return view('index');
@@ -60,4 +62,5 @@ Route::resource('fillieres', FilliereController::class);
 
 
 
+Route::resource('/dashboard/salles', SalleController::class);
 
