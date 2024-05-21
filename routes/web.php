@@ -2,14 +2,9 @@
 
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\DepartementController;
-use App\Http\Controllers\EmploiTempsController;
-use App\Http\Controllers\EtudiantController;
-use App\Http\Controllers\FilliereController;
-use App\Http\Controllers\MatiereController;
-use App\Http\Controllers\SalleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FilliereController;
+use App\Http\Controllers\SalleController;
 
 Route::get('/', function () {
     return view('index');
@@ -51,10 +46,6 @@ Route::get('/dashboard/ressources/departement/create', function(){ return view('
 Route::get('/dashboard/ressources/sous-admin/create', function(){ return view('create-pages.sous-admin-form');})->name('sous-admin.form');
 
 
-
-
-
-
 Route::get('/icons', function () {
     return view('pages/icons/mdi');
 });
@@ -71,4 +62,5 @@ Route::resource('fillieres', FilliereController::class);
 
 
 
+Route::resource('/dashboard/salles', SalleController::class);
 
