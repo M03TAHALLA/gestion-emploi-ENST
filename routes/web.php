@@ -8,6 +8,7 @@ use App\Http\Controllers\EmploiTempsController;
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\FilliereController;
 use App\Http\Controllers\SalleController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmploiStockController;
 
@@ -81,3 +82,4 @@ Route::get('/emploitemps/edit/{NomFilliere}/{Groupe}', [EmploiStockController::c
 
 Route::resource('/dashboard/salles', SalleController::class);
 
+Route::resource('/dashboard/modules',ModuleController::class);
