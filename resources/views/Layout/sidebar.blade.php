@@ -25,7 +25,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="/dashboard/salles">
             <i class="mdi mdi-home-variant menu-icon" style="font-size: 22px;"></i>
           <span class="menu-title">Gestion Salles</span>
         </a>
