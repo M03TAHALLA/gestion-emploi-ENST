@@ -22,6 +22,22 @@
 
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
+  <style>
+    .alert-success {
+    color: #ff0000;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+#myInput, #myCountryInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+  </style>
 </head>
 <body>
   <div class="container-scroller">
@@ -48,7 +64,11 @@
               <span>Tableau de board / </span><a href=""> Enseignants de l'ENS</a>
             </div>
           </div>
-          
+          @if (session('error'))
+          <div id="success-message" class="alert alert-success">
+              {{ session('error') }}
+          </div>
+      @endif
           <div class="formbold-form-wrapper">
             <form action="{{ route('fillieres.store') }}" method="POST">
                 @csrf
@@ -85,12 +105,12 @@
                     />
                   </div>
                   <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label">Nombre Semestre </label>
+                    <label for="numero" class="formbold-form-label">Semestre Actuelle</label>
                     <input required
                       type="number"
                       name="Semestre"
                       id="Semestre"
-                      placeholder="Semestre"
+                      placeholder="Semestre Actuelle"
                       class="formbold-form-input"
                     />
                   </div>
@@ -98,7 +118,7 @@
                     <label for="numero" class="formbold-form-label">Nombre Groupe </label>
                     <input required
                       type="number"
-                      name="Groupe"
+                      name="NombreGroupe"
                       id="Groupe"
                       placeholder="Nombre Groupe"
                       class="formbold-form-input"

@@ -12,6 +12,7 @@ class Filliere extends Model
         'NomDepartement',
         'Cordinateur',
         'Semestre',
+        'NombreGroupe',
         'EmploiTempsDispo',// Ajoutez les autres champs fillables ici si nécessaire
     ];
     use HasFactory;

@@ -70,10 +70,11 @@ Route::post('dashboard/EmploiTemps-Rech',[EmploiTempsController::class,'Resultat
 
 
 Route::resource('fillieres', FilliereController::class);
+Route::resource('etudiants', EtudiantController::class);
 Route::resource('Emploitemps',EmploiTempsController::class);
 Route::resource('EmploiStock',EmploiStockController::class);
 Route::post('/emploi-stock', [EmploiStockController::class, 'store'])->name('EmploiStock.store');
-Route::get('/emploitemps/edit/{NomFilliere}/{Groupe}', [EmploiStockController::class, 'show'])->name('EmploiStock.show');
+Route::get('/emploitemps/edit/{NomFilliere}/{Groupe}/{Semestre}', [EmploiStockController::class, 'show'])->name('EmploiStock.show');
 
 
 
@@ -83,3 +84,12 @@ Route::get('/emploitemps/edit/{NomFilliere}/{Groupe}', [EmploiStockController::c
 Route::resource('/dashboard/salles', SalleController::class);
 
 Route::resource('/dashboard/modules',ModuleController::class);
+
+Route::get('/get-semesters/{filliere}', [EmploiTempsController::class, 'getSemesters']);
+Route::get('/get-groups/{filliere}/{semestre}', [EmploiTempsController::class, 'getGroups']);
+Route::get('/get-filieres/{departement}', [EmploiTempsController::class, 'getFillieres']);
+
+
+
+
+
