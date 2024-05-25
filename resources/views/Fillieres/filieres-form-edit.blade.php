@@ -22,6 +22,22 @@
 
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
+  <style>
+    .alert-success {
+    color: #ff0000;
+    background-color: #ffffff;
+    border-color: #000000;
+}
+#myInput, #myCountryInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+  </style>
 </head>
 <body>
   <div class="container-scroller">
@@ -51,6 +67,11 @@
               <span>Tableau de board / </span><a href=""> Enseignants de l'ENS</a>
             </div>
           </div>
+          @if (session('error'))
+          <div id="success-message" class="alert alert-success">
+              {{ session('error') }}
+          </div>
+      @endif
           <div class="formbold-form-wrapper">
             <form action="{{ route('fillieres.update',$filliere->id) }}" method="POST">
                 @csrf
@@ -88,7 +109,7 @@
                     />
                   </div>
                   <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label">Nombre Semestre </label>
+                    <label for="numero" class="formbold-form-label">Semestre Actuelle</label>
                     <input required
                       type="number"
                       name="Semestre"
@@ -102,14 +123,14 @@
                     <label for="numero" class="formbold-form-label">Nombre Groupe </label>
                     <input required
                       type="number"
-                      name="Groupe"
-                      id="Groupe"
+                      name="NombreGroupe"
+                      id="NombreGroupe"
                       placeholder="Nombre Groupe"
                       class="formbold-form-input"
                       value="{{ $filliere->NombreGroupe }}"
                     />
                   </div>
-              <button type="submit" class="formbold-btn">Ajouter une Filliere</button>
+              <button type="submit" class="formbold-btn">Modifier une Filliere</button>
             </form>
           </div>
         </section>

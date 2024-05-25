@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Gestion Emploi Temps | Admin</title>
+  <title>Gestion Etudiant | Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -50,15 +50,21 @@
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
               </svg>
               <span class="title-section">
-                Emploi de temps
+                Etudiants
               </span>
             </div>
             <div class="right-section">
               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
                 <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
               </svg>
-              <span>Tableau de board / </span><a href=""> Saisir les emplois de temps</a>
+              <span>Tableau de board / </span><a href=""> Saisir les Liste Etudiant</a>
             </div>
+          </div>
+          <div class="add-operation mt-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
+              </svg>
+            <a href="" style="color:black"> Importer Liste Etudiant   </a>
           </div>
 
           @if (session('success'))
@@ -66,7 +72,7 @@
                     {{ session('success') }}
                 </div>
             @endif
-          <form action="{{ route('ResultatRecherche') }}" method="POST" >
+          <form action="" method="POST" >
             @csrf
                 <div>
                     <div style="margin-top: 3%" class="formbold-input-flex">
@@ -88,16 +94,10 @@
                             Semestre
                           </label>
 
-                          <select class="formbold-form-select" name="Semestre" id="semestre" onchange="getGroups()">
+                          <select class="formbold-form-select" name="Semestre" id="semestre" >
                             <option value="">Sélectionner un semestre</option>
                           </select>
                     </div>
-                    <div>
-                        <label class="formbold-form-label">Groupe</label>
-                        <select class="formbold-form-select" name="Groupe" id="groupe">
-                          <option value="">Sélectionner un groupe</option>
-                        </select>
-                      </div>
                     <button type="submit" class="button-1" role="button">Recherche
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50"
                 style="fill:#FFFFFF;">
@@ -168,29 +168,7 @@
           });
       }
     }
-
-    function getGroups() {
-      var filliere = document.getElementById('filliere').value;
-      var semestre = document.getElementById('semestre').value;
-      if (filliere && semestre) {
-        fetch(`/get-groups/${filliere}/${semestre}`)
-          .then(response => response.json())
-          .then(data => {
-            var groupeSelect = document.getElementById('groupe');
-            groupeSelect.innerHTML = '<option value="">Sélectionner un groupe</option>';
-            data.forEach(groupe => {
-              var option = document.createElement('option');
-              option.value = groupe;
-              option.text = 'Groupe ' + groupe;;
-              groupeSelect.appendChild(option);
-            });
-          })
-          .catch(error => console.error('Error fetching groups:', error));
-      }
-    }
-
 </script>
-
   <!-- End custom js for this page-->
 </body>
 

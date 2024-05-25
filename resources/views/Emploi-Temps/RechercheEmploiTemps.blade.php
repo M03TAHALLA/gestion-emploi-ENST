@@ -1,3 +1,6 @@
+<?php
+use Carbon\Carbon;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +53,14 @@
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
               </svg>
               <span class="title-section">
-                Emploi de temps
+                Emploi de temps :
+                @if (is_null($resultat) || session('resultat'))
+                @else
+                    <span style="font-weight: bold;color:#e80e0e">{{ $resultat->NomFilliere }}</span>
+                    <span style="margin-left: 20px">Semestre : <span style="font-weight: bold;color:#e80e0e">{{ $resultat->Semestre }}</span></span>
+                <span style="margin-left: 20px">Groupe : <span style="font-weight: bold;color:#e80e0e">{{ $resultat->Groupe }}</span></span>
+                @endif
+
               </span>
             </div>
             <div class="right-section">
@@ -70,9 +80,10 @@
                         Filliere Name
                       </label>
 
-                      <select class="formbold-form-select" name="Filliere" id="occupation">
-                        @foreach ($Fillieres as $Fillieres)
-                        <option value="{{ $Fillieres->NomFilliere }}" {{ isset($resultat) && $resultat->NomFilliere == $Fillieres->NomFilliere ? 'selected' : '' }}>
+                      <select class="formbold-form-select" name="Filliere" id="filliere" onchange="getSemesters()">
+                        <option value="">Sélectionner une fillière</option>
+                        @foreach ( $Fillieres as $Fillieres )
+                        <option value="{{ $Fillieres->NomFilliere }}">{{ $Fillieres->NomFilliere }}</option>
                             {{ $Fillieres->NomFilliere }}
                         </option>
                         @endforeach
@@ -81,14 +92,21 @@
                     </div>
                     <div>
                         <label class="formbold-form-label">
+                            Semestre
+                          </label>
+
+                          <select class="formbold-form-select" name="Semestre" id="semestre" onchange="getGroups()">
+                            <option value="">Sélectionner un semestre</option>
+                        </select>
+
+                    </div>
+                    <div>
+                        <label class="formbold-form-label">
                             Groupe Name
                           </label>
 
-                          <select class="formbold-form-select" name="Groupe" id="occupation">
-                            <option value="1" {{ isset($resultat) && $resultat->Groupe == '1' ? 'selected' : '' }}>Groupe 1</option>
-                            <option value="2" {{ isset($resultat) && $resultat->Groupe == '2' ? 'selected' : '' }}>Groupe 2</option>
-                            <option value="3" {{ isset($resultat) && $resultat->Groupe == '3' ? 'selected' : '' }}>Groupe 3</option>
-                            <option value="4" {{ isset($resultat) && $resultat->Groupe == '4' ? 'selected' : '' }}>Groupe 4</option>
+                          <select class="formbold-form-select" name="Groupe" id="groupe">
+                            <option value="">Sélectionner un groupe</option>
                         </select>
 
                     </div>
@@ -112,7 +130,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"></path>
                 </svg>
-                <a href="{{ route('EmploiStock.show', ['NomFilliere' => $resultat->NomFilliere, 'Groupe' => $resultat->Groupe])}}" style="color:black">Ajouter dans emploi de temps </a>
+                <a href="{{ route('EmploiStock.show', ['NomFilliere' => $resultat->NomFilliere, 'Groupe' => $resultat->Groupe , 'Semestre'=>$resultat->Semestre])}}" style="color:black">Ajouter dans emploi de temps </a>
               </div>
               <div class="export-operation">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
@@ -135,36 +153,46 @@
                 <div>
                     <div style="margin-top: 3%" class="formbold-input-flex">
                         <div>
-                      <label class="formbold-form-label">
-                        Filliere Name
-                      </label>
+                            <label class="formbold-form-label">
+                                Filliere Name
+                              </label>
 
-                      <select class="formbold-form-select" name="Filliere" id="occupation">
-                        @foreach ($Fillieres as $Fillieres)
-                        <option value="{{ $Fillieres->NomFilliere }}" {{ isset($resultat) && $resultat->NomFilliere == $Fillieres->NomFilliere ? 'selected' : '' }}>
-                            {{ $Fillieres->NomFilliere }}
-                        </option>
-                        @endforeach
-                    </select>
-                    </div>
-                    <div>
-                        <label class="formbold-form-label">
-                            Groupe Name
-                          </label>
+                              <select class="formbold-form-select" name="Filliere" id="filliere" onchange="getSemesters()">
+                                <option value="">Sélectionner une fillière</option>
+                                @foreach ( $Fillieres as $Fillieres )
+                                <option value="{{ $Fillieres->NomFilliere }}">{{ $Fillieres->NomFilliere }}</option>
+                                {{ $Fillieres->NomFilliere }}
+                                </option>
+                                @endforeach
 
-                          <select class="formbold-form-select" name="Groupe" id="occupation">
-                            <option value="1" {{ isset($resultat) && $resultat->Groupe == '1' ? 'selected' : '' }}>Groupe 1</option>
-                            <option value="2" {{ isset($resultat) && $resultat->Groupe == '2' ? 'selected' : '' }}>Groupe 2</option>
-                            <option value="3" {{ isset($resultat) && $resultat->Groupe == '3' ? 'selected' : '' }}>Groupe 3</option>
-                            <option value="4" {{ isset($resultat) && $resultat->Groupe == '4' ? 'selected' : '' }}>Groupe 4</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="button-1" role="button">Recherche
-                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50"
-                style="fill:#FFFFFF;">
-                <path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path>
-                </svg>
-                    </button>
+                            </select>
+                            </div>
+                            <div>
+                                <label class="formbold-form-label">
+                                    Semestre
+                                  </label>
+
+                                  <select class="formbold-form-select" name="Semestre" id="semestre" onchange="getGroups()">
+                                    <option value="">Sélectionner un semestre</option>
+                                </select>
+
+                            </div>
+                            <div>
+                                <label class="formbold-form-label">
+                                    Groupe Name
+                                  </label>
+
+                                  <select class="formbold-form-select" name="Groupe" id="groupe">
+                                    <option value="">Sélectionner un groupe</option>
+                                </select>
+
+                            </div>
+                            <button type="submit" class="button-1" role="button">Recherche
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50"
+                        style="fill:#FFFFFF;">
+                        <path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path>
+                        </svg>
+                            </button>
                     </div>
                 </form>
 
@@ -176,30 +204,56 @@
 
           <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div style="max-width: 100%;" class="col-md-12">
                     <div class="schedule-table">
                         <table class="table bg-white">
                             <thead>
                                 <tr>
                                     <th><sup> Groupe {{ $resultat->Groupe }}</sup></th>
-                                    <th>08h - 10h</th>
-                                    <th>10h - 12h</th>
-                                    <th>14h - 16h</th>
-                                    <th>16h - 18h</th>
-                                </tr>
+                                @php
+                                    $time = Carbon::createFromFormat('H:i:s', $resultat->CraunauxDebut);
+                                @endphp
+                                @for ( $i = 0 ; $i < 2 ; $i++)
+                                    <th>
+
+                                        {{ substr($time,11,5)  }} -
+                                        @php
+                                        $time = $time->addHours(2);
+                                        @endphp
+                                        {{  substr($time,11,5)  }}
+                                    </th>
+                                        @php
+                                        $time = $time->addMinutes(15);
+                                        @endphp
+                                @endfor
+                                        @php
+                                        $time = $time->addMinutes(15);
+                                        @endphp
+                                @for ( $i = 0 ; $i < 2 ; $i++)
+                                    <th>
+
+                                        {{ substr($time,11,5)  }} -
+                                        @php
+                                        $time = $time->addHours(2);
+                                        @endphp
+                                        {{  substr($time,11,5)  }}
+                                        @php
+                                        $time = $time->addMinutes(15);
+                                        @endphp
+                                    </th>
+                                @endfor
                             </thead>
                             <tbody>
 
 
                 <tr>
                     <td class="day">Lundi</td>
-
                 <td class="active">
                     @foreach ($resultatRech as $resultat)
                         @if ($resultat->Jour == "Lundi")
                                 @if (substr($resultat->HeurDebut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
 
-                                    <h4>{{ $resultat->NomModule }}</h4>
+                                    <h4>{{ $resultat->NomModule }} {{ substr($resultat->HeurDebut,0,2) }} </h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
                                     <div class="hover">
                                     <h4>{{ $resultat->NomModule }}</h4>
@@ -218,8 +272,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -234,8 +286,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -272,8 +322,6 @@
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
                                     <div class="hover">
-                                    <h4>{{ $resultat->NomModule }}</h4>
-                                    <p>Salle {{ $resultat->NumSalle }}</p>
                                     <p>{{ $resultat->TypeSalle }}</p>
                                     <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                     </div>
@@ -288,8 +336,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -304,8 +350,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -320,8 +364,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -341,8 +383,6 @@
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
                                     <div class="hover">
-                                    <h4>{{ $resultat->NomModule }}</h4>
-                                    <p>Salle {{ $resultat->NumSalle }}</p>
                                     <p>{{ $resultat->TypeSalle }}</p>
                                     <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                     </div>
@@ -357,8 +397,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -373,8 +411,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -389,8 +425,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -410,8 +444,6 @@
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
                                     <div class="hover">
-                                    <h4>{{ $resultat->NomModule }}</h4>
-                                    <p>Salle {{ $resultat->NumSalle }}</p>
                                     <p>{{ $resultat->TypeSalle }}</p>
                                     <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                     </div>
@@ -426,8 +458,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -442,8 +472,7 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
+
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -458,8 +487,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -479,8 +506,6 @@
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
                                     <div class="hover">
-                                    <h4>{{ $resultat->NomModule }}</h4>
-                                    <p>Salle {{ $resultat->NumSalle }}</p>
                                     <p>{{ $resultat->TypeSalle }}</p>
                                     <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                     </div>
@@ -495,8 +520,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -511,8 +534,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -527,8 +548,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -548,8 +567,6 @@
                                     <h4>{{ $resultat->NomModule }}</h4>
                                     <p>Salle {{ $resultat->NumSalle }}</p>
                                     <div class="hover">
-                                    <h4>{{ $resultat->NomModule }}</h4>
-                                    <p>Salle {{ $resultat->NumSalle }}</p>
                                     <p>{{ $resultat->TypeSalle }}</p>
                                     <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                     </div>
@@ -564,8 +581,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -580,8 +595,7 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
+
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -596,8 +610,6 @@
                                 <h4>{{ $resultat->NomModule }}</h4>
                                 <p>Salle {{ $resultat->NumSalle }}</p>
                                 <div class="hover">
-                                <h4>{{ $resultat->NomModule }}</h4>
-                                <p>Salle {{ $resultat->NumSalle }}</p>
                                 <p>{{ $resultat->TypeSalle }}</p>
                                 <span>Mr . {{ $resultat->NomEnseignant }}</span><span> {{ $resultat->PrenomEnseignant }}</span>
                                 </div>
@@ -638,6 +650,51 @@
   <script src="/js/template.js"></script>
   <script src="/js/settings.js"></script>
   <script src="/js/todolist.js"></script>
+  <script>
+     function getSemesters() {
+      const filliere = document.getElementById('filliere').value;
+      const semestreSelect = document.getElementById('semestre');
+
+      // Clear current options
+      semestreSelect.innerHTML = '<option value="">Sélectionner un semestre</option>';
+
+      if (filliere) {
+        fetch(`/get-semesters/${filliere}`)
+          .then(response => response.json())
+          .then(data => {
+            data.forEach(semestre => {
+              const option = document.createElement('option');
+              option.value = semestre;
+              option.textContent = `Semestre ${semestre}`;
+              semestreSelect.appendChild(option);
+            });
+          })
+          .catch(error => {
+            console.error('Error fetching semesters:', error);
+          });
+      }
+    }
+
+    function getGroups() {
+      var filliere = document.getElementById('filliere').value;
+      var semestre = document.getElementById('semestre').value;
+      if (filliere && semestre) {
+        fetch(`/get-groups/${filliere}/${semestre}`)
+          .then(response => response.json())
+          .then(data => {
+            var groupeSelect = document.getElementById('groupe');
+            groupeSelect.innerHTML = '<option value="">Sélectionner un groupe</option>';
+            data.forEach(groupe => {
+              var option = document.createElement('option');
+              option.value = groupe;
+              option.text = 'Groupe ' + groupe;
+              groupeSelect.appendChild(option);
+            });
+          })
+          .catch(error => console.error('Error fetching groups:', error));
+      }
+    }
+  </script>
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="/js/dashboard.js"></script>

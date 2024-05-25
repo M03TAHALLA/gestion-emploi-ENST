@@ -15,7 +15,7 @@ class EmploiTempsController extends Controller
      */
     public function index()
     {
-        $fillieres = Filliere::all();
+        $fillieres = Filliere::distinct()->get(['NomFilliere']);
         $Departement = Departement::all();
         return view('Emploi-Temps.EmploiTemps',[
             'Fillieres'=>$fillieres,
@@ -23,9 +23,35 @@ class EmploiTempsController extends Controller
         ]);
     }
 
+    public function getSemesters($filliere)
+    {
+        $semesters = Filliere::where('NomFilliere', $filliere)->pluck('Semestre')->unique()->sort()->values();;
+        return response()->json($semesters);
+    }
+    public function getFillieres($departement)
+    {
+        $fillieres = Filliere::where('NomDepartement', $departement)->distinct()->pluck('NomFilliere');
+        return response()->json($fillieres);
+    }
+
+    public function getGroups($filliere, $semestre)
+{
+    $filliereData = Filliere::where('NomFilliere', $filliere)
+                                ->where('Semestre',$semestre)
+                                ->first();
+    $groupCount = $filliereData ? $filliereData->NombreGroupe : 0;
+
+    $groups = [];
+    for ($i = 1; $i <= $groupCount; $i++) {
+        $groups[] = $i;
+    }
+
+    return response()->json($groups);
+}
+
 
     public function Recherche(){
-        $fillieres = Filliere::all();
+        $fillieres = Filliere::distinct()->get(['NomFilliere']);
         $Departement = Departement::all();
         return view('Emploi-Temps.EmploiTemps',[
             'Fillieres'=>$fillieres,
@@ -39,21 +65,21 @@ class EmploiTempsController extends Controller
      */
     public function create()
     {
-        $fillieres = Filliere::all();
+        $fillieres = Filliere::distinct()->get(['NomFilliere']);
         $Departement = Departement::all();
         return view('Emploi-Temps.AjouterEmploiTemps',[
             'Fillieres'=>$fillieres,
             'Departement'=>$Departement
         ]);
     }
-
-    public function store(Request $request)
+public function store(Request $request)
 {
     // Validation des données
     $validatedData = $request->validate([
         'Departement' => 'required|string|max:255',
         'Filliere' => 'required|string|max:255',
-        'Groupe' => 'required|string|max:255',
+        'Groupe' => 'required|integer',
+        'Semestre' => 'required|integer',
         'CraunauxDebut' => 'required|date_format:H:i',
         'CraunauxFin' => 'required|date_format:H:i',
     ]);
@@ -63,39 +89,26 @@ class EmploiTempsController extends Controller
 
     // Vérifier si le NomFilliere donné est dans la liste des fillieres récupérées
     if ($fillieres->contains($validatedData['Filliere'])) {
-        // Récupérer le nombre maximal de groupes pour la filière spécifiée
-        $nombreMaxGroupe = Filliere::where('NomFilliere', $validatedData['Filliere'])->value('NombreGroupe');
-
-        // Vérifier si le groupe spécifié dépasse ou est égal au nombre maximal de groupes
-        if ($validatedData['Groupe'] > $nombreMaxGroupe) {
-            return redirect()->back()->withErrors(['Groupe' => 'Le groupe spécifié dépasse le nombre maximal de groupes pour cette filière.']);
-        }
 
         // Vérifier si la combinaison Groupe et Filliere existe déjà dans la table Emploitemps
         $existingEmploitemps = Emploitemps::where('NomFilliere', $validatedData['Filliere'])
-                                           ->where('Groupe', $validatedData['Groupe'])
+                                           ->where('Semestre', $validatedData['Semestre'])
+                                           ->where('Groupe',$validatedData['Groupe'])
                                            ->exists();
 
         if ($existingEmploitemps) {
             // Retourner un message d'erreur si la combinaison Groupe et Filliere existe déjà
-            return redirect()->back()->withErrors(['Groupe' => 'La combinaison de groupe et de filière existe déjà dans l\'emploi du temps.']);
+            return redirect()->back()->withErrors(['Groupe' => 'Cette Filliere Et Semestre et Groupe Est Deja Affecter le Une Emploi Temps']);
         } else {
             // Création d'un nouvel enregistrement dans la base de données
             Emploitemps::create([
                 'NomDepartement' => $validatedData['Departement'],
                 'NomFilliere' => $validatedData['Filliere'],
                 'Groupe' => $validatedData['Groupe'],
+                'Semestre'=>$validatedData['Semestre'],
                 'CraunauxDebut' => $validatedData['CraunauxDebut'],
                 'CraunauxFin' => $validatedData['CraunauxFin'],
             ]);
-
-            $nombreLignes = Emploitemps::where('NomFilliere', $validatedData['Filliere'])->count();
-            $nombreMaxGroupe = Filliere::where('NomFilliere', $validatedData['Filliere'])->value('NombreGroupe');
-
-                if ($nombreLignes == $nombreMaxGroupe) {
-                    // Editer la valeur de EmploiTempsDispo dans la table Filliere
-                    Filliere::where('NomFilliere', $validatedData['Filliere'])->update(['EmploiTempsDispo' => 1]);
-                }
 
 
             // Rediriger ou retourner une réponse appropriée
@@ -115,19 +128,22 @@ class EmploiTempsController extends Controller
         {
             $validatedData = $request->validate([
                 'Filliere' => 'required|string|max:255',
-                'Groupe' => 'required|string|max:255',
+                'Groupe' => 'required|integer',
+                'Semestre'=> 'required|integer',
             ]);
 
             $resultat = Emploitemps::where('NomFilliere', $validatedData['Filliere'])
                                    ->where('Groupe', $validatedData['Groupe'])
+                                   ->where('Semestre',$validatedData['Semestre'])
                                    ->first();
 
             $resultatRech = emploitempsstock::where('NomFilliere', $validatedData['Filliere'])
                             ->where('NomGroupe', $validatedData['Groupe'])
+                            ->where('Semestre', $validatedData['Semestre'])
                             ->get();
 
 
-            $fillieres = Filliere::all();
+            $fillieres = Filliere::distinct()->get(['NomFilliere']);
             $Departement = Departement::all();
 
 

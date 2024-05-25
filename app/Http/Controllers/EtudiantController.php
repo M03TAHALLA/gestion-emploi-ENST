@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Etudiant;
+use App\Models\Filliere;
+use Faker\Core\File;
 use Illuminate\Http\Request;
 
 class EtudiantController extends Controller
@@ -12,7 +14,10 @@ class EtudiantController extends Controller
      */
     public function index()
     {
-        //
+        $fillieres = Filliere::distinct()->get(['NomFilliere']);
+        return view('Etudiant.RecherchEtudiant',[
+            'Fillieres'=>$fillieres
+        ]);
     }
 
     /**

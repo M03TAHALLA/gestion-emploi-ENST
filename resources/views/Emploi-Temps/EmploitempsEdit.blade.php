@@ -64,12 +64,22 @@
                 @csrf
                 <input type="hidden" name="NomFilliere" value="{{ $EmploiTemps->NomFilliere }}">
                 <input type="hidden" name="NomGroupe" value="{{ $EmploiTemps->Groupe }}">
+                <input type="hidden" name="Semestre" value="{{ $EmploiTemps->Semestre }}">
                 <div class="formbold-input-flex">
                     <div style="margin-top: 2%" class="formbold-input-group">
                         <label for="">Filliere</label>
                         <input
                             type="text"
                             value="{{ $EmploiTemps->NomFilliere }}"
+                            class="formbold-form-input"
+                            disabled
+                        />
+                    </div>
+                    <div style="margin-top: 2%" class="formbold-input-group">
+                        <label for="">Semestre</label>
+                        <input
+                            type="text"
+                            value="{{ $EmploiTemps->Semestre }}"
                             class="formbold-form-input"
                             disabled
                         />

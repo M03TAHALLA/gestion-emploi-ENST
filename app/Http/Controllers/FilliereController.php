@@ -5,41 +5,46 @@ namespace App\Http\Controllers;
 use App\Models\Filliere;
 use App\Models\Departement;
 use Illuminate\Http\Request;
+use App\Models\EmploiTemps;
+use App\Models\EmploiTempsStock;
+use Illuminate\Support\Facades\DB;
 
 class FilliereController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Affiche la liste des filières
     public function index()
     {
         $fillieres = Filliere::all();
-        $Departement = Departement::all();
+    $departements = Departement::all();
 
+    $dispoEmploi = [];
 
-        return view('Fillieres.filieres',[
-            'fillieres'=>$fillieres,
-            'Departement'=>$Departement
+    foreach($fillieres as $filliere){
+        $nombreLignes = EmploiTemps::where('NomFilliere', $filliere->NomFilliere)
+                                    ->where('Semestre', $filliere->Semestre)
+                                    ->count();
 
+        $disponible = $filliere->NombreGroupe == $nombreLignes ? 1 : 0;
+
+        $dispoEmploi[] = $disponible;
+    }
+        return view('Fillieres.filieres', [
+            'fillieres' => $fillieres,
+            'Departement' => $departements,
+            'dispoEmploi'=>$dispoEmploi
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Affiche le formulaire de création de filière
     public function create()
     {
-        $Departement = Departement::all();
-        return view('Fillieres.filieres-form',[
-            'Departement'=>$Departement
-
+        $departements = Departement::all();
+        return view('Fillieres.filieres-form', [
+            'Departement' => $departements
         ]);
-
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Enregistre une nouvelle filière
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -47,39 +52,37 @@ class FilliereController extends Controller
             'NomDepartement' => 'required|string|max:255',
             'Cordinateur' => 'required|string|max:255',
             'Semestre' => 'required|integer',
-            'Groupe' => 'required|integer',
+            'NombreGroupe' => 'required|integer',
         ]);
 
-        $filliere = new Filliere();
-        $filliere->NomFilliere = $validatedData['NomFilliere'];
-        $filliere->NomDepartement = $validatedData['NomDepartement'];
-        $filliere->Cordinateur = $validatedData['Cordinateur'];
-        $filliere->Semestre = $validatedData['Semestre'];
-        $filliere->NombreGroupe = $validatedData['Groupe'];
-        $filliere->save();
+        $existingFilliere = Filliere::where('NomFilliere', $validatedData['NomFilliere'])
+                                     ->where('Semestre', $validatedData['Semestre'])
+                                     ->first();
 
-        return redirect()->route('fillieres.index')->with('success', 'Filliere créée avec succès');
+        if ($existingFilliere) {
+            return redirect()->back()->with('error', 'Cette filière existe déjà.');
+        }
+
+        Filliere::create($validatedData);
+
+        return redirect()->route('fillieres.index')->with('success', 'Filière créée avec succès');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Filliere $filliere)
+    // Affiche une filière spécifique
+    public function show($id)
     {
-        //
+        $filliere = Filliere::findOrFail($id);
+        return view('Fillieres.show', compact('filliere'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Affiche le formulaire de modification de filière
     public function edit(Filliere $filliere)
     {
-        return view('Fillieres.filieres-form-edit', compact('filliere'));
+        $departements = Departement::all();
+        return view('Fillieres.filieres-form-edit', compact('filliere', 'departements'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Met à jour une filière existante
     public function update(Request $request, Filliere $filliere)
     {
         $validatedData = $request->validate([
@@ -87,21 +90,72 @@ class FilliereController extends Controller
             'NomDepartement' => 'required|string|max:255',
             'Cordinateur' => 'required|string|max:255',
             'Semestre' => 'required|integer',
-            'Groupe' => 'required|integer',
+            'NombreGroupe' => 'required|integer',
         ]);
 
-        $filliere->update($validatedData);
+        $oldFilliere = clone $filliere;
 
-        return redirect()->route('fillieres.index')->with('success', 'Filliere mise à jour avec succès');
+        DB::transaction(function () use ($validatedData, $filliere, $oldFilliere) {
+            $existingFilliere = Filliere::where('NomFilliere', $validatedData['NomFilliere'])
+                ->where('Semestre', $validatedData['Semestre'])
+                ->where('NomDepartement', $validatedData['NomDepartement'])
+                ->where('NombreGroupe', $validatedData['NombreGroupe'])
+                ->first();
+
+            if ($existingFilliere && $existingFilliere->id != $filliere->id) {
+                throw new \Exception('Cette filière existe déjà.');
+            }
+
+            $filliere->update($validatedData);
+
+            $this->updateEmploiTemps($oldFilliere, $filliere);
+            $this->updateEmploiTempsStock($oldFilliere, $filliere);
+        });
+
+        return redirect()->route('fillieres.index')->with('success', 'Filière mise à jour avec succès');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Supprime une filière
     public function destroy(Filliere $filliere)
-    {
-         $filliere->delete();
+{
+    DB::transaction(function () use ($filliere) {
+        // Supprimer les enregistrements correspondants dans EmploiTemps
+        EmploiTemps::where('NomFilliere', $filliere->NomFilliere)
+            ->where('Semestre', $filliere->Semestre)
+            ->delete();
 
-         return redirect()->route('fillieres.index')->with('success', 'La filière a été supprimée avec succès.');
+        // Supprimer les enregistrements correspondants dans EmploiTempsStock
+        EmploiTempsStock::where('NomFilliere', $filliere->NomFilliere)
+            ->where('Semestre', $filliere->Semestre)
+            ->delete();
+
+        // Supprimer la filière
+        $filliere->delete();
+    });
+
+    return redirect()->route('fillieres.index')->with('success', 'La filière a été supprimée avec succès.');
+}
+
+    // Met à jour les enregistrements dans EmploiTemps
+    private function updateEmploiTemps(Filliere $oldFilliere, Filliere $newFilliere)
+    {
+        EmploiTemps::where('NomFilliere', $oldFilliere->NomFilliere)
+                   ->where('Semestre', $oldFilliere->Semestre)
+                   ->update([
+                       'NomFilliere' => $newFilliere->NomFilliere,
+                       'NomDepartement' => $newFilliere->NomDepartement,
+                       'Semestre'=>$newFilliere->Semestre
+                   ]);
+    }
+
+    // Met à jour les enregistrements dans EmploiTempsStock
+    private function updateEmploiTempsStock(Filliere $oldFilliere, Filliere $newFilliere)
+    {
+        EmploiTempsStock::where('NomFilliere', $oldFilliere->NomFilliere)
+                        ->where('Semestre', $oldFilliere->Semestre)
+                        ->update([
+                            'NomFilliere' => $newFilliere->NomFilliere,
+                            'Semestre'=>$newFilliere->Semestre
+                        ]);
     }
 }

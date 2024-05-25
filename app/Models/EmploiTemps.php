@@ -12,6 +12,7 @@ class EmploiTemps extends Model
         'NomDepartement',
         'NomFilliere',
         'Groupe',
+        'Semestre',
         'CraunauxDebut',
         'CraunauxFin',
     ];
