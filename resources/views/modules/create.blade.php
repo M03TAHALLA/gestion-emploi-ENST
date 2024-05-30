@@ -575,8 +575,6 @@ td{
             </div>
             <button type="submit" class="btn create-salle-button">Créer un nouveau module</button>
         </form>
-
-
         </section>
       </div>
       <!-- main-panel ends -->
