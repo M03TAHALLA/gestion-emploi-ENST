@@ -9,6 +9,7 @@ class emploitempsstock extends Model
 {
     protected $fillable = [
         'NomFilliere',
+        'Semestre',
         'NomGroupe',
         'NomModule',
         'Jour',

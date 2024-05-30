@@ -112,7 +112,9 @@
                     <label class="formbold-form-label">
                       Nom Departement
                     </label>
-                    <select class="formbold-form-select" name="Departement" id="occupation">
+
+                    <select class="formbold-form-select" name="Departement" id="departement" onchange="getFilieres()">
+                        <option value="">Sélectionner une Departement</option>
                         @foreach ($Departement as $Departement)
                       <option value="{{ $Departement->NomDepartement }}">{{ $Departement->NomDepartement }}</option>
                       @endforeach
@@ -123,7 +125,8 @@
                Nom Filliere
               </label>
 
-              <select  class="formbold-form-select" name="Filliere" id="occupation">
+              <select  class="formbold-form-select" name="Filliere" id="filliere" onchange="getSemesters()">
+                <option value="">Sélectionner une fillière</option>
                 @foreach ($Fillieres as $Fillieres)
                 <option value="{{ $Fillieres->NomFilliere }}" {{ isset($resultat) && $resultat->NomFilliere == $Fillieres->NomFilliere ? 'selected' : '' }}>
                     {{ $Fillieres->NomFilliere }}
@@ -133,14 +136,20 @@
             </div>
             <div>
                 <label class="formbold-form-label">
+                     Semestre
+                  </label>
+
+                  <select class="formbold-form-select" name="Semestre" id="semestre" onchange="getGroups()">
+                    <option value="">Sélectionner un semestre</option>
+                  </select>
+            </div>
+            <div>
+                <label class="formbold-form-label">
                     Groupe Name
                   </label>
 
-                  <select class="formbold-form-select" name="Groupe" id="occupation">
-                    <option value="1">Groupe 1</option>
-                    <option value="2">Groupe 2</option>
-                    <option value="3">Groupe 3</option>
-                    <option value="4">Groupe 4</option>
+                  <select class="formbold-form-select" name="Groupe" id="groupe">
+                    <option value="">Sélectionner un groupe</option>
                   </select>
             </div>
 
@@ -211,6 +220,74 @@
             }, 2000);
         }
     }, 3000);
+
+
+    function getSemesters() {
+      const filliere = document.getElementById('filliere').value;
+      const semestreSelect = document.getElementById('semestre');
+
+      // Clear current options
+      semestreSelect.innerHTML = '<option value="">Sélectionner un semestre</option>';
+
+      if (filliere) {
+        fetch(`/get-semesters/${filliere}`)
+          .then(response => response.json())
+          .then(data => {
+            data.forEach(semestre => {
+              const option = document.createElement('option');
+              option.value = semestre;
+              option.textContent = `Semestre ${semestre}`;
+              semestreSelect.appendChild(option);
+            });
+          })
+          .catch(error => {
+            console.error('Error fetching semesters:', error);
+          });
+      }
+    }
+
+    function getGroups() {
+      var filliere = document.getElementById('filliere').value;
+      var semestre = document.getElementById('semestre').value;
+      if (filliere && semestre) {
+        fetch(`/get-groups/${filliere}/${semestre}`)
+          .then(response => response.json())
+          .then(data => {
+            var groupeSelect = document.getElementById('groupe');
+            groupeSelect.innerHTML = '<option value="">Sélectionner un groupe</option>';
+            data.forEach(groupe => {
+              var option = document.createElement('option');
+              option.value = groupe;
+              option.text = 'Groupe '+groupe;
+              groupeSelect.appendChild(option);
+            });
+          })
+          .catch(error => console.error('Error fetching groups:', error));
+      }
+    }
+    function getFilieres() {
+      const departement = document.getElementById('departement').value;
+      const filliereSelect = document.getElementById('filliere');
+
+      // Clear current options
+      filliereSelect.innerHTML = '<option value="">Sélectionner une fillière</option>';
+
+      if (departement) {
+        fetch(`/get-filieres/${departement}`)
+          .then(response => response.json())
+          .then(data => {
+            data.forEach(filliere => {
+              const option = document.createElement('option');
+              option.value = filliere;
+              option.textContent = filliere;
+              filliereSelect.appendChild(option);
+            });
+          })
+          .catch(error => {
+            console.error('Error fetching filieres:', error);
+          });
+      }
+    }
 </script>
   <!-- End custom js for this page-->
 </body>

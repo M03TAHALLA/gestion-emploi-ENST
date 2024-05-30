@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard | Filliere</title>
+  <title>Dashboard | Departement</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -230,129 +230,46 @@ td{
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
               </svg>
               <span class="title-section">
-                Gestion des filiéres
+                Gestion des Departement
               </span>
             </div>
             <div class="right-section">
               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
                 <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
               </svg>
-              <span>Tableau de board / </span><a href=""> Filiéres de l'ENS</a>
+              <span>Tableau de board / </span><a href=""> Departements de l'ENS</a>
             </div>
           </div>
           <div class="add-operation mt-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"></path>
             </svg>
-            <a href="{{ route('fillieres.create') }}" style="color:black">Ajouter une filiére</a>
+            <a href="{{ route('departements.create') }}" style="color:black">Ajouter une Departement</a>
           </div>
             @if (session('success'))
                 <div id="success-message" class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
-        <div class="formbold-input-flex">
-            <div style="margin-top: 2%" class="formbold-input-group">
-                <input
-                  type="text"
-                  oninput="filtrerTable()"
-                  name="name"
-                  id="filliereInput"
-                  placeholder="Rechercher Par Filliere"
-                  class="formbold-form-input"
-                />
-              </div>
-              <div style="margin-top: 2%" class="formbold-input-group">
-                <input
-                  type="text"
-                  name="name"
-                  id="departementInput"
-                  oninput="filtrerTable()"
-                  placeholder="Rechercher Par Departement"
-                  class="formbold-form-input"
-                />
-              </div>
-            </div>
-            <div class="formbold-input-flex">
-                <div style="margin-top: 1%" class="formbold-input-group">
-                    <input
-                      type="text"
-                      name="name"
-                      oninput="filtrerTable()"
-                      id="cordinateurInput"
-                      placeholder="Rechercher Par Cordinateur"
-                      class="formbold-form-input"
-                    />
-                  </div>
-                  <div style="margin-top: 1%" class="formbold-input-group">
-                    <input
-                      type="number"
-                      name="name"
-                      oninput="filterTable()"
-                      id="semestreInput"
-                      placeholder=" Rechercher Par  Semestre"
-                      class="formbold-form-input"
-                    />
-                  </div>
-                </div>
-                <p>Emploi Temps : </p>
-                <label class="mcui-checkbox">
-                    <input type="checkbox" id="nonDisponibleCheckbox" >
-                    <div>
-                      <svg class="mcui-check" viewBox="-2 -2 35 35" aria-hidden="true">
-                        <polyline points="7.57 15.87 12.62 21.07 23.43 9.93" />
-                      </svg>
-                    </div>
-                    <div>Disponible</div> <i class="fas fa-exclamation-triangle" style="color: red; font-size:20px"></i>
-                  </label>
-
-                  <label class="mcui-checkbox">
-                    <input type="checkbox" id="disponibleCheckbox">
-                    <div>
-                      <svg class="mcui-check" viewBox="-2 -2 35 35" aria-hidden="true">
-                        <polyline points="7.57 15.87 12.62 21.07 23.43 9.93" />
-                      </svg>
-                    </div>
-                    <div>Non Disponible</div> <i class="fas fa-check-circle" style="color: green; font-size:20px"></i>
-                  </label>
           <table id="myTable" class="table table-striped mt-5">
             <thead>
               <tr>
-                <th style="text-align: center" scope="col">Nom Filliere</th>
-                <th scope="col">Nom Departement</th>
-                <th scope="col">Cordinateur</th>
-                <th scope="col">Semestre Actuelle</th>
-                <th scope="col">Emploi Temps Disponible</th>
+                <th style="text-align: center" scope="col">Nom Departement</th>
+                <th style="text-align: center"  >Actions</th>
               </tr>
             </thead>
             <tbody>
-                @php
-                    $i = 0;
-                @endphp
-                @foreach ($fillieres as $filliere)
+                @foreach ($departement as $departement)
               <tr>
-                <td style="font-weight: bold">{{ $filliere->NomFilliere }}</td>
-                <td>{{ $filliere->NomDepartement }}</td>
-                <td>{{ $filliere->Cordinateur }}</td>
-                <td>{{ $filliere->Semestre }}</td>
-                <td>
-                    @if ($dispoEmploi[$i] == 0)
-                        <i class="fas fa-exclamation-triangle" style="color: red; font-size:20px"></i>
-                    @elseif ($dispoEmploi[$i] == 1)
-                        <i class="fas fa-check-circle" style="color: green; font-size:20px"></i>
-                    @endif
-                    @php
-                    $i = $i+1;
-                @endphp
-                </td>
+                <td>{{ $departement->NomDepartement }}</td>
                 <td class="td-crud-operations">
-                  <a href="{{ route('fillieres.edit', $filliere->id) }}" class="">
+                  <a href="{{ route('departements.edit', $departement->NomDepartement) }}" class="">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
                       <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                       <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                     </svg>
                   </a>
-                  <form action="{{ route('fillieres.destroy', $filliere->id) }}" method="POST" style="display: inline;">
+                  <form action="{{ route('departements.destroy', $departement->NomDepartement) }}" method="POST" style="display: inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-link" style="padding: 0; background-color: transparent; border: none;">

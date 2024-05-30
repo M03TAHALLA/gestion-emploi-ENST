@@ -230,7 +230,7 @@ td{
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
               </svg>
               <span class="title-section">
-                Gestion des filiéres
+                Gestion des Etudiants
               </span>
             </div>
             <div class="right-section">
@@ -244,7 +244,7 @@ td{
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"></path>
             </svg>
-            <a href="{{ route('fillieres.create') }}" style="color:black">Ajouter une filiére</a>
+            <a href="{{ route('') }}" style="color:black">Ajouter une Etudiant</a>
           </div>
             @if (session('success'))
                 <div id="success-message" class="alert alert-success">
@@ -303,7 +303,7 @@ td{
                         <polyline points="7.57 15.87 12.62 21.07 23.43 9.93" />
                       </svg>
                     </div>
-                    <div>Disponible</div> <i class="fas fa-exclamation-triangle" style="color: red; font-size:20px"></i>
+                    <div>Valider</div> <i class="fas fa-exclamation-triangle" style="color: red; font-size:20px"></i>
                   </label>
 
                   <label class="mcui-checkbox">
@@ -313,57 +313,41 @@ td{
                         <polyline points="7.57 15.87 12.62 21.07 23.43 9.93" />
                       </svg>
                     </div>
-                    <div>Non Disponible</div> <i class="fas fa-check-circle" style="color: green; font-size:20px"></i>
+                    <div>Non Valider</div> <i class="fas fa-check-circle" style="color: green; font-size:20px"></i>
                   </label>
           <table id="myTable" class="table table-striped mt-5">
             <thead>
               <tr>
-                <th style="text-align: center" scope="col">Nom Filliere</th>
-                <th scope="col">Nom Departement</th>
-                <th scope="col">Cordinateur</th>
-                <th scope="col">Semestre Actuelle</th>
-                <th scope="col">Emploi Temps Disponible</th>
+                <th style="text-align: center" scope="col">CIN</th>
+                <th style="text-align: center"  scope="col">Nom</th>
+                <th style="text-align: center"  scope="col">Prenom</th>
+                <th style="text-align: center"  scope="col">Filliere</th>
+                <th style="text-align: center"  scope="col">Semestre Actuelle</th>
+                <th style="text-align: center"  scope="col">Situation</th>
+                <th style="text-align: center"  scope="col">Action</th>
+
               </tr>
             </thead>
             <tbody>
-                @php
-                    $i = 0;
-                @endphp
-                @foreach ($fillieres as $filliere)
-              <tr>
-                <td style="font-weight: bold">{{ $filliere->NomFilliere }}</td>
-                <td>{{ $filliere->NomDepartement }}</td>
-                <td>{{ $filliere->Cordinateur }}</td>
-                <td>{{ $filliere->Semestre }}</td>
-                <td>
-                    @if ($dispoEmploi[$i] == 0)
-                        <i class="fas fa-exclamation-triangle" style="color: red; font-size:20px"></i>
-                    @elseif ($dispoEmploi[$i] == 1)
-                        <i class="fas fa-check-circle" style="color: green; font-size:20px"></i>
-                    @endif
-                    @php
-                    $i = $i+1;
-                @endphp
-                </td>
-                <td class="td-crud-operations">
-                  <a href="{{ route('fillieres.edit', $filliere->id) }}" class="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                    </svg>
-                  </a>
-                  <form action="{{ route('fillieres.destroy', $filliere->id) }}" method="POST" style="display: inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-link" style="padding: 0; background-color: transparent; border: none;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                <tr>
+                    <td scope="col">BB218213</td>
+                    <td scope="col">TAHALLA</td>
+                    <td scope="col">MOHAMMED</td>
+                    <td scope="col">Logicieles Developement Web</td>
+                    <td scope="col">S5</td>
+                    <td scope="col"><i class="fas fa-check-circle" style="color: green; font-size:20px"></i></td>
+                    <td class="td-crud-operations">
+                        <a href="" class="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
+                              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                            </svg>
+                          </a>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                             <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
                         </svg>
-                    </button>
-                </form>
-                </td>
-              </tr>
-              @endforeach
+                    </td>
+                </tr>
             </tbody>
           </table>
         </section>
@@ -383,7 +367,6 @@ td{
   <script src="/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
   <script src="/js/dataTables.select.min.js"></script>
 
-  <script src="/js/fillierefiltre.js"></script>
 
   <!-- End plugin js for this page -->
   <!-- inject:js -->

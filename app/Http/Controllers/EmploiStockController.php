@@ -17,6 +17,7 @@ class EmploiStockController extends Controller
     {
         $NomFilliere = session('NomFilliere');
         $NomGroupe = session('NomGroupe');
+        $Semestre = session('Semestre');
 
         if ($NomFilliere && $NomGroupe) {
             $resultat = Emploitemps::where('NomFilliere', $NomFilliere)
@@ -25,12 +26,13 @@ class EmploiStockController extends Controller
 
             $resultatRech = emploitempsstock::where('NomFilliere', $NomFilliere)
                                             ->where('NomGroupe', $NomGroupe)
+                                            ->where('Semestre',$Semestre)
                                             ->get();
         } else {
             $resultat = null;
             $resultatRech = collect();
         }
-        $fillieres = Filliere::all();
+        $fillieres = Filliere::select('NomFilliere')->distinct()->get();
 
         return view('Emploi-Temps.RechercheEmploiTemps', [
             'resultat' => $resultat,
@@ -56,7 +58,8 @@ class EmploiStockController extends Controller
 
     $validatedData = $request->validate([
         'NomFilliere' => 'required|string|max:255',
-        'NomGroupe' => 'required|string|max:255',
+        'Semestre'=> 'required|integer',
+        'NomGroupe' => 'required|integer',
         'NomModule' => 'required|string|max:255',
         'Jour' => 'required|string|max:255',
         'HeurDebut' => 'required|date_format:H:i',
@@ -69,6 +72,7 @@ class EmploiStockController extends Controller
 
     emploitempsstock::create([
         'NomFilliere' => $validatedData['NomFilliere'],
+        'Semestre' => $validatedData['Semestre'],
         'NomGroupe' => $validatedData['NomGroupe'],
         'NomModule' => $validatedData['NomModule'],
         'Jour' => $validatedData['Jour'],
@@ -82,7 +86,8 @@ class EmploiStockController extends Controller
 
     return redirect()->route('EmploiStock.index')->with([
         'NomFilliere' => $validatedData['NomFilliere'],
-        'NomGroupe' => $validatedData['NomGroupe']
+        'NomGroupe' => $validatedData['NomGroupe'],
+        'Semestre' => $validatedData['Semestre']
     ]);
 }
 
@@ -91,11 +96,13 @@ class EmploiStockController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($NomFilliere, $Groupe)
+    public function show($NomFilliere, $Groupe,$Semestre)
     {
         $emploitemps = Emploitemps::where('NomFilliere', $NomFilliere)
                                     ->where('Groupe', $Groupe)
+                                    ->where('Semestre',$Semestre)
                                     ->first();
+
             return view('Emploi-Temps.EmploitempsEdit',[
             'EmploiTemps'=>$emploitemps
 ]);

@@ -19,17 +19,18 @@
         </a>
     </li>
       <li class="nav-item">
-        <a class="nav-link"  href="" >
+        <a class="nav-link"  href="{{ route('dashboard.ressources') }}" >
             <i class="mdi mdi-google-circles-extended menu-icon" style="font-size: 22px;"></i>
           <span class="menu-title">Gestion Ressources</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('salles.index') }}">
-            <i class="mdi mdi-home-variant menu-icon" style="font-size: 22px;"></i>
-          <span class="menu-title">Gestion Salles</span>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('departements.index') }}">
+            <i class="mdi mdi-home-modern menu-icon" style="font-size: 22px;"></i>
+          <span class="menu-title">Gestion Departement</span>
         </a>
-    </li>
+  </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('fillieres.index') }}">
             <i class="mdi mdi-plus-network menu-icon" style="font-size: 22px;"></i>
@@ -37,13 +38,19 @@
         </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="">
+    <a class="nav-link" href="{{ route('modules.index') }}">
         <i class="mdi mdi-view-module menu-icon" style="font-size: 22px;"></i>
       <span class="menu-title">Gestion Modules</span>
     </a>
 </li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('salles.index') }}">
+        <i class="mdi mdi-home-variant menu-icon" style="font-size: 22px;"></i>
+      <span class="menu-title">Gestion Salles</span>
+    </a>
+</li>
   <li class="nav-item">
-    <a class="nav-link" href="">
+    <a class="nav-link" href="{{ route('etudiants.index') }}">
         <i class="mdi mdi-school menu-icon" style="font-size: 22px;"></i>
       <span class="menu-title">Gestion Etudiants</span>
     </a>
@@ -61,7 +68,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link"  href="" >
+    <a class="nav-link"  href="{{ route('sous_admin') }}" >
         <i class="mdi mdi-account-network menu-icon" style="font-size: 22px;"></i>
       <span class="menu-title">Gestion Sous Admin's </span>
     </a>
