@@ -57,6 +57,7 @@ class FilliereController extends Controller
 
         $existingFilliere = Filliere::where('NomFilliere', $validatedData['NomFilliere'])
                                      ->where('Semestre', $validatedData['Semestre'])
+                                    ->where('NomDepartement',$validatedData['NomDepartement'])
                                      ->first();
 
         if ($existingFilliere) {
@@ -102,8 +103,10 @@ class FilliereController extends Controller
                 ->where('NombreGroupe', $validatedData['NombreGroupe'])
                 ->first();
 
-            if ($existingFilliere && $existingFilliere->id != $filliere->id) {
-                throw new \Exception('Cette filière existe déjà.');
+
+
+            if ($existingFilliere ) {
+                return redirect()->back()->with('error', 'Cette filière existe déjà.');
             }
 
             $filliere->update($validatedData);

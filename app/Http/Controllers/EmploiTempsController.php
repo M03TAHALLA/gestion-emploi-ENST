@@ -30,7 +30,7 @@ class EmploiTempsController extends Controller
     }
     public function getFillieres($departement)
     {
-        $fillieres = Filliere::where('NomDepartement', $departement)->distinct()->pluck('NomFilliere');
+        $fillieres = Filliere::where('NomDepartement', $departement)->distinct()->pluck('NomFilliere')->unique()->sort()->values();
         return response()->json($fillieres);
     }
 

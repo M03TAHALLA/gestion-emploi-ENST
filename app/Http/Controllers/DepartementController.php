@@ -12,7 +12,10 @@ class DepartementController extends Controller
      */
     public function index()
     {
-        //
+        $departement = Departement::all();
+        return view('Departement.Departement',[
+            'departement'=>$departement
+        ]);
     }
 
     /**
@@ -20,16 +23,27 @@ class DepartementController extends Controller
      */
     public function create()
     {
-        //
+        return view('Departement.Departement-form');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+        public function store(Request $request)
+        {
+            $validatedData=$request->validate([
+                'NomDepartement' => 'required|unique:departements|string|max:255',
+            ]);
+
+            $existingDepartement = Departement::where('NomDepartement', $validatedData['NomDepartement'])
+                                     ->first();
+            if ($existingDepartement) {
+                return redirect()->back()->with('error', 'Cette Departement existe déjà.');
+                }
+
+            Departement::create($request->all());
+            return redirect()->route('departements.index')->with('success', 'Département créé avec succès.');
+        }
 
     /**
      * Display the specified resource.
@@ -42,9 +56,9 @@ class DepartementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Departement $departement)
+    public function edit( $departement)
     {
-        //
+        return view('Departement.Departement-edit', ['departement' => $departement]);
     }
 
     /**
