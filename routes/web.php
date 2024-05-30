@@ -70,6 +70,7 @@ Route::post('dashboard/EmploiTemps-Rech',[EmploiTempsController::class,'Resultat
 
 
 Route::resource('fillieres', FilliereController::class);
+Route::resource('departements', DepartementController::class);
 Route::resource('etudiants', EtudiantController::class);
 Route::resource('Emploitemps',EmploiTempsController::class);
 Route::resource('EmploiStock',EmploiStockController::class);
