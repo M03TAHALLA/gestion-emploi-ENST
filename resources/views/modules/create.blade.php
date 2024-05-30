@@ -546,7 +546,7 @@ td{
                 <label for="nom_filiere">Nom du Filiére</label>
                 <select id="nom_filiere" name="nom_filiere" required class="form-control">
                     @foreach($filieres as $filiere)
-                        <option value="{{ $filiere->NomFiliere }}">{{ $filiere->NomFiliere }}</option>
+                        <option value="{{ $filiere->NomFilliere }}">{{ $filiere->NomFilliere }}</option>
                     @endforeach
                 </select>
             </div>
