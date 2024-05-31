@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('filieres', function (Blueprint $table) {
-            $table->string('nom_filiere')->primary();
+            $table->id();
+            $table->string('nom_filiere');
             $table->string('nom_departement');
             $table->string('cordinateur');
             $table->integer('semestre');
+            $table->integer('groupe');
             $table->boolean('liste_etudiant');
             $table->string('aac')->default('24-25');
             $table->timestamps();
