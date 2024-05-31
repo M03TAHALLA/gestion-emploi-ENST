@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard | Salle</title>
+  <title>Dashboard | Departement</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -22,10 +22,27 @@
 
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
+  <style>
+    .alert-success {
+    color: #ff0000;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+#myInput, #myCountryInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+  </style>
 </head>
 <body>
   <div class="container-scroller">
     @include('Layout.navbar')
+
       @include('Layout.sidebar')
 
       <div class="container-section">
@@ -37,89 +54,39 @@
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
               </svg>
               <span class="title-section">
-                Gestion des salles
+                Gestion des Departement
               </span>
             </div>
             <div class="right-section">
               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
                 <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
               </svg>
-              <span>Tableau de board / </span><a href=""> Salles de l'ENS</a>
+              <span>Tableau de board / </span><a href=""> Departement de l'ENS</a>
             </div>
           </div>
-            <div class="formbold-form-wrapper">
-              <form action="https://formbold.com/s/FORM_ID" method="POST">
+          @if (session('error'))
+          <div id="success-message" class="alert alert-success">
+              {{ session('error') }}
+          </div>
+      @endif
+          <div class="formbold-form-wrapper">
+            <form action="{{ route('departements.store') }}" method="POST">
+                @csrf
                 <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label"> Numero de salle </label>
+                    <label for="numero" class="formbold-form-label"> Nom Departement </label>
                     <input
                       type="text"
-                      name="numero"
-                      id="numero"
-                      placeholder="Enter Numero Salle"
+                      name="nom_departement"
+                      id="Departement"
+                      placeholder="Nom Departement"
                       class="formbold-form-input"
-                    />
-                  </div>
-                  <div class="formbold-input-radio-wrapper">
-                    <label for="ans" class="formbold-form-label">
-                      Type Salle
-                    </label>
-
-                    <div class="formbold-radio-flex">
-                      <div class="formbold-radio-group">
-                        <label class="formbold-radio-label">
-                          <input
-                            class="formbold-input-radio"
-                            type="radio"
-                            name="ans"
-                            id="ans"
-                          />
-                          Amphi
-                          <span class="formbold-radio-checkmark"></span>
-                        </label>
-                      </div>
-
-                      <div class="formbold-radio-group">
-                        <label class="formbold-radio-label">
-                          <input
-                            class="formbold-input-radio"
-                            type="radio"
-                            name="ans"
-                            id="ans"
-                          />
-                          Salle
-                          <span class="formbold-radio-checkmark"></span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="formbold-input-group">
-                    <label for="capacite" class="formbold-form-label"> Capacité de salle </label>
-                    <input
-                      type="text"
-                      name="capacite"
-                      id="capacite"
-                      placeholder="Enter capacité de Salle"
-                      class="formbold-form-input"
+                      required
                     />
                   </div>
 
-                  <div>
-                    <label class="formbold-form-label">
-                        Departement
-                      </label>
-
-                      <select class="formbold-form-select" name="occupation" id="occupation">
-                        <option value="Departement">INFORMATIQUE</option>
-                        <option value="designer">METHEMATIQUE</option>
-                        <option value="fullstack">SCIENCE</option>
-                        <option value="frontend">LANGUE</option>
-                      </select>
-                </div>
-
-                <button class="formbold-btn">Ajouter une salle</button>
-              </form>
-            </div>
+              <button type="submit" class="formbold-btn">Ajouter une Departement</button>
+            </form>
+          </div>
         </section>
       </div>
       <!-- main-panel ends -->

@@ -108,58 +108,40 @@
             <h2 style="margin-bottom: 5%;text-align:center" class=""> Emploi Temps</h2>
           <form action="{{ route('Emploitemps.store') }}" method="POST">
             @csrf
-                <div>
-                    <label class="formbold-form-label">
-                      Nom Departement
-                    </label>
-
-                    <select class="formbold-form-select" name="Departement" id="departement" onchange="getFilieres()">
-                        <option value="">Sélectionner une Departement</option>
-                        @foreach ($Departement as $Departement)
-                      <option value="{{ $Departement->NomDepartement }}">{{ $Departement->NomDepartement }}</option>
-                      @endforeach
-                    </select>
-                  </div>
-                <div>
-              <label class="formbold-form-label">
-               Nom Filliere
-              </label>
-
-              <select  class="formbold-form-select" name="Filliere" id="filliere" onchange="getSemesters()">
-                <option value="">Sélectionner une fillière</option>
-                @foreach ($Fillieres as $Fillieres)
-                <option value="{{ $Fillieres->NomFilliere }}" {{ isset($resultat) && $resultat->NomFilliere == $Fillieres->NomFilliere ? 'selected' : '' }}>
-                    {{ $Fillieres->NomFilliere }}
-                </option>
-                @endforeach
+            <div>
+                <label class="formbold-form-label">Département</label>
+                <select class="formbold-form-select" name="nom_departement" id="departement" onchange="getFiliere()">
+                  <option value="">Sélectionner un département</option>
+                  @foreach ($Departements as $Departement)
+                    <option value="{{ $Departement->nom_departement }}">{{ $Departement->nom_departement }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div>
+                <label class="formbold-form-label">Filière</label>
+                <select class="formbold-form-select" name="nom_filiere" id="filliere" onchange="getSemesters()">
+                  <option value="">Sélectionner une filière</option>
+                </select>
+              </div>
+            <div>
+              <label class="formbold-form-label">Semestre</label>
+              <select class="formbold-form-select" name="semestre" id="semestre" onchange="getGroups()">
+                <option value="">Sélectionner un semestre</option>
               </select>
             </div>
             <div>
-                <label class="formbold-form-label">
-                     Semestre
-                  </label>
-
-                  <select class="formbold-form-select" name="Semestre" id="semestre" onchange="getGroups()">
-                    <option value="">Sélectionner un semestre</option>
-                  </select>
+              <label class="formbold-form-label">Groupe</label>
+              <select class="formbold-form-select" name="groupe" id="groupe">
+                <option value="">Sélectionner un groupe</option>
+              </select>
             </div>
-            <div>
-                <label class="formbold-form-label">
-                    Groupe Name
-                  </label>
-
-                  <select class="formbold-form-select" name="Groupe" id="groupe">
-                    <option value="">Sélectionner un groupe</option>
-                  </select>
-            </div>
-
             <div class="flex flex-wrap formbold--mx-3">
                 <div class="w-full sm:w-half formbold-px-3">
                   <div class="formbold-mb-5 w-full">
                     <label for="date" class="formbold-form-label"> Craunaux Debut </label>
-                    <input value="{{ old('CraunauxDebut') }}"
+                    <input value="{{ old('crenau_debut') }}"
                       type="time"
-                      name="CraunauxDebut"
+                      name="crenau_debut"
                       id="date"
                       class="formbold-form-input"
                       required
@@ -169,9 +151,9 @@
                 <div class="w-full sm:w-half formbold-px-3">
                   <div class="formbold-mb-5">
                     <label for="time" class="formbold-form-label">  Craunaux Fin </label>
-                    <input value="{{ old('CraunauxFin') }}"
+                    <input value="{{ old('crenau_fin') }}"
                       type="time"
-                      name="CraunauxFin"
+                      name="crenau_fin"
                       id="time"
                       class="formbold-form-input"
                       required
@@ -222,17 +204,45 @@
     }, 3000);
 
 
+    function getFiliere() {
+    const departement = document.getElementById('departement').value;
+
+    // Réinitialiser la liste des filières
+    const filliereSelect = document.getElementById('filliere');
+    filliereSelect.innerHTML = '<option value="">Sélectionner une filière</option>';
+
+    // Si un département est sélectionné
+    if (departement) {
+      fetch(`/get-filieres/${departement}`)
+        .then(response => response.json())
+        .then(data => {
+          // Parcourir les filières et les ajouter à la liste déroulante
+          data.forEach(filiere => {
+            const option = document.createElement('option');
+            option.value = filiere;
+            option.textContent = filiere;
+            filliereSelect.appendChild(option);
+          });
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération des filières:', error);
+        });
+    }
+  }
+    // Fonction pour récupérer les semestres
     function getSemesters() {
       const filliere = document.getElementById('filliere').value;
-      const semestreSelect = document.getElementById('semestre');
 
-      // Clear current options
+      // Réinitialiser la liste des semestres
+      const semestreSelect = document.getElementById('semestre');
       semestreSelect.innerHTML = '<option value="">Sélectionner un semestre</option>';
 
+      // Si une filière est sélectionnée
       if (filliere) {
         fetch(`/get-semesters/${filliere}`)
           .then(response => response.json())
           .then(data => {
+            // Parcourir les semestres et les ajouter à la liste déroulante
             data.forEach(semestre => {
               const option = document.createElement('option');
               option.value = semestre;
@@ -241,51 +251,34 @@
             });
           })
           .catch(error => {
-            console.error('Error fetching semesters:', error);
+            console.error('Erreur lors de la récupération des semestres:', error);
           });
       }
     }
 
+    // Fonction pour récupérer les groupes
     function getGroups() {
-      var filliere = document.getElementById('filliere').value;
-      var semestre = document.getElementById('semestre').value;
+      const filliere = document.getElementById('filliere').value;
+      const semestre = document.getElementById('semestre').value;
+
+      // Si à la fois une filière et un semestre sont sélectionnés
       if (filliere && semestre) {
         fetch(`/get-groups/${filliere}/${semestre}`)
           .then(response => response.json())
           .then(data => {
-            var groupeSelect = document.getElementById('groupe');
+            // Réinitialiser la liste des groupes
+            const groupeSelect = document.getElementById('groupe');
             groupeSelect.innerHTML = '<option value="">Sélectionner un groupe</option>';
+
+            // Ajouter les groupes à la liste déroulante
             data.forEach(groupe => {
-              var option = document.createElement('option');
+              const option = document.createElement('option');
               option.value = groupe;
-              option.text = 'Groupe '+groupe;
+              option.text = `Groupe ${groupe}`;
               groupeSelect.appendChild(option);
             });
           })
-          .catch(error => console.error('Error fetching groups:', error));
-      }
-    }
-    function getFilieres() {
-      const departement = document.getElementById('departement').value;
-      const filliereSelect = document.getElementById('filliere');
-
-      // Clear current options
-      filliereSelect.innerHTML = '<option value="">Sélectionner une fillière</option>';
-
-      if (departement) {
-        fetch(`/get-filieres/${departement}`)
-          .then(response => response.json())
-          .then(data => {
-            data.forEach(filliere => {
-              const option = document.createElement('option');
-              option.value = filliere;
-              option.textContent = filliere;
-              filliereSelect.appendChild(option);
-            });
-          })
-          .catch(error => {
-            console.error('Error fetching filieres:', error);
-          });
+          .catch(error => console.error('Erreur lors de la récupération des groupes:', error));
       }
     }
 </script>

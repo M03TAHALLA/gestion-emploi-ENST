@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Etudiant;
-use App\Models\Filliere;
-use Faker\Core\File;
 use Illuminate\Http\Request;
 
-class EtudiantController extends Controller
+class SeanceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $fillieres = Filliere::distinct()->get(['NomFilliere']);
-        return view('Etudiant.RecherchEtudiant',[
-            'Fillieres'=>$fillieres
-        ]);
+        //
     }
 
     /**
@@ -39,7 +33,7 @@ class EtudiantController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Etudiant $etudiant)
+    public function show(string $id)
     {
         //
     }
@@ -47,7 +41,7 @@ class EtudiantController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Etudiant $etudiant)
+    public function edit(string $id)
     {
         //
     }
@@ -55,7 +49,7 @@ class EtudiantController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Etudiant $etudiant)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -63,7 +57,7 @@ class EtudiantController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Etudiant $etudiant)
+    public function destroy(string $id)
     {
         //
     }

@@ -11,11 +11,9 @@ class Filiere extends Model
     protected $fillable = [
         'nom_filiere',
         'nom_departement',
-        'coordinateur',
+        'cordinateur',
         'semestre',
         'groupe',
-        'liste_etudiant',
-        'aac',
         // Add other fillable fields here if you have any
     ];
 

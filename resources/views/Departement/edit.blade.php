@@ -22,11 +22,27 @@
 
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
+  <style>
+    .alert-success {
+    color: #ff0000;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+#myInput, #myCountryInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+  </style>
 </head>
 <body>
   <div class="container-scroller">
-    <!-- partial:partials/_navbar.html -->
     @include('Layout.navbar')
+
       @include('Layout.sidebar')
 
       <div class="container-section">
@@ -38,40 +54,39 @@
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
               </svg>
               <span class="title-section">
-                Gestion des Enseignants
+                Gestion des Departement
               </span>
             </div>
             <div class="right-section">
               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
                 <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
               </svg>
-              <span>Tableau de board / </span><a href=""> Enseignants de l'ENS</a>
+              <span>Tableau de board / </span><a href=""> Departement de l'ENS</a>
             </div>
           </div>
+          @if (session('error'))
+          <div id="success-message" class="alert alert-success">
+              {{ session('error') }}
+          </div>
+      @endif
           <div class="formbold-form-wrapper">
-            <form action="https://formbold.com/s/FORM_ID" method="POST">
+            <form action="{{ route('departements.update',$departements->nom_departement) }}" method="POST">
+                @method('PUT')
+                @csrf
                 <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label"> Code </label>
+                    <label for="numero" class="formbold-form-label"> Nom Departement </label>
                     <input
                       type="text"
-                      name="matricule"
-                      id="matricule"
-                      placeholder="Code Departement"
+                      name="nom_departement"
+                      id="Departement"
+                      value="{{ $departements->nom_departement }}"
+                      placeholder="Nom Departement"
                       class="formbold-form-input"
+                      required
                     />
                   </div>
-              <div class="formbold-input-group">
-                  <label for="name" class="formbold-form-label"> Nom Departement </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Nom Departement"
-                    class="formbold-form-input"
-                  />
-                </div>
 
-              <button class="formbold-btn">Ajouter une Departement</button>
+              <button type="submit" class="formbold-btn">Ajouter une Departement</button>
             </form>
           </div>
         </section>

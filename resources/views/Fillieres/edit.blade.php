@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard | Enseignant</title>
+  <title>Dashboard | Filliere</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -22,10 +22,27 @@
 
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
+  <style>
+    .alert-success {
+    color: #ff0000;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+#myInput, #myCountryInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+  </style>
 </head>
 <body>
   <div class="container-scroller">
     @include('Layout.navbar')
+
       @include('Layout.sidebar')
 
       <div class="container-section">
@@ -37,85 +54,50 @@
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
               </svg>
               <span class="title-section">
-                Gestion des Enseignants
+                Gestion des Fillieres
               </span>
             </div>
             <div class="right-section">
               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
                 <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
               </svg>
-              <span>Tableau de board / </span><a href=""> Enseignants de l'ENS</a>
+              <span>Tableau de board / </span><a href=""> Fillieres de l'ENS</a>
             </div>
           </div>
+          @if (session('error'))
+          <div id="success-message" class="alert alert-success">
+              {{ session('error') }}
+          </div>
+      @endif
           <div class="formbold-form-wrapper">
-            <form action="https://formbold.com/s/FORM_ID" method="POST">
+            <form action="{{ route('fillieres.update', $filiere->id) }}" method="POST">
+                @csrf
+                @method('PUT')
                 <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label"> Matricule </label>
-                    <input
-                      type="text"
-                      name="matricule"
-                      id="matricule"
-                      placeholder="le matricule d'enseignant"
-                      class="formbold-form-input"
-                    />
-                  </div>
-              <div class="formbold-input-group">
-                  <label for="name" class="formbold-form-label"> Nom d'enseignant </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    placeholder="le Nom d'enseignant"
-                    class="formbold-form-input"
-                  />
+                    <label for="nom_filiere" class="formbold-form-label">Nom Filière</label>
+                    <input type="text" name="nom_filiere" value="{{ $filiere->nom_filiere }}" id="nom_filiere" placeholder="Nom Filière" class="formbold-form-input" required />
                 </div>
                 <div class="formbold-input-group">
-                    <label for="prenom" class="formbold-form-label"> Prénom d'enseignant </label>
-                    <input
-                      type="text"
-                      name="prenom"
-                      id="prenom"
-                      placeholder="le prénom d'enseignant"
-                      class="formbold-form-input"
-                    />
-                  </div>
-                  <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label"> Specialité </label>
-                    <input
-                      type="text"
-                      name="specialite"
-                      id="specialite"
-                      placeholder="Entrez la specialite d'enseignant"
-                      class="formbold-form-input"
-                    />
-                  </div>
-
-
-
-                <div>
-                  <label class="formbold-form-label">
-                      Departement
-                    </label>
-
-                    <select class="formbold-form-select" name="occupation" id="occupation">
-                      <option value="Departement">INFORMATIQUE</option>
-                      <option value="designer">METHEMATIQUE</option>
-                      <option value="fullstack">SCIENCE</option>
-                      <option value="frontend">LANGUE</option>
+                    <label for="nom_departement" class="formbold-form-label">Nom Département</label>
+                    <select class="formbold-form-select" name="nom_departement" id="nom_departement">
+                        @foreach ( $departements as $departement )
+                        <option value="{{ $departement->nom_departement }}" @if ($departement->nom_departement == $filiere->nom_departement) selected @endif>{{ $departement->nom_departement }}</option>
+                        @endforeach
                     </select>
-              </div>
-              <div>
-                <label class="formbold-form-label">
-                    Roles
-                  </label>
-
-                  <select class="formbold-form-select" name="occupation" id="occupation">
-                    <option value="Departement">Vacataire</option>
-                    <option value="fullstack">Chef de filiere</option>
-                  </select>
-            </div>
-
-              <button class="formbold-btn">Ajouter un enseignant</button>
+                </div>
+                <div class="formbold-input-group">
+                    <label for="coordinateur" class="formbold-form-label">Coordinateur</label>
+                    <input type="text" name="cordinateur" value="{{ $filiere->cordinateur }}" id="coordinateur" placeholder="Coordinateur" class="formbold-form-input" required />
+                </div>
+                <div class="formbold-input-group">
+                    <label for="semestre" class="formbold-form-label">Semestre Actuel</label>
+                    <input type="number" name="semestre" id="semestre" value="{{ $filiere->semestre }}" placeholder="Semestre Actuel" class="formbold-form-input" required />
+                </div>
+                <div class="formbold-input-group">
+                    <label for="groupe" class="formbold-form-label">Nombre de Groupes</label>
+                    <input type="number" name="groupe" id="groupe" value="{{ $filiere->groupe }}" placeholder="Nombre de Groupes" class="formbold-form-input" required />
+                </div>
+                <button type="submit" class="formbold-btn">Ajouter une Filière</button>
             </form>
           </div>
         </section>
