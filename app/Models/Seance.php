@@ -4,19 +4,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Etudiant extends Model
+class Seance extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'cin_etudiant',
-        'nom_etudiant',
-        'prenom_etudiant',
-        'nom_departement',
         'id_filiere',
-        'semestre_actuel',
-        'email',
-        'aac',
+        'semestre',
+        'nom_groupe',
+        'id_module',
+        'jour',
+        'heure_debut',
+        'heure_fin',
+        'num_salle',
+        'cin_enseignant',
         // Add other fillable fields here if you have any
     ];
 

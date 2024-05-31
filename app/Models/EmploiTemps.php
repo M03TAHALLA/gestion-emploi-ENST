@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,12 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class EmploiTemps extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'NomDepartement',
-        'NomFilliere',
-        'Groupe',
-        'Semestre',
-        'CraunauxDebut',
-        'CraunauxFin',
+        'nom_departement',
+        'id_filiere',
+        'semestre',
+        'groupe',
+        'crenau_debut',
+        'crenau_fin',
+        'aac',
+        // Add other fillable fields here if you have any
     ];
+
+    // Add any relationships or custom methods here
 }
+

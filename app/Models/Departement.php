@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Departement extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'NomDepartement', // Add NomDepartement to the fillable array
+        'NomDepartement',
+        'aac',
         // Add other fillable fields here if you have any
     ];
 }
+

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('seances', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_filiere');
-            $table->string('semestre');
+            $table->unsignedBigInteger('id_filiere');
+            $table->integer('semestre');
             $table->string('nom_groupe');
             $table->unsignedBigInteger('id_module');
             $table->string('jour');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('cin_enseignant');
 
             $table->timestamps();
-            $table->foreign('nom_filiere')->references('nom_filiere')->on('filieres')->onDelete('cascade');
+            $table->foreign('id_filiere')->references('id')->on('filieres')->onDelete('cascade');
             $table->foreign('cin_enseignant')->references('cin_enseignant')->on('enseignants')->onDelete('cascade');
             $table->foreign('id_module')->references('id')->on('modules')->onDelete('cascade');
             $table->foreign('num_salle')->references('num_salle')->on('salles')->onDelete('cascade');
