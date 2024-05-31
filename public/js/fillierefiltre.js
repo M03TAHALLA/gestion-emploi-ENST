@@ -1,5 +1,5 @@
-    function filterTable() {
-    // Récupérer les valeurs saisies dans les champs de recherche pour filière, département, coordinateur et nombre de semestres
+function filterTable() {
+    // Récupérer les valeurs saisies dans les champs de recherche
     var inputFilliere = document.getElementById("filliereInput");
     var inputDepartement = document.getElementById("departementInput");
     var inputCordinateur = document.getElementById("cordinateurInput");
@@ -62,4 +62,3 @@ document.getElementById("cordinateurInput").addEventListener("input", filterTabl
 document.getElementById("semestreInput").addEventListener("input", filterTable);
 document.getElementById("disponibleCheckbox").addEventListener("change", filterTable);
 document.getElementById("nonDisponibleCheckbox").addEventListener("change", filterTable);
-

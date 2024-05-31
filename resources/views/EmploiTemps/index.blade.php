@@ -66,20 +66,29 @@
                     {{ session('success') }}
                 </div>
             @endif
-          <form action="{{ route('ResultatRecherche') }}" method="POST" >
+          <form action="" method="POST" >
             @csrf
                 <div>
                     <div style="margin-top: 3%" class="formbold-input-flex">
+                        <div>
+                            <label class="formbold-form-label">
+                              Departement Name
+                            </label>
+
+                            <select class="formbold-form-select" name="nom_departement" id="filliere" >
+                              <option value="">Sélectionner une departement</option>
+                              <option value=""></option>
+
+                            </select>
+                          </div>
                         <div>
                       <label class="formbold-form-label">
                         Filliere Name
                       </label>
 
-                      <select class="formbold-form-select" name="Filliere" id="filliere" onchange="getSemesters()">
-                        <option value="">Sélectionner une fillière</option>
-                        @foreach ( $Fillieres as $Fillieres )
-                        <option value="{{ $Fillieres->NomFilliere }}">{{ $Fillieres->NomFilliere }}</option>
-                        @endforeach
+                      <select class="formbold-form-select" name="nom_filiere" id="filliere" >
+                        <option value="">Sélectionner une filière</option>
+                        <option value=""></option>
 
                       </select>
                     </div>
@@ -88,13 +97,13 @@
                             Semestre
                           </label>
 
-                          <select class="formbold-form-select" name="Semestre" id="semestre" onchange="getGroups()">
+                          <select class="formbold-form-select" name="semestre" id="semestre" >
                             <option value="">Sélectionner un semestre</option>
                           </select>
                     </div>
                     <div>
                         <label class="formbold-form-label">Groupe</label>
-                        <select class="formbold-form-select" name="Groupe" id="groupe">
+                        <select class="formbold-form-select" name="groupe" id="groupe">
                           <option value="">Sélectionner un groupe</option>
                         </select>
                       </div>
@@ -144,50 +153,6 @@
             }, 2000);
         }
     }, 3000);
-
-    function getSemesters() {
-      const filliere = document.getElementById('filliere').value;
-      const semestreSelect = document.getElementById('semestre');
-
-      // Clear current options
-      semestreSelect.innerHTML = '<option value="">Sélectionner un semestre</option>';
-
-      if (filliere) {
-        fetch(`/get-semesters/${filliere}`)
-          .then(response => response.json())
-          .then(data => {
-            data.forEach(semestre => {
-              const option = document.createElement('option');
-              option.value = semestre;
-              option.textContent = `Semestre ${semestre}`;
-              semestreSelect.appendChild(option);
-            });
-          })
-          .catch(error => {
-            console.error('Error fetching semesters:', error);
-          });
-      }
-    }
-
-    function getGroups() {
-      var filliere = document.getElementById('filliere').value;
-      var semestre = document.getElementById('semestre').value;
-      if (filliere && semestre) {
-        fetch(`/get-groups/${filliere}/${semestre}`)
-          .then(response => response.json())
-          .then(data => {
-            var groupeSelect = document.getElementById('groupe');
-            groupeSelect.innerHTML = '<option value="">Sélectionner un groupe</option>';
-            data.forEach(groupe => {
-              var option = document.createElement('option');
-              option.value = groupe;
-              option.text = 'Groupe ' + groupe;;
-              groupeSelect.appendChild(option);
-            });
-          })
-          .catch(error => console.error('Error fetching groups:', error));
-      }
-    }
 
 </script>
 
