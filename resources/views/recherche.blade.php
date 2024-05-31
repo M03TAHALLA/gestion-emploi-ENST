@@ -515,127 +515,59 @@ td{
             </svg>
             <a href="{{ route('salles.create') }}" style="color:black">Ajouter une salle</a>
           </div>
-          <div class="add-operation mt-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-              <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"></path>
-            </svg>
-            <a href="{{ route('salles.recherche') }}" style="color:black">Rechercher salle par heure & jour</a>
-          </div>
             @if (session('success'))
                 <div id="success-message" class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
             <div class="formbold-input-flex">
-              <div style="margin-top: 2%" class="formbold-input-group">
-                  <input
-                      type="text"
-                      id="numSalleInput"
-                      placeholder="Rechercher par numéro de salle"
-                      class="formbold-form-input"
-                  />
-              </div>
-              <div class="formbold-input-group" style="margin-top: 2%">
-                  <select id="typeSalleInput" class="form-select form-select-lg mb-3">
-                      <option value="" disabled selected>Type de salle</option>
-                      <option value="Salle">Salle</option>
-                      <option value="Amphi">Amphi</option>
-                      <option value="Laboratoire">Laboratoire</option>
-                  </select>
-              </div>
-          </div>
-          <div class="formbold-input-flex">
-              <div style="margin-top: 1%" class="formbold-input-group">
-                  <input
-                      type="number"
-                      id="capaciteInput"
-                      placeholder="Rechercher par capacité"
-                      class="formbold-form-input"
-                  />
-              </div>
-              <div style="margin-top: 1%" class="formbold-input-group">
-                  <input
-                      type="text"
-                      id="departementInput"
-                      placeholder="Rechercher par nom département"
-                      class="formbold-form-input"
-                  />
-              </div>
-          </div>
-          <p>Salle Disponibilité : </p>
-          <label class="mcui-checkbox">
-              <input type="checkbox" id="disponibleCheckbox">
-              <div>
-                  <svg class="mcui-check" viewBox="-2 -2 35 35" aria-hidden="true">
-                      <polyline points="7.57 15.87 12.62 21.07 23.43 9.93" />
-                  </svg>
-              </div>
-              <div>Disponible</div>
-          </label>
-          
-          <label class="mcui-checkbox">
-              <input type="checkbox" id="nonDisponibleCheckbox">
-              <div>
-                  <svg class="mcui-check" viewBox="-2 -2 35 35" aria-hidden="true">
-                      <polyline points="7.57 15.87 12.62 21.07 23.43 9.93" />
-                  </svg>
-              </div>
-              <div>Non Disponible</div>
-          </label>
-          
-
-          
-          <!-- Include table and other elements as in your original code -->
-          
-          <table id="myTable" class="table table-striped mt-5">
-              <thead>
-                  <tr>
-                      <th scope="col">Numéro salle</th>
-                      <th scope="col">Nom Département</th>
-                      <th scope="col">Type Salle</th>
-                      <th scope="col">Capacité</th>
-                      <th scope="col">Disponibilité</th>
-                      <th scope="col">Année Académique</th>
-                      <th scope="col">Actions</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  @foreach ($salles as $salle)
-                      <tr>
-                          <td style="font-weight: bold">{{ $salle->num_salle }}</td>
-                          <td>{{ $salle->nom_departement }}</td>
-                          <td>{{ $salle->type_salle }}</td>
-                          <td>{{ $salle->capacite }}</td>
-                          <td>
-                              @if ($salle->disponibilite == 0)
-                                  <i class="fas fa-exclamation-triangle" style="color: red; font-size:20px"></i>
-                              @elseif ($salle->disponibilite == 1)
-                                  <i class="fas fa-check-circle" style="color: green; font-size:20px"></i>
-                              @endif
-                          </td>
-                          <td>{{ $salle->aac }}</td>
-                          <td class="td-crud-operations">
-                              <a href="{{ route('salles.edit', $salle->num_salle) }}" class="">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
-                                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                                  </svg>
-                              </a>
-                              <form action="{{ route('salles.destroy', $salle->num_salle) }}" method="POST" style="display: inline;">
-                                  @csrf
-                                  @method('DELETE')
-                                  <button type="submit" class="btn btn-link" style="padding: 0; background-color: transparent; border: none;">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                          <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                                      </svg>
-                                  </button>
-                              </form>
-                          </td>
-                      </tr>
-                  @endforeach
-              </tbody>
-          </table>
-          
+                <div style="margin-top: 2%" class="formbold-input-group">
+                    <input
+                        type="text"
+                        id="numSalleInput"
+                        placeholder="Rechercher par numéro de salle"
+                        class="formbold-form-input"
+                    />
+                </div>
+                <div class="formbold-input-group" style="margin-top: 2%">
+                    <select id="jourInput" class="form-select form-select-lg mb-3">
+                        <option value="" disabled>Jour</option>
+                        <option value="Aucun jour" selected>Aucun jour</option>
+                        <option value="Lundi">Lundi</option>
+                        <option value="Mardi">Mardi</option>
+                        <option value="Mercredi">Mercredi</option>
+                        <option value="Jeudi">Jeudi</option>
+                        <option value="Vendredi">Vendredi</option>
+                        <option value="Samedi">Samedi</option>
+                        <option value="Dimanche">Dimanche</option>
+                    </select>
+                </div>
+                <div class="formbold-input-group" style="margin-top: 2%">
+                  <input type="text" class="formbold-form-input" id="filterInput" placeholder="Saisie heure début (e.g., 09:00)">
+                </div>
+            </div>
+            
+            <table id="myTable" class="table table-striped mt-5">
+                <thead>
+                    <tr style="text-align: center">
+                        <th >Numéro salle</th>
+                        <th >Par jour</th>
+                        <th >heure début</th>
+                        <th >heure fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($seances as $seance)
+                        <tr>
+                            <td style="font-weight: bold">{{ $seance->num_salle }}</td>
+                            <td>{{ $seance->jour }}</td>
+                            <td>{{ $seance->heure_debut }}</td>
+                            <td>{{ $seance->heure_fin }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            
         </section>
       </div>
       <!-- main-panel ends -->
@@ -643,7 +575,6 @@ td{
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-  
 
   <!-- plugins:js -->
   <script src="/vendors/js/vendor.bundle.base.js"></script>
@@ -655,63 +586,53 @@ td{
   <script src="/js/dataTables.select.min.js"></script>
 
   <script>
-    function filterTable() {
-    var inputNumSalle = document.getElementById("numSalleInput");
-    var inputTypeSalle = document.getElementById("typeSalleInput");
-    var inputCapacite = document.getElementById("capaciteInput");
-    var inputDepartement = document.getElementById("departementInput");
-    var filterNumSalle = inputNumSalle ? inputNumSalle.value.toUpperCase() : "";
-    var filterTypeSalle = inputTypeSalle ? inputTypeSalle.value.toUpperCase() : "";
-    var filterCapacite = inputCapacite ? inputCapacite.value : "";
-    var filterDepartement = inputDepartement ? inputDepartement.value.toUpperCase() : "";
+    document.addEventListener('DOMContentLoaded', function() {
+        const numSalleInput = document.getElementById('numSalleInput');
+        const jourInput = document.getElementById('jourInput');
+        const table = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 
-    var disponibleCheckbox = document.getElementById("disponibleCheckbox").checked;
-    var nonDisponibleCheckbox = document.getElementById("nonDisponibleCheckbox").checked;
+        function filterTable() {
+            const numSalleValue = numSalleInput.value.toLowerCase();
+            const jourValue = jourInput.value.toLowerCase();
 
-    var table = document.getElementById("myTable");
-    var rows = table.getElementsByTagName("tr");
+            for (let row of table.rows) {
+                const numSalleCell = row.cells[0].innerText.toLowerCase();
+                const jourCell = row.cells[1].innerText.toLowerCase();
+                
+                const numSalleMatch = numSalleCell.includes(numSalleValue);
+                const jourMatch = jourValue === "aucun jour" || jourCell.includes(jourValue);
 
-    for (var i = 0; i < rows.length; i++) {
-        var tdNumSalle = rows[i].getElementsByTagName("td")[0];
-        var tdDepartement = rows[i].getElementsByTagName("td")[1];
-        var tdTypeSalle = rows[i].getElementsByTagName("td")[2];
-        var tdCapacite = rows[i].getElementsByTagName("td")[3];
-        var tdDisponibilite = rows[i].getElementsByTagName("td")[4];
-
-        if (tdNumSalle && tdDepartement && tdTypeSalle && tdCapacite && tdDisponibilite) {
-            var txtValueNumSalle = tdNumSalle.textContent || tdNumSalle.innerText;
-            var txtValueDepartement = tdDepartement.textContent || tdDepartement.innerText;
-            var txtValueTypeSalle = tdTypeSalle.textContent || tdTypeSalle.innerText;
-            var txtValueCapacite = tdCapacite.textContent || tdCapacite.innerText;
-            var disponibiliteIcon = tdDisponibilite.querySelector("i");
-            var disponibiliteDisponible = disponibiliteIcon.classList.contains("fa-check-circle");
-            var disponibiliteNonDisponible = disponibiliteIcon.classList.contains("fa-exclamation-triangle");
-
-            var matchNumSalle = txtValueNumSalle.toUpperCase().indexOf(filterNumSalle) > -1;
-            var matchDepartement = txtValueDepartement.toUpperCase().indexOf(filterDepartement) > -1;
-            var matchTypeSalle = txtValueTypeSalle.toUpperCase().indexOf(filterTypeSalle) > -1;
-            var matchCapacite = filterCapacite === "" || parseInt(txtValueCapacite) >= parseInt(filterCapacite);
-            var matchDisponibilite = (disponibleCheckbox && disponibiliteDisponible) ||
-                                     (nonDisponibleCheckbox && disponibiliteNonDisponible) ||
-                                     (!disponibleCheckbox && !nonDisponibleCheckbox);
-
-            if (matchNumSalle && matchDepartement && matchTypeSalle && matchCapacite && matchDisponibilite) {
-                rows[i].style.display = "";
-            } else {
-                rows[i].style.display = "none";
+                if (numSalleMatch && jourMatch) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
             }
         }
-    }
-}
 
-document.getElementById("numSalleInput").addEventListener("input", filterTable);
-document.getElementById("typeSalleInput").addEventListener("input", filterTable);
-document.getElementById("capaciteInput").addEventListener("input", filterTable);
-document.getElementById("departementInput").addEventListener("input", filterTable);
-document.getElementById("disponibleCheckbox").addEventListener("change", filterTable);
-document.getElementById("nonDisponibleCheckbox").addEventListener("change", filterTable);
+        numSalleInput.addEventListener('input', filterTable);
+        jourInput.addEventListener('change', filterTable);
+    });
+</script>
+  
+  <script>
+    // Add event listener to input field
+    document.getElementById('filterInput').addEventListener('keyup', function() {
+        var filterTime = this.value.trim().toLowerCase(); // Get the value of the input and convert to lowercase
+        var rows = document.getElementById('myTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
 
-  </script>
+        // Loop through all table rows, and hide those who don't match the filter
+        for (var i = 0; i < rows.length; i++) {
+            var heureDebut = rows[i].getElementsByTagName('td')[2].textContent.trim().toLowerCase(); // Get the value of heure debut column
+            if (heureDebut.includes(filterTime)) {
+                rows[i].style.display = ""; // Show row if heure debut matches filter
+            } else {
+                rows[i].style.display = "none"; // Hide row if heure debut does not match filter
+            }
+        }
+    });
+
+   </script>
 
   <!-- End plugin js for this page -->
   <!-- inject:js -->
