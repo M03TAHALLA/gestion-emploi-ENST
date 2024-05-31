@@ -82,7 +82,7 @@ Route::get('/emploitemps/edit/{NomFilliere}/{Groupe}/{Semestre}', [EmploiStockCo
 
 
 
-Route::resource('/dashboard/salles', SalleController::class);
+Route::resource('/dashboard/salles', SalleController::class)->parameters(['salles' => 'num_salle']);
 
 Route::resource('/dashboard/modules',ModuleController::class);
 
