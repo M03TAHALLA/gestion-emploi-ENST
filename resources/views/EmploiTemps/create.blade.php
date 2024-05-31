@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Gestion Emploi Temps | Admin</title>
+  <title>Dashboard | Saisie Emploi Temps</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
   <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
-  <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
   <!-- Plugin css for this page -->
   <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -19,52 +19,95 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
   <link rel="stylesheet" href="../../vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="/css/AjouterEmploi/EmploiTempsStyle.css">
+  <link rel="stylesheet" href="/css/AjouterEmploi/style.css">
+
+  <style>
+     .formbold--mx-3 {
+    margin-left: -12px;
+    margin-right: -12px;
+  }
+  .formbold-px-3 {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .flex {
+    display: flex;
+  }
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+  .alert {
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+        .alert ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+  </style>
+
+
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
-  <style>
-    .alert-success {
-      color: #3c763d;
-      background-color: #dff0d8;
-      border-color: #d6e9c6;
-      margin: 2%;
-    }
-  </style>
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     @include('Layout.navbar')
+      <!-- partial -->
+      <!-- partial:partials/_sidebar.html -->
+      @include('Layout.sidebar')
 
-    <!-- partial:partials/_sidebar.html -->
-    @include('Layout.sidebar')
+      <div class="formbold-main-wrapper">
 
-    <div class="container-section">
-      <section>
-        <div class="head-section">
-          <div class="left-section">
-            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16" style="color:white; margin-bottom:2px; padding:0;">
-              <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"></path>
-              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
-            </svg>
-            <span class="title-section">Emploi de temps</span>
-          </div>
-          <div class="right-section">
-            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
-              <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
-            </svg>
-            <span>Tableau de board / </span><a href="">Saisir les emplois de temps</a>
-          </div>
-        </div>
-
-        @if (session('success'))
-        <div id="success-message" class="alert alert-success">
-          {{ session('success') }}
-        </div>
+        <!-- Author: FormBold Team -->
+        <!-- Learn More: https://formbold.com -->
+        <div class="formbold-form-wrapper">
+            @if ($errors->any())
+            <div id="message" class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
-        <form action="{{ route('ResultatRecherche') }}" method="POST">
-          @csrf
-          <div style="margin-top: 3%" class="formbold-input-flex">
+
+            <h2 style="margin-bottom: 5%;text-align:center" class=""> Emploi Temps</h2>
+          <form action="{{ route('Emploitemps.store') }}" method="POST">
+            @csrf
             <div>
                 <label class="formbold-form-label">Département</label>
                 <select class="formbold-form-select" name="nom_departement" id="departement" onchange="getFiliere()">
@@ -92,25 +135,46 @@
                 <option value="">Sélectionner un groupe</option>
               </select>
             </div>
-            <button type="submit" class="button-1" role="button">Recherche
-              <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50"
-                style="fill:#FFFFFF;">
-                <path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path>
-              </svg>
-            </button>
-          </div>
-        </form>
-      </section>
+            <div class="flex flex-wrap formbold--mx-3">
+                <div class="w-full sm:w-half formbold-px-3">
+                  <div class="formbold-mb-5 w-full">
+                    <label for="date" class="formbold-form-label"> Craunaux Debut </label>
+                    <input value="{{ old('crenau_debut') }}"
+                      type="time"
+                      name="crenau_debut"
+                      id="date"
+                      class="formbold-form-input"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="w-full sm:w-half formbold-px-3">
+                  <div class="formbold-mb-5">
+                    <label for="time" class="formbold-form-label">  Craunaux Fin </label>
+                    <input value="{{ old('crenau_fin') }}"
+                      type="time"
+                      name="crenau_fin"
+                      id="time"
+                      class="formbold-form-input"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            <button class="formbold-btn">Ajouter Une Emploi Temps</button>
+          </form>
+        </div>
+      </div>
+      <!-- main-panel ends -->
     </div>
-    <!-- main-panel ends -->
+    <!-- page-body-wrapper ends -->
   </div>
-  <!-- page-body-wrapper ends -->
   <!-- container-scroller -->
 
   <!-- plugins:js -->
   <script src="/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
-  <!-- Plugin js for this page
+  <!-- Plugin js for this page -->
   <script src="/vendors/chart.js/Chart.min.js"></script>
   <script src="/vendors/datatables.net/jquery.dataTables.js"></script>
   <script src="/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
@@ -128,7 +192,19 @@
   <script src="/js/dashboard.js"></script>
   <script src="/js/Chart.roundedBarCharts.js"></script>
   <script>
-     function getFiliere() {
+    setTimeout(function() {
+        var messageElement = document.getElementById('message');
+        if (messageElement) {
+            messageElement.style.transition = 'opacity 0.5s';
+            messageElement.style.opacity = '0';
+            setTimeout(function() {
+                messageElement.style.display = 'none';
+            }, 2000);
+        }
+    }, 3000);
+
+
+    function getFiliere() {
     const departement = document.getElementById('departement').value;
 
     // Réinitialiser la liste des filières
@@ -205,7 +281,8 @@
           .catch(error => console.error('Erreur lors de la récupération des groupes:', error));
       }
     }
-  </script>
+</script>
   <!-- End custom js for this page-->
 </body>
+
 </html>

@@ -50,7 +50,7 @@
     </a>
 </li>
   <li class="nav-item">
-    <a class="nav-link" href="{{ route('etudiants.index') }}">
+    <a class="nav-link" href="">
         <i class="mdi mdi-school menu-icon" style="font-size: 22px;"></i>
       <span class="menu-title">Gestion Etudiants</span>
     </a>

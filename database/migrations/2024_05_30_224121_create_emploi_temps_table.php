@@ -17,8 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_filiere');
             $table->string('semestre');
             $table->integer('groupe');
-            $table->string('crenau_debut');
-            $table->dateTime('crenau_fin');
+            $table->time('crenau_debut');
+            $table->time('crenau_fin');
             $table->string('aac')->default('24-25');
             $table->timestamps();
 

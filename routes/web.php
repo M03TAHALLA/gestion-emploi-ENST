@@ -11,6 +11,8 @@ use App\Http\Controllers\SalleController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmploiStockController;
+use App\Http\Controllers\SeanceController;
+
 use App\Models\Seance;
 
 Route::get('/', function () {
@@ -71,6 +73,9 @@ Route::post('dashboard/EmploiTemps-Rech',[EmploiTempsController::class,'Resultat
 
 Route::resource('fillieres', FiliereController::class);
 Route::resource('departements', DepartementController::class);
+Route::resource('Emploitemps',EmploiTempsController::class);
+Route::resource('Seance',SeanceController::class);
+Route::get('/seances/{id_filiere}/{groupe}/{semestre}', 'SeanceController@show')->name('Seance.show');
 
 
 
@@ -83,10 +88,9 @@ Route::resource('/dashboard/salles', SalleController::class)->parameters(['salle
 Route::get('/recherche', [SalleController::class, 'recherche'])->name('salles.recherche');
 
 Route::resource('/dashboard/modules',ModuleController::class);
-
-Route::get('/get-filieres', 'EmploiTempsController@getFilieres');
-Route::get('/get-semestres', 'EmploiTempsController@getSemestres');
-Route::get('/get-groupes', 'EmploiTempsController@getGroupes');
+Route::get('/get-filieres/{departement}', [EmploiTempsController::class,'getFilieres']);
+Route::get('/get-semesters/{filiere}', [EmploiTempsController::class, 'getSemesters']);
+Route::get('/get-groups/{filiere}/{semestre}', [EmploiTempsController::class, 'getGroups']);
 
 
 
