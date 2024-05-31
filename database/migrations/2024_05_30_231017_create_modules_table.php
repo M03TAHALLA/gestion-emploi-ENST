@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('nom_module');
-            $table->string('nom_filiere');
+            $table->unsignedBigInteger('id_filiere');
             $table->integer('volume_horaire');
             $table->enum('nature_module', ['Disciplinaire', 'Complémentaire']);
             $table->string('cin_enseignant');
             $table->string('aac')->default("24-25");
             $table->timestamps();
-            $table->foreign('nom_filiere')->references('nom_filiere')->on('filieres')->onDelete('cascade');
+            $table->foreign('id_filiere')->references('id')->on('filieres')->onDelete('cascade');
             $table->foreign('cin_enseignant')->references('cin_enseignant')->on('enseignants')->onDelete('cascade');
         });
-        
+
     }
 
     /**
