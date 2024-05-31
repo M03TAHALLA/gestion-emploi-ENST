@@ -19,8 +19,12 @@ return new class extends Migration
         $table->boolean('disponibilite');
         $table->string('aac')->default('24-25');
         $table->timestamps();
+<<<<<<< HEAD
         $table->foreign('nom_departement')->references('nom_departement')->on('departements')->onDelete('cascade')->onUpdate('cascade');
 
+=======
+        $table->foreign('nom_departement')->references('nom_departement')->on('departements')->onDelete('cascade');
+>>>>>>> 89077b7b81ead95e6cb2f3ec23c27b1232f0a9a8
     });
 }
 

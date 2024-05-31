@@ -17,6 +17,10 @@ class Salle extends Model
         'aac',
         // Add other fillable fields here if you have any
     ];
+    public function seances()
+{
+    return $this->hasMany(Seance::class, 'num_salle', 'num_salle');
+}
 
     // Add any relationships or custom methods here
 }

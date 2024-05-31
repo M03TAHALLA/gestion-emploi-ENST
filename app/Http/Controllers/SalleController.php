@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Departement;
 use App\Models\Salle;
+use App\Models\Seance;
 use Illuminate\Http\Request;
 
 
@@ -11,6 +12,7 @@ class SalleController extends Controller
 {
     public function index()
     {
+        
         $salles = Salle::all();
         return view('salles.index', compact('salles'));
     }
@@ -68,5 +70,10 @@ class SalleController extends Controller
 
         return redirect()->route('salles.index')
                         ->with('success', 'Salle supprimée avec succès.');
+    }
+    public function recherche()
+    {
+        $seances = Seance::all();
+        return view('recherche', compact('seances'));
     }
 }
