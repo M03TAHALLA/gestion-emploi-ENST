@@ -11,7 +11,7 @@ use App\Http\Controllers\SalleController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmploiStockController;
-
+use App\Models\Seance;
 
 Route::get('/', function () {
     return view('index');
@@ -82,7 +82,9 @@ Route::get('/emploitemps/edit/{NomFilliere}/{Groupe}/{Semestre}', [EmploiStockCo
 
 
 
-Route::resource('/dashboard/salles', SalleController::class);
+Route::resource('/dashboard/salles', SalleController::class)->parameters(['salles' => 'num_salle']);
+
+Route::get('/recherche', [SalleController::class, 'recherche'])->name('salles.recherche');
 
 Route::resource('/dashboard/modules',ModuleController::class);
 

@@ -20,7 +20,6 @@ return new class extends Migration
         $table->string('aac')->default('24-25');
         $table->timestamps();
         $table->foreign('nom_departement')->references('nom_departement')->on('departements')->onDelete('cascade');
-
     });
 }
 
