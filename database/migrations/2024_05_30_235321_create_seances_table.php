@@ -24,10 +24,10 @@ return new class extends Migration
             $table->string('cin_enseignant');
 
             $table->timestamps();
-            $table->foreign('id_filiere')->references('id')->on('filieres')->onDelete('cascade');
-            $table->foreign('cin_enseignant')->references('cin_enseignant')->on('enseignants')->onDelete('cascade');
-            $table->foreign('id_module')->references('id')->on('modules')->onDelete('cascade');
-            $table->foreign('num_salle')->references('num_salle')->on('salles')->onDelete('cascade');
+            $table->foreign('id_filiere')->references('id')->on('filieres')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('cin_enseignant')->references('cin_enseignant')->on('enseignants')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_module')->references('id')->on('modules')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('num_salle')->references('num_salle')->on('salles')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

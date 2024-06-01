@@ -6,12 +6,15 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EmploiTempsController;
 use App\Http\Controllers\EtudiantController;
-use App\Http\Controllers\FilliereController;
+use App\Http\Controllers\FiliereController;
 use App\Http\Controllers\SalleController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmploiStockController;
 use App\Http\Controllers\SousAdminController;
+
+use App\Http\Controllers\SeanceController;
+
 use App\Models\Seance;
 use App\Models\SousAdmin;
 
@@ -71,13 +74,12 @@ Route::post('dashboard/EmploiTemps-Rech',[EmploiTempsController::class,'Resultat
 
 
 
-Route::resource('fillieres', FilliereController::class);
+Route::resource('fillieres', FiliereController::class);
 Route::resource('departements', DepartementController::class);
-Route::resource('etudiants', EtudiantController::class);
 Route::resource('Emploitemps',EmploiTempsController::class);
-Route::resource('EmploiStock',EmploiStockController::class);
-Route::post('/emploi-stock', [EmploiStockController::class, 'store'])->name('EmploiStock.store');
-Route::get('/emploitemps/edit/{NomFilliere}/{Groupe}/{Semestre}', [EmploiStockController::class, 'show'])->name('EmploiStock.show');
+Route::resource('Seance',SeanceController::class);
+Route::get('/seances/{id_filiere}/{groupe}/{semestre}', 'SeanceController@show')->name('Seance.show');
+
 
 
 
@@ -89,11 +91,17 @@ Route::resource('/dashboard/salles', SalleController::class)->parameters(['salle
 Route::get('/recherche', [SalleController::class, 'recherche'])->name('salles.recherche');
 
 Route::resource('/dashboard/modules',ModuleController::class);
+
 Route::resource('/dashboard/admins',SousAdminController::class);
 
 Route::get('/get-semesters/{filliere}', [EmploiTempsController::class, 'getSemesters']);
 Route::get('/get-groups/{filliere}/{semestre}', [EmploiTempsController::class, 'getGroups']);
 Route::get('/get-filieres/{departement}', [EmploiTempsController::class, 'getFillieres']);
+
+Route::get('/get-filieres/{departement}', [EmploiTempsController::class,'getFilieres']);
+Route::get('/get-semesters/{filiere}', [EmploiTempsController::class, 'getSemesters']);
+Route::get('/get-groups/{filiere}/{semestre}', [EmploiTempsController::class, 'getGroups']);
+
 
 
 

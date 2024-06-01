@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('cin_enseignant');
             $table->string('aac')->default("24-25");
             $table->timestamps();
-            $table->foreign('id_filiere')->references('id')->on('filieres')->onDelete('cascade');
-            $table->foreign('cin_enseignant')->references('cin_enseignant')->on('enseignants')->onDelete('cascade');
+            $table->foreign('id_filiere')->references('id')->on('filieres')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('cin_enseignant')->references('cin_enseignant')->on('enseignants')->onDelete('cascade')->onUpdate('cascade');
         });
 
     }

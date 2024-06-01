@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard | Departement</title>
+  <title>Dashboard | Filliere</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="/vendors/feather/feather.css">
   <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -230,59 +230,137 @@ td{
                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
               </svg>
               <span class="title-section">
-                Gestion des Departement
+                Gestion des filiéres
               </span>
             </div>
             <div class="right-section">
               <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
                 <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
               </svg>
-              <span>Tableau de board / </span><a href=""> Departements de l'ENS</a>
+              <span>Tableau de board / </span><a href=""> Filiéres de l'ENS</a>
             </div>
           </div>
           <div class="add-operation mt-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"></path>
             </svg>
-            <a href="{{ route('departements.create') }}" style="color:black">Ajouter une Departement</a>
+            <a href="{{ route('fillieres.create') }}" style="color:black">Ajouter une filiére</a>
           </div>
             @if (session('success'))
                 <div id="success-message" class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
-          <table id="myTable" class="table table-striped mt-5">
-            <thead>
-              <tr>
-                <th style="text-align: center" scope="col">Nom Departement</th>
-                <th style="text-align: center"  >Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-                @foreach ($departement as $departement)
-              <tr>
-                <td>{{ $departement->NomDepartement }}</td>
-                <td class="td-crud-operations">
-                  <a href="{{ route('departements.edit', $departement->NomDepartement) }}" class="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                    </svg>
-                  </a>
-                  <form action="{{ route('departements.destroy', $departement->NomDepartement) }}" method="POST" style="display: inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-link" style="padding: 0; background-color: transparent; border: none;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-                        </svg>
-                    </button>
-                </form>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
+        <div class="formbold-input-flex">
+            <div style="margin-top: 2%" class="formbold-input-group">
+                <input
+                  type="text"
+                  oninput="filtrerTable()"
+                  name="name"
+                  id="filliereInput"
+                  placeholder="Rechercher Par Filliere"
+                  class="formbold-form-input"
+                />
+              </div>
+              <div style="margin-top: 2%" class="formbold-input-group">
+                <input
+                  type="text"
+                  name="name"
+                  id="departementInput"
+                  oninput="filtrerTable()"
+                  placeholder="Rechercher Par Departement"
+                  class="formbold-form-input"
+                />
+              </div>
+            </div>
+            <div class="formbold-input-flex">
+                <div style="margin-top: 1%" class="formbold-input-group">
+                    <input
+                      type="text"
+                      name="name"
+                      oninput="filtrerTable()"
+                      id="cordinateurInput"
+                      placeholder="Rechercher Par Cordinateur"
+                      class="formbold-form-input"
+                    />
+                  </div>
+                  <div style="margin-top: 1%" class="formbold-input-group">
+                    <input
+                      type="number"
+                      name="name"
+                      oninput="filterTable()"
+                      id="semestreInput"
+                      placeholder=" Rechercher Par  Semestre"
+                      class="formbold-form-input"
+                    />
+                  </div>
+                </div>
+                <p>Emploi Temps : </p>
+                <label class="mcui-checkbox">
+                    <input type="checkbox" id="nonDisponibleCheckbox" >
+                    <div>
+                      <svg class="mcui-check" viewBox="-2 -2 35 35" aria-hidden="true">
+                        <polyline points="7.57 15.87 12.62 21.07 23.43 9.93" />
+                      </svg>
+                    </div>
+                    <div>Disponible</div> <i class="fas fa-exclamation-triangle" style="color: red; font-size:20px"></i>
+                  </label>
+
+                  <label class="mcui-checkbox">
+                    <input type="checkbox" id="disponibleCheckbox">
+                    <div>
+                      <svg class="mcui-check" viewBox="-2 -2 35 35" aria-hidden="true">
+                        <polyline points="7.57 15.87 12.62 21.07 23.43 9.93" />
+                      </svg>
+                    </div>
+                    <div>Non Disponible</div> <i class="fas fa-check-circle" style="color: green; font-size:20px"></i>
+                  </label>
+                  <table id="myTable" class="table table-striped mt-5">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center" scope="col">Nom Filliere</th>
+                            <th scope="col">Nom Departement</th>
+                            <th scope="col">Cordinateur</th>
+                            <th scope="col">Semestre Actuelle</th>
+                            <th scope="col">Emploi Temps</th> <!-- Ajouter cette ligne -->
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($filieres as $filliere)
+                        <tr>
+                            <td style="font-weight: bold">{{ $filliere->nom_filiere }}</td>
+                            <td>{{ $filliere->nom_departement }}</td>
+                            <td>{{ $filliere->cordinateur }}</td>
+                            <td>{{ $filliere->semestre }}</td>
+                            <td>
+                                @if ($filliere->emploi_temps_disponible) <!-- Assurez-vous d'avoir cette donnée -->
+                                <i class="fas fa-check-circle" style="color: green; font-size:20px"></i>
+                                @else
+                                <i class="fas fa-exclamation-triangle" style="color: red; font-size:20px"></i>
+                                @endif
+                            </td>
+                            <td class="td-crud-operations">
+                                <a href="{{ route('fillieres.edit', $filliere->id) }}" class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                    </svg>
+                                </a>
+                                <form action="{{ route('fillieres.destroy', $filliere->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-link" style="padding: 0; background-color: transparent; border: none;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                        </svg>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
         </section>
       </div>
       <!-- main-panel ends -->

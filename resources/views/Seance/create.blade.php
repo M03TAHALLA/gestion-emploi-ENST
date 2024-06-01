@@ -60,17 +60,17 @@
         <!-- Learn More: https://formbold.com -->
         <div class="formbold-form-wrapper">
             <h2 style="margin-bottom: 5%;text-align:center" class=""> Emploi Temps</h2>
-            <form action="{{ route('EmploiStock.store') }}" method="POST">
+            <form action="{{ route('Seance.store') }}" method="POST">
                 @csrf
-                <input type="hidden" name="NomFilliere" value="{{ $EmploiTemps->NomFilliere }}">
-                <input type="hidden" name="NomGroupe" value="{{ $EmploiTemps->Groupe }}">
-                <input type="hidden" name="Semestre" value="{{ $EmploiTemps->Semestre }}">
+                <input type="hidden" name="id_filiere" value="{{ $EmploiTemps->id_filiere }}">
+                <input type="hidden" name="nom_groupe" value="{{ $EmploiTemps->nom_groupe }}">
+                <input type="hidden" name="semestre" value="{{ $EmploiTemps->semestre }}">
                 <div class="formbold-input-flex">
                     <div style="margin-top: 2%" class="formbold-input-group">
                         <label for="">Filliere</label>
                         <input
                             type="text"
-                            value="{{ $EmploiTemps->NomFilliere }}"
+                            value="{{ $EmploiTemps->id_filiere }}"
                             class="formbold-form-input"
                             disabled
                         />
@@ -79,7 +79,7 @@
                         <label for="">Semestre</label>
                         <input
                             type="text"
-                            value="{{ $EmploiTemps->Semestre }}"
+                            value="{{ $EmploiTemps->semestre }}"
                             class="formbold-form-input"
                             disabled
                         />
@@ -88,7 +88,7 @@
                         <label for="">Groupe</label>
                         <input
                             type="text"
-                            value="{{ $EmploiTemps->Groupe }}"
+                            value="{{ $EmploiTemps->nom_groupe }}"
                             class="formbold-form-input"
                             disabled
                         />
@@ -98,7 +98,7 @@
                     <label for="NomModule" class="formbold-form-label">Nom Module</label>
                     <input required
                         type="text"
-                        name="NomModule"
+                        name="id_module"
                         id="NomModule"
                         placeholder="Enter Nom Module"
                         class="formbold-form-input"
@@ -106,7 +106,7 @@
                 </div>
                 <div>
                     <label class="formbold-form-label">Jour</label>
-                    <select class="formbold-form-select" name="Jour" id="occupation">
+                    <select class="formbold-form-select" name="jour" id="occupation">
                         <option value="Lundi">Lundi</option>
                         <option value="Mardi">Mardi</option>
                         <option value="Mercredi">Mercredi</option>
@@ -121,7 +121,7 @@
                             <label for="HeurDebut" class="formbold-form-label">Heur Debut Cour</label>
                             <input
                                 type="time"
-                                name="HeurDebut"
+                                name="heure_debut"
                                 id="HeurDebut"
                                 class="formbold-form-input"
                                 required
@@ -133,7 +133,7 @@
                             <label for="HeurFin" class="formbold-form-label">Heur Fin Cour</label>
                             <input
                                 type="time"
-                                name="HeurFin"
+                                name="heure_fin"
                                 id="HeurFin"
                                 class="formbold-form-input"
                                 required
@@ -145,18 +145,11 @@
                     <label for="NumSalle" class="formbold-form-label">Num Salle</label>
                     <input required
                         type="number"
-                        name="NumSalle"
+                        name="num_salle"
                         id="NumSalle"
                         placeholder="Enter Numero Salle"
                         class="formbold-form-input"
                     />
-                </div>
-                <div>
-                    <label class="formbold-form-label">Type Salle</label>
-                    <select class="formbold-form-select" name="TypeSalle" id="occupation">
-                        <option value="Amphi">Amphi</option>
-                        <option value="Salle">Salle</option>
-                    </select>
                 </div>
                 <div class="formbold-input-flex">
                     <div style="margin-top: 2%" class="formbold-input-group">
@@ -173,7 +166,7 @@
                         <label for="PrenomEnseignant">Prenom Enseignant</label>
                         <input
                             type="text"
-                            name="PrenomEnseignant"
+                            name="cin_enseignant"
                             id="PrenomEnseignant"
                             class="formbold-form-input"
                             placeholder="Entrer Prenom Enseignant"

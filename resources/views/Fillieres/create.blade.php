@@ -73,58 +73,31 @@
             <form action="{{ route('fillieres.store') }}" method="POST">
                 @csrf
                 <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label"> Nom Filliere </label>
-                    <input
-                      type="text"
-                      name="NomFilliere"
-                      id="Filliere"
-                      placeholder="Nom Filliere"
-                      class="formbold-form-input"
-                      required
-                    />
-                  </div>
-                <div>
-                    <label class="formbold-form-label">
-                        Nom Departement
-                      </label>
-
-                      <select class="formbold-form-select" name="NomDepartement" id="NomDepartement">
-                        @foreach ($Departement as $Departement)
-                      <option value="{{ $Departement->NomDepartement }}">{{ $Departement->NomDepartement }}</option>
-                      @endforeach
-                      </select>
+                    <label for="nom_filiere" class="formbold-form-label">Nom Filière</label>
+                    <input type="text" name="nom_filiere" id="nom_filiere" placeholder="Nom Filière" class="formbold-form-input" required />
                 </div>
                 <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label"> Cordinateur </label>
-                    <input required
-                      type="text"
-                      name="Cordinateur"
-                      id="Cordinateur"
-                      placeholder="Cordinateur"
-                      class="formbold-form-input"
-                    />
-                  </div>
-                  <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label">Semestre Actuelle</label>
-                    <input required
-                      type="number"
-                      name="Semestre"
-                      id="Semestre"
-                      placeholder="Semestre Actuelle"
-                      class="formbold-form-input"
-                    />
-                  </div>
-                  <div class="formbold-input-group">
-                    <label for="numero" class="formbold-form-label">Nombre Groupe </label>
-                    <input required
-                      type="number"
-                      name="NombreGroupe"
-                      id="Groupe"
-                      placeholder="Nombre Groupe"
-                      class="formbold-form-input"
-                    />
-                  </div>
-              <button type="submit" class="formbold-btn">Ajouter une Filliere</button>
+                    <label for="nom_departement" class="formbold-form-label">Nom Département</label>
+                    <select class="formbold-form-select" name="nom_departement" id="nom_departement">
+                        @foreach ( $departements as $departements )
+                        <option value="{{ $departements->nom_departement }}">{{ $departements->nom_departement }}</option>
+
+                        @endforeach
+                    </select>
+                </div>
+                <div class="formbold-input-group">
+                    <label for="cordinateur" class="formbold-form-label">Coordinateur</label>
+                    <input type="text" name="cordinateur" id="cordinateur" placeholder="Coordinateur" class="formbold-form-input" required />
+                </div>
+                <div class="formbold-input-group">
+                    <label for="semestre" class="formbold-form-label">Semestre Actuel</label>
+                    <input type="number" name="semestre" id="semestre" placeholder="Semestre Actuel" class="formbold-form-input" required />
+                </div>
+                <div class="formbold-input-group">
+                    <label for="groupe" class="formbold-form-label">Nombre de Groupes</label>
+                    <input type="number" name="groupe" id="groupe" placeholder="Nombre de Groupes" class="formbold-form-input" required />
+                </div>
+                <button type="submit" class="formbold-btn">Ajouter une Filière</button>
             </form>
           </div>
         </section>
