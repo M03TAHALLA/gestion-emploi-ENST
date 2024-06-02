@@ -11,10 +11,10 @@ use App\Http\Controllers\SalleController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmploiStockController;
-use App\Http\Controllers\SousAdminController;
-
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SeanceController;
-
+use App\Http\Controllers\SousAdminController;
+use App\Http\Controllers\SuperAdminController;
 use App\Models\Seance;
 use App\Models\SousAdmin;
 
@@ -93,6 +93,15 @@ Route::get('/recherche', [SalleController::class, 'recherche'])->name('salles.re
 Route::resource('/dashboard/modules',ModuleController::class);
 
 Route::resource('/dashboard/admins',SousAdminController::class);
+Route::resource('/dashboard/super_admins', SuperAdminController::class);
+Route::resource('/dashboard/super_admins/roles', RoleController::class);
+
+//Route::post('/assign-roles',  [SuperAdminController::class, 'assignRoles'])->name('assign.roles.submit');
+Route::post('/assign-roles', [RoleController::class, 'assignRoles'])->name('assign.roles.submit');
+Route::get('/assign-roles', [RoleController::class, 'showAssignRolesForm'])->name('assign.roles.form');
+
+Route::post('/superadmin/assign-roles', [SuperAdminController::class, 'assignRoles']);
+Route::post('/sous_admins/{id}/assign-roles', [SousAdminController::class, 'assignRoles'])->name('sous_admins.assignRoles');
 
 Route::get('/get-semesters/{filliere}', [EmploiTempsController::class, 'getSemesters']);
 Route::get('/get-groups/{filliere}/{semestre}', [EmploiTempsController::class, 'getGroups']);
@@ -104,6 +113,5 @@ Route::get('/get-groups/{filiere}/{semestre}', [EmploiTempsController::class, 'g
 
 
 
-
-
-
+Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
