@@ -12,7 +12,9 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmploiStockController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SeanceController;
 use App\Http\Controllers\SousAdminController;
+use App\Http\Controllers\SuperAdminController;
 use App\Models\Seance;
 use App\Models\SousAdmin;
 
