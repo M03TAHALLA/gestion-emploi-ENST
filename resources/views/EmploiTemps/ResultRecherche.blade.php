@@ -194,6 +194,9 @@
 
           <h3 style="text-align: center">{{ $nomFiliere }} </h3>
 
+
+
+
           <div id="Table">
 
             <div class="container">
@@ -204,386 +207,158 @@
                               <thead>
                                   <tr>
                                       <th><sup> Groupe {{ $resultats->groupe }}</sup></th>
-                                  @php
-                                      $time = Carbon::createFromFormat('H:i:s', $resultats->crenau_debut);
-                                  @endphp
-                                  @for ( $i = 0 ; $i < 2 ; $i++)
-                                      <th>
-
-                                          {{ substr($time,11,5)  }} -
-                                          @php
-                                          $time = $time->addHours(2);
-                                          @endphp
-                                          {{  substr($time,11,5)  }}
-                                      </th>
-                                          @php
-                                          $time = $time->addMinutes(15);
-                                          @endphp
+                                      @for ($i = 0; $i < $countHoraire; $i++)
+                                      <th>{{ substr($Horaire[$i]->heure_debut, 0, 5) }}h - {{ substr($Horaire[$i]->heure_fin, 0, 5) }}h</th>
                                   @endfor
-                                          @php
-                                          $time = $time->addMinutes(15);
-                                          @endphp
-                                  @for ( $i = 0 ; $i < 2 ; $i++)
-                                      <th>
-
-                                          {{ substr($time,11,5)  }} -
-                                          @php
-                                          $time = $time->addHours(2);
-                                          @endphp
-                                          {{  substr($time,11,5)  }}
-                                          @php
-                                          $time = $time->addMinutes(15);
-                                          @endphp
-                                      </th>
-                                  @endfor
+                                  </tr>
                               </thead>
                               <tbody>
-                  <tr>
-                      <td class="day">Lundi</td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Lundi")
-                                  @if (substr($resultat->heure_debut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
-
-                                      <h4>{{ $resultat->nom_module }} {{ substr($resultat->heure_debut,0,2) }} </h4>
-                                      <p>Salle {{ $resultat->num_salle }}</p>
-                                      <div class="hover">
-                                      <h4>{{ $resultat->nom_module }}</h4>
-                                      <p>Salle {{ $resultat->num_salle }}</p>
-
-                                      </div>
+                              <tr>
+                                      <td class="day">Lundi </td>
+                                      @for ($l = 0; $l < $countHoraire; $l++)
+                                      @php
+                                      $count = 0;
+                                    @endphp
+                                  <td class="active">
+                                    @while ($count < $nombreSeances)
+                                          @if ($seances[$count]->jour == "Lundi")
+                                                  @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
+                                                  <h4>{{ $seances[$count]->module->nom_module }} </h4>
+                                                  <p>Salle {{ $seances[$count]->num_salle }}</p>
+                                                  <div class="hover">
+                                                  <h4>Mr . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
+                                                  <p> {{ $seances[$count]->salle->type_salle }}</p>
+                                                  @endif
+                                          @endif
+                                          @php
+                                          $count = $count+1;
+                                        @endphp
+                                      @endwhile
+                                    </td>
+                                  @endfor
+                            </tr>
+                            <tr>
+                              <td class="day">Mardi </td>
+                              @for ($l = 0; $l < $countHoraire; $l++)
+                              @php
+                              $count = 0;
+                            @endphp
+                          <td class="active">
+                            @while ($count < $nombreSeances)
+                                  @if ($seances[$count]->jour == "Mardi")
+                                          @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
+                                          <h4>{{ $seances[$count]->module->nom_module }} </h4>
+                                          <p>Salle {{ $seances[$count]->num_salle }}</p>
+                                          <div class="hover">
+                                          <h4>Mr . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
+                                          <p> {{ $seances[$count]->salle->type_salle }}</p>
+                                          @endif
                                   @endif
-                          @endif
-                      @endforeach
-                  </td>
+                                  @php
+                                  $count = $count+1;
+                                @endphp
+                              @endwhile
+                            </td>
+                          @endfor
+                    </tr>
+                    <tr>
+                      <td class="day">Mercredi </td>
+                      @for ($l = 0; $l < $countHoraire; $l++)
+                      @php
+                      $count = 0;
+                    @endphp
                   <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Lundi")
-                                  @if (substr($resultat->heure_debut,0,2) == '10' && substr($resultat->HeurFin,0,2) == '12')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
+                    @while ($count < $nombreSeances)
+                          @if ($seances[$count]->jour == "Mercredi")
+                                  @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
+                                  <h4>{{ $seances[$count]->module->nom_module }} </h4>
+                                  <p>Salle {{ $seances[$count]->num_salle }}</p>
                                   <div class="hover">
-
-                                  </div>
+                                  <h4>Mr . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
+                                  <p> {{ $seances[$count]->salle->type_salle }}</p>
                                   @endif
                           @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Lundi")
-                                  @if (substr($resultat->heure_debut,0,2) == '14' && substr($resultat->HeurFin,0,2) == '16')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Lundi")
-                                  @if (substr($resultat->heure_debut,0,2) == '16' && substr($resultat->HeurFin,0,2) == '18')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  </tr>
-
-                  <tr>
-                      <td class="day">Mardi</td>
-
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Mardi")
-                                  @if (substr($resultat->heure_debut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
-
-                                      <h4>{{ $resultat->nom_module }}</h4>
-                                      <p>Salle {{ $resultat->num_salle }}</p>
-                                      <div class="hover">
-
-                                      </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Mardi")
-                                  @if (substr($resultat->heure_debut,0,2) == '10' && substr($resultat->HeurFin,0,2) == '12')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Mardi")
-                                  @if (substr($resultat->heure_debut,0,2) == '14' && substr($resultat->HeurFin,0,2) == '16')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Mardi")
-                                  @if (substr($resultat->heure_debut,0,2) == '16' && substr($resultat->HeurFin,0,2) == '18')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  </tr>
-                  <tr>
-                      <td class="day">Mercredi</td>
-
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Mercredi")
-                                  @if (substr($resultat->heure_debut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
-
-                                      <h4>{{ $resultat->nom_module }}</h4>
-                                      <p>Salle {{ $resultat->num_salle }}</p>
-                                      <div class="hover">
-
-                                      </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Mercredi")
-                                  @if (substr($resultat->heure_debut,0,2) == '10' && substr($resultat->HeurFin,0,2) == '12')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Mercredi")
-                                  @if (substr($resultat->heure_debut,0,2) == '14' && substr($resultat->HeurFin,0,2) == '16')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Mercredi")
-                                  @if (substr($resultat->heure_debut,0,2) == '16' && substr($resultat->HeurFin,0,2) == '18')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  </tr>
-                  <tr>
-                      <td class="day">Jeudi</td>
-
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Jeudi")
-                                  @if (substr($resultat->heure_debut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
-
-                                      <h4>{{ $resultat->nom_module }}</h4>
-                                      <p>Salle {{ $resultat->num_salle }}</p>
-                                      <div class="hover">
-
-                                      </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Jeudi")
-                                  @if (substr($resultat->heure_debut,0,2) == '10' && substr($resultat->HeurFin,0,2) == '12')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Jeudi")
-                                  @if (substr($resultat->heure_debut,0,2) == '14' && substr($resultat->HeurFin,0,2) == '16')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
+                          @php
+                          $count = $count+1;
+                        @endphp
+                      @endwhile
+                    </td>
+                  @endfor
+                </tr>
+                <tr>
+                  <td class="day">Jeudi </td>
+                  @for ($l = 0; $l < $countHoraire; $l++)
+                  @php
+                  $count = 0;
+                @endphp
+                <td class="active">
+                @while ($count < $nombreSeances)
+                      @if ($seances[$count]->jour == "Jeudi")
+                              @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
+                              <h4>{{ $seances[$count]->module->nom_module }} </h4>
+                              <p>Salle {{ $seances[$count]->num_salle }}</p>
+                              <div class="hover">
+                              <h4>Mr . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
+                              <p> {{ $seances[$count]->salle->type_salle }}</p>
+                              @endif
+                      @endif
+                      @php
+                      $count = $count+1;
+                    @endphp
+                  @endwhile
+                </td>
+                @endfor
+                </tr>
+                <tr>
+                  <td class="day">Vendredi </td>
+                  @for ($l = 0; $l < $countHoraire; $l++)
+                  @php
+                  $count = 0;
+                @endphp
+                <td class="active">
+                @while ($count < $nombreSeances)
+                      @if ($seances[$count]->jour == "Vendredi")
+                              @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
+                              <h4>{{ $seances[$count]->module->nom_module }} </h4>
+                              <p>Salle {{ $seances[$count]->num_salle }}</p>
+                              <div class="hover">
+                              <h4>Mr . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
+                              <p> {{ $seances[$count]->salle->type_salle }}</p>
+                              @endif
+                      @endif
+                      @php
+                      $count = $count+1;
+                    @endphp
+                  @endwhile
+                </td>
+                @endfor
+                </tr>
+                <tr>
+                  <td class="day">Samedi </td>
+                  @for ($l = 0; $l < $countHoraire; $l++)
+                  @php
+                  $count = 0;
+                @endphp
+                <td class="active">
+                @while ($count < $nombreSeances)
+                      @if ($seances[$count]->jour == "Samedi")
+                              @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
+                              <h4>{{ $seances[$count]->module->nom_module }} </h4>
+                              <p>Salle {{ $seances[$count]->num_salle }}</p>
+                              <div class="hover">
+                              <h4>Mr . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
+                              <p> {{ $seances[$count]->salle->type_salle }}</p>
+                              @endif
+                      @endif
+                      @php
+                      $count = $count+1;
+                    @endphp
+                  @endwhile
+                </td>
+                @endfor
+                </tr>
 
 
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Jeudi")
-                                  @if (substr($resultat->heure_debut,0,2) == '16' && substr($resultat->HeurFin,0,2) == '18')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  </tr>
-                  <tr>
-                      <td class="day">Vendredi</td>
-
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Vendredi")
-                                  @if (substr($resultat->heure_debut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
-
-                                      <h4>{{ $resultat->nom_module }}</h4>
-                                      <p>Salle {{ $resultat->num_salle }}</p>
-                                      <div class="hover">
-
-                                      </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Vendredi")
-                                  @if (substr($resultat->heure_debut,0,2) == '10' && substr($resultat->HeurFin,0,2) == '12')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Vendredi")
-                                  @if (substr($resultat->heure_debut,0,2) == '14' && substr($resultat->HeurFin,0,2) == '16')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Vendredi")
-                                  @if (substr($resultat->heure_debut,0,2) == '16' && substr($resultat->HeurFin,0,2) == '18')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  </tr>
-                  <tr>
-                      <td class="day">Samedi</td>
-
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Samedi")
-                                  @if (substr($resultat->heure_debut,0,2) == '08' && substr($resultat->HeurFin,0,2) == '10')
-
-                                      <h4>{{ $resultat->nom_module }}</h4>
-                                      <p>Salle {{ $resultat->num_salle }}</p>
-                                      <div class="hover">
-
-                                      </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Samedi")
-                                  @if (substr($resultat->heure_debut,0,2) == '10' && substr($resultat->HeurFin,0,2) == '12')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Samedi")
-                                  @if (substr($resultat->heure_debut,0,2) == '14' && substr($resultat->HeurFin,0,2) == '16')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  <td class="active">
-                      @foreach ($seances as $resultat)
-                          @if ($resultat->jour == "Samedi")
-                                  @if (substr($resultat->heure_debut,0,2) == '16' && substr($resultat->HeurFin,0,2) == '18')
-                                  <h4>{{ $resultat->nom_module }}</h4>
-                                  <p>Salle {{ $resultat->num_salle }}</p>
-                                  <div class="hover">
-                                  </div>
-                                  @endif
-                          @endif
-                      @endforeach
-                  </td>
-                  </tr>
                               </tbody>
                           </table>
 
@@ -592,7 +367,7 @@
               </div>
           </div>
       </div>
-      @endif
+@endif
       </section>
     </div>
     <!-- main-panel ends -->

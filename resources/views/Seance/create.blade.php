@@ -62,15 +62,15 @@
             <h2 style="margin-bottom: 5%;text-align:center" class=""> Emploi Temps</h2>
             <form action="{{ route('Seance.store') }}" method="POST">
                 @csrf
-                <input type="hidden" name="id_filiere" value="{{ $EmploiTemps->id_filiere }}">
-                <input type="hidden" name="nom_groupe" value="{{ $EmploiTemps->nom_groupe }}">
-                <input type="hidden" name="semestre" value="{{ $EmploiTemps->semestre }}">
+                <input type="hidden" name="id_filiere" value="{{ $id_filiere }}">
+                <input type="hidden" name="nom_groupe" value="{{ $groupe }}">
+                <input type="hidden" name="semestre" value="{{ $semestre }}">
                 <div class="formbold-input-flex">
                     <div style="margin-top: 2%" class="formbold-input-group">
                         <label for="">Filliere</label>
                         <input
                             type="text"
-                            value="{{ $EmploiTemps->id_filiere }}"
+                            value="{{ $nomfiliere->nom_filiere }}"
                             class="formbold-form-input"
                             disabled
                         />
@@ -79,7 +79,7 @@
                         <label for="">Semestre</label>
                         <input
                             type="text"
-                            value="{{ $EmploiTemps->semestre }}"
+                            value="{{ $semestre }}"
                             class="formbold-form-input"
                             disabled
                         />
@@ -88,21 +88,20 @@
                         <label for="">Groupe</label>
                         <input
                             type="text"
-                            value="{{ $EmploiTemps->nom_groupe }}"
+                            value="{{ $groupe }}"
                             class="formbold-form-input"
                             disabled
                         />
                     </div>
                 </div>
-                <div class="formbold-input-group">
-                    <label for="NomModule" class="formbold-form-label">Nom Module</label>
-                    <input required
-                        type="text"
-                        name="id_module"
-                        id="NomModule"
-                        placeholder="Enter Nom Module"
-                        class="formbold-form-input"
-                    />
+                <div>
+                    <label class="formbold-form-label">Nom Module</label>
+                    <select class="formbold-form-select" name="id_module" id="NomModule">
+                        <option value="">Select Nom Module</option>
+                        @foreach ( $modules as $modules )
+                            <option value="{{ $modules->id }}">{{ $modules->nom_module }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div>
                     <label class="formbold-form-label">Jour</label>
@@ -141,38 +140,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="formbold-input-group">
-                    <label for="NumSalle" class="formbold-form-label">Num Salle</label>
-                    <input required
-                        type="number"
-                        name="num_salle"
-                        id="NumSalle"
-                        placeholder="Enter Numero Salle"
-                        class="formbold-form-input"
-                    />
+                <div>
+                    <label class="formbold-form-label">Num Salle</label>
+
+                    <select class="formbold-form-select" name="num_salle" id="NumSalle">
+                        <option value="">Selecter Votre Salle</option>
+                        @foreach ( $salles as $salles )
+                            <option value="{{ $salles->num_salle }}">Num : {{ $salles->num_salle }} - {{ $salles->type_salle }}</option>
+                        @endforeach
+                    </select>
                 </div>
-                <div class="formbold-input-flex">
-                    <div style="margin-top: 2%" class="formbold-input-group">
-                        <label for="NomEnseignant">Nom Enseignant</label>
-                        <input
-                            type="text"
-                            name="NomEnseignant"
-                            id="NomEnseignant"
-                            class="formbold-form-input"
-                            placeholder="Entre Nom Enseignant"
-                        />
+                    <div>
+                        <label class="formbold-form-label">Nom Complete Enseignant</label>
+                        <select class="formbold-form-select" name="cin_enseignant" id="nom_enseignant">
+                            <option value=""> Selecter Votre Prof</option>
+                                @foreach ( $enseignant as $enseignant )
+                                    <option value="{{ $enseignant->cin_enseignant }}">{{ $enseignant->nom_enseignant }} {{ $enseignant->prenom_enseignant }}</option>
+                                @endforeach
+                        </select>
                     </div>
-                    <div style="margin-top: 2%" class="formbold-input-group">
-                        <label for="PrenomEnseignant">Prenom Enseignant</label>
-                        <input
-                            type="text"
-                            name="cin_enseignant"
-                            id="PrenomEnseignant"
-                            class="formbold-form-input"
-                            placeholder="Entrer Prenom Enseignant"
-                        />
-                    </div>
-                </div>
+
                 <button type="submit" class="formbold-btn">Ajouter Dans Emploi Temps</button>
             </form>
 

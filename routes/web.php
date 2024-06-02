@@ -78,7 +78,7 @@ Route::resource('fillieres', FiliereController::class);
 Route::resource('departements', DepartementController::class);
 Route::resource('Emploitemps',EmploiTempsController::class);
 Route::resource('Seance',SeanceController::class);
-Route::get('/seances/{id_filiere}/{groupe}/{semestre}', 'SeanceController@show')->name('Seance.show');
+Route::get('/seances/{id_filiere}/{groupe}/{semestre}', [SeanceController::class,'show'])->name('Seance.show');
 
 
 

@@ -23,59 +23,59 @@
 
   <style>
      .formbold--mx-3 {
-    margin-left: -12px;
-    margin-right: -12px;
-  }
-  .formbold-px-3 {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-  .flex {
-    display: flex;
-  }
-  .flex-wrap {
-    flex-wrap: wrap;
-  }
+        margin-left: -12px;
+        margin-right: -12px;
+      }
+      .formbold-px-3 {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      .flex {
+        display: flex;
+      }
+      .flex-wrap {
+        flex-wrap: wrap;
+      }
 
-  .w-full {
-    width: 100%;
-  }
-  .alert {
-            padding: 20px;
-            margin-bottom: 15px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-        }
+      .w-full {
+        width: 100%;
+      }
+      .alert {
+                padding: 20px;
+                margin-bottom: 15px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
 
-        .alert-danger {
-            color: #a94442;
-            background-color: #f2dede;
-            border-color: #ebccd1;
-        }
+            .alert-danger {
+                color: #a94442;
+                background-color: #f2dede;
+                border-color: #ebccd1;
+            }
 
-        .alert-success {
-            color: #3c763d;
-            background-color: #dff0d8;
-            border-color: #d6e9c6;
-        }
+            .alert-success {
+                color: #3c763d;
+                background-color: #dff0d8;
+                border-color: #d6e9c6;
+            }
 
-        .alert-info {
-            color: #31708f;
-            background-color: #d9edf7;
-            border-color: #bce8f1;
-        }
+            .alert-info {
+                color: #31708f;
+                background-color: #d9edf7;
+                border-color: #bce8f1;
+            }
 
-        .alert-warning {
-            color: #8a6d3b;
-            background-color: #fcf8e3;
-            border-color: #faebcc;
-        }
+            .alert-warning {
+                color: #8a6d3b;
+                background-color: #fcf8e3;
+                border-color: #faebcc;
+            }
 
-        .alert ul {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-        }
+            .alert ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
   </style>
 
 
@@ -135,32 +135,22 @@
                 <option value="">Sélectionner un groupe</option>
               </select>
             </div>
-            <div class="flex flex-wrap formbold--mx-3">
-                <div class="w-full sm:w-half formbold-px-3">
-                  <div class="formbold-mb-5 w-full">
-                    <label for="date" class="formbold-form-label"> Craunaux Debut </label>
-                    <input value="{{ old('crenau_debut') }}"
-                      type="time"
-                      name="crenau_debut"
-                      id="date"
-                      class="formbold-form-input"
-                      required
+                <div style="margin-top: 2%" class="formbold-input-group">
+                    <label for="nombre_seance">Nombre Seance</label>
+                    <input
+                        type="number"
+                        value=""
+                        class="formbold-form-input"
+                        name="nombre_seance"
+                        id="nombre_seance"
+                        onchange="generateHoraires()"
+                        required
                     />
-                  </div>
                 </div>
-                <div class="w-full sm:w-half formbold-px-3">
-                  <div class="formbold-mb-5">
-                    <label for="time" class="formbold-form-label">  Craunaux Fin </label>
-                    <input value="{{ old('crenau_fin') }}"
-                      type="time"
-                      name="crenau_fin"
-                      id="time"
-                      class="formbold-form-input"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
+            <div id="horaires-container" style="margin-top: 2%" class="formbold-input-group">
+                <!-- Les inputs horaires générés apparaîtront ici -->
+            </div>
+
             <button class="formbold-btn">Ajouter Une Emploi Temps</button>
           </form>
         </div>
@@ -203,32 +193,32 @@
         }
     }, 3000);
 
-
     function getFiliere() {
-    const departement = document.getElementById('departement').value;
+        const departement = document.getElementById('departement').value;
 
-    // Réinitialiser la liste des filières
-    const filliereSelect = document.getElementById('filliere');
-    filliereSelect.innerHTML = '<option value="">Sélectionner une filière</option>';
+        // Réinitialiser la liste des filières
+        const filliereSelect = document.getElementById('filliere');
+        filliereSelect.innerHTML = '<option value="">Sélectionner une filière</option>';
 
-    // Si un département est sélectionné
-    if (departement) {
-      fetch(`/get-filieres/${departement}`)
-        .then(response => response.json())
-        .then(data => {
-          // Parcourir les filières et les ajouter à la liste déroulante
-          data.forEach(filiere => {
-            const option = document.createElement('option');
-            option.value = filiere;
-            option.textContent = filiere;
-            filliereSelect.appendChild(option);
-          });
-        })
-        .catch(error => {
-          console.error('Erreur lors de la récupération des filières:', error);
-        });
-    }
-  }
+        // Si un département est sélectionné
+        if (departement) {
+          fetch(`/get-filieres/${departement}`)
+            .then(response => response.json())
+            .then(data => {
+              // Parcourir les filières et les ajouter à la liste déroulante
+              data.forEach(filiere => {
+                const option = document.createElement('option');
+                option.value = filiere;
+                option.textContent = filiere;
+                filliereSelect.appendChild(option);
+              });
+            })
+            .catch(error => {
+              console.error('Erreur lors de la récupération des filières:', error);
+            });
+        }
+      }
+
     // Fonction pour récupérer les semestres
     function getSemesters() {
       const filliere = document.getElementById('filliere').value;
@@ -281,6 +271,49 @@
           .catch(error => console.error('Erreur lors de la récupération des groupes:', error));
       }
     }
+
+    function generateHoraires() {
+    const nombreSeance = document.getElementById('nombre_seance').value;
+    const horairesContainer = document.getElementById('horaires-container');
+
+    // Réinitialiser le conteneur d'horaires
+    horairesContainer.innerHTML = '';
+
+    // Générer les champs horaires en fonction du nombre de séances
+    for (let i = 0; i < nombreSeance; i++) {
+        const div = document.createElement('div');
+        div.classList.add('formbold-mb-5');
+
+        const labelDebut = document.createElement('label');
+        labelDebut.classList.add('formbold-form-label');
+        labelDebut.textContent = `Horaire de début pour la séance ${i + 1}`;
+
+        const inputDebut = document.createElement('input');
+        inputDebut.type = 'time';
+        inputDebut.name = `horaires_debut[]`;
+        inputDebut.classList.add('formbold-form-input');
+        inputDebut.required = true;
+
+        div.appendChild(labelDebut);
+        div.appendChild(inputDebut);
+
+        const labelFin = document.createElement('label');
+        labelFin.classList.add('formbold-form-label');
+        labelFin.textContent = `Horaire de fin pour la séance ${i + 1}`;
+
+        const inputFin = document.createElement('input');
+        inputFin.type = 'time';
+        inputFin.name = `horaires_fin[]`;
+        inputFin.classList.add('formbold-form-input');
+        inputFin.required = true;
+
+        div.appendChild(labelFin);
+        div.appendChild(inputFin);
+
+        horairesContainer.appendChild(div);
+    }
+}
+
 </script>
   <!-- End custom js for this page-->
 </body>
