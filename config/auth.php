@@ -40,6 +40,15 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'sous_admin' => [
+            'driver' => 'session',
+            'provider' => 'sous_admins',
+        ],
+    
+        'super_admin' => [
+            'driver' => 'session',
+            'provider' => 'super_admins',
+        ],
     ],
 
     /*
@@ -60,14 +69,24 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
+        //'users' => [
+        //    'driver' => 'eloquent',
+         //   'model' => env('AUTH_MODEL', App\Models\User::class),
+        //],
 
         'users' => [
             'driver' => 'database',
-            'table' => 'users',
+            'table' => 'sous_admins', 
+        ],
+
+        'sous_admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\SousAdmin::class,
+        ],
+    
+        'super_admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\SuperAdmin::class,
         ],
     ],
 

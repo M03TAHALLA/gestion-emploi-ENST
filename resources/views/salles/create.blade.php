@@ -545,6 +545,7 @@ td{
             <div class="form-group">
                 <label for="nom_departement">Nom du Département:</label>
                 <select id="nom_departement" name="nom_departement" required class="form-control">
+                  <option value="">selecter un departement</option>
                     @foreach($departements as $departement)
                         <option value="{{ $departement->nom_departement }}">{{ $departement->nom_departement }}</option>
                     @endforeach
@@ -563,10 +564,9 @@ td{
                 <input type="number" id="capacite" name="capacite" value="{{ old('capacite') }}" required class="form-control">
             </div>
             <div class="form-group form-check">
-              <input type="checkbox" id="disponibilite" name="disponibilite" value="1" {{ old('disponibilite') ? 'checked' : '' }} class="form-check-input mr-0">
+              <input type="checkbox" id="disponibilite" name="disponibilite" value="0" {{ old('disponibilite') ? 'checked' : '' }} class="form-check-input mr-0" checked>
               <label for="disponibilite" class="form-check-label ml-0">Disponible</label>
-              <input type="checkbox" id="disponibilite" name="disponibilite" value="0" {{ old('disponibilite') ? 'checked' : '' }} class="form-check-input mr-0">
-              <label for="disponibilite" class="form-check-label ml-0">Non Disponible</label>
+
             </div>
             <div class="form-group mt-3">
                 <label for="annee_academique">Année Académique:</label>

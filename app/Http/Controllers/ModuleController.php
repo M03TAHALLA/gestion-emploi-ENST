@@ -24,11 +24,9 @@ class ModuleController extends Controller
     // Afficher le formulaire de création d'un module
     public function create()
     {
-        $modules = Module::select('modules.*', 'filieres.nom_filiere', 'enseignants.nom_enseignant')
-            ->join('filieres', 'modules.id_filiere', '=', 'filieres.id')
-            ->join('enseignants', 'modules.cin_enseignant', '=', 'enseignants.cin_enseignant')
-            ->get();
-        return view('modules.create', compact('modules'));
+        $filieres = Filiere::all();
+        $natures = ['Disciplinaire', 'Complémentaire'];
+        return view('modules.create', compact('filieres','natures'));
     }
 
     // Sauvegarder un nouveau module dans la base de données
@@ -125,5 +123,15 @@ class ModuleController extends Controller
 
         return redirect()->route('modules.index')
             ->with('success', 'Module supprimé avec succès.');
+    }
+    public function getEnseignantsByFiliere($nom_filiere)
+    {
+        $filiere = Filiere::where('nom_filiere', $nom_filiere)->first();
+        if ($filiere) {
+            $enseignants = Enseignant::where('nom_departement', $filiere->nom_departement)->get();
+            return response()->json($enseignants);
+        } else {
+            return response()->json([]);
+        }
     }
 }
