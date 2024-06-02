@@ -2,17 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class SousAdmin extends Model
+class SousAdmin extends Authenticatable
 {
-    use HasFactory;
-    protected $fillable = ['cin', 'matricule', 'nom', 'prenom', 'email', 'password', 'aac'];
+    protected $guard = 'sous_admin';
 
+    protected $fillable = [
+        'cin', 'matricule', 'nom', 'prenom', 'email', 'password', 'aac',
+    ];
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
     public function rolesAdmins()
     {
         return $this->hasMany(RolesAdmin::class, 'id_sous_admin');
     }
-
 }

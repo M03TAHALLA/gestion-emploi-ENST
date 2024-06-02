@@ -18,10 +18,12 @@ return new class extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->nullable(); // Make sure to set it nullable for existing records
             $table->string('aac')->default('24-25');
+            $table->rememberToken(); // Add remember_token for authentication
             $table->timestamps();
         });
+        
     }
 
     /**

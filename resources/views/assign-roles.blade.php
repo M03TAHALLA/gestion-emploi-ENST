@@ -214,6 +214,20 @@
                       transform: translate(-50%, -50%) scale(0.8);
                   }
                   }
+                  .create-salle-button{
+    background-color: #0039a6;
+    padding: 15px;
+    color: white;
+    margin-top: 20px;
+    margin-left: 11px;
+    border-radius: 8px;
+    width: 250px;
+}
+.create-salle-button:hover{
+    background-color: white;
+    color: #0039a6;
+    border: 1px solid #0039a6;
+}
       
           </style>
       </head>
@@ -221,36 +235,61 @@
     @include('Layout.navbar')
     @include('Layout.sidebar')    
     <div class="container mt-5">
-        <h1 class="mb-4">Assign Roles to Admins</h1>
+        <div class="head-section">
+            <div class="left-section">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16" style="color:white; margin-bottom:2px; padding:0;">
+                <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0"></path>
+                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
+              </svg>
+              <span class="title-section">
+                Gestion des admins
+              </span>
+            </div>
+            <div class="right-section">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
+                <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
+              </svg>
+              <span>Sous admin roles / </span><a href=""> info</a>
+            </div>
+          </div>
+        <h2 class="mb-5 mt-5"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-right-circle-fill mb-2" viewBox="0 0 16 16">
+            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+          </svg>  Affecter les roles disponible</h2>
         
         <form action="{{ route('assign.roles.submit') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="admin">Select Admin:</label>
+                <label for="admin">Sous admin nom & prenom:</label>
                 <select name="admin" id="admin" class="form-control">
-                    @foreach($sousAdmins as $sousAdmin)
-                        <option value="{{ $sousAdmin->id }}">{{ $sousAdmin->nom }} {{ $sousAdmin->prenom }}</option>
+                    @foreach ($sousAdmins as $sousAdmin)
+                        <option value="{{ $sousAdmin->id }}">{{ $sousAdmin->prenom }} {{ $sousAdmin->nom }}</option>
                     @endforeach
+                    
                 </select>
             </div>
         
             <div class="form-group">
                 <label>Select Roles:</label>
-                @foreach($roles as $role)
-    @php
-        $isChecked = $sousAdmin->rolesAdmins()->where('role_id', $role->id)->exists();
-    @endphp
-    <div class="form-check">
-        <input type="checkbox" id="role_{{ $role->id }}" name="roles[]" value="{{ $role->nom_role }}" class="form-check-input" {{ $isChecked ? 'checked' : '' }}>
-        <label for="role_{{ $role->id }}" class="form-check-label">{{ $role->nom_role }}</label>
-    </div>
-@endforeach
+            @foreach($roles as $role)
+            @if ($isChecked = $sousAdmin->rolesAdmins()->where('role_id', $role->id)->exists())
+            <div class="form-check">
+                <input type="checkbox" id="role_{{ $role->id }}" name="roles[]" value="{{ $role->nom_role }}" class="form-check-input ml-3" {{ $isChecked ? 'checked' : '' }}>
+                <label for="role_{{ $role->id }}" class="form-check-label">{{ $role->nom_role }}</label>
             </div>
-        
-            <button type="submit" class="btn btn-primary">Assign Role</button>
-        </form>
-        
-    </div>
+            @else
+            <div class="form-check">
+                <input type="checkbox" id="role_{{ $role->id }}" name="roles[]" value="{{ $role->nom_role }}" class="form-check-input ml-3" >
+                <label for="role_{{ $role->id }}" class="form-check-label">{{ $role->nom_role }}</label>
+            </div>
+            @endif
+
+            @endforeach
+                        </div>
+                    
+                        <button type="submit" class="btn create-salle-button">Assign Role</button>
+                    </form>
+                    
+                </div>
     
 
     <!-- Bootstrap JS and dependencies -->
