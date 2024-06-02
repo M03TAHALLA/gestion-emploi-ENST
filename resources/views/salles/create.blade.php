@@ -535,7 +535,7 @@ td{
                 </ul>
             </div>
         @endif
-        
+
         <form action="{{ route('salles.store') }}" method="POST" class="mx-auto mt-5">
             @csrf
             <div class="form-group">
@@ -546,7 +546,7 @@ td{
                 <label for="nom_departement">Nom du Département:</label>
                 <select id="nom_departement" name="nom_departement" required class="form-control">
                     @foreach($departements as $departement)
-                        <option value="{{ $departement->NomDepartement }}">{{ $departement->NomDepartement }}</option>
+                        <option value="{{ $departement->nom_departement }}">{{ $departement->nom_departement }}</option>
                     @endforeach
                 </select>
             </div>
@@ -574,7 +574,7 @@ td{
             </div>
             <button type="submit" class="btn create-salle-button">Créer une nouvelle salle</button>
         </form>
-        
+
         </section>
       </div>
       <!-- main-panel ends -->

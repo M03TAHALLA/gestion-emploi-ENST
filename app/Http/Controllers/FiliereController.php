@@ -8,10 +8,22 @@ use Illuminate\Http\Request;
 class FiliereController extends Controller
 {
     public function index()
-    {
-        $filieres = Filiere::all();
-        return view('Fillieres.index', compact('filieres'));
-    }
+{
+    $filieres = Filiere::with('emploi_temps')->get();
+
+    $disponibilites = $filieres->map(function($filiere) {
+        $nombreGroupes = $filiere->groupe; // Assumant que vous avez une colonne 'nombre_groupes' dans la table 'filieres'
+        $nombreEmploisTemps = $filiere->emploi_temps->count();
+
+        return [
+            'filiere' => $filiere,
+            'disponible' => $nombreGroupes == $nombreEmploisTemps
+        ];
+    });
+
+    return view('Fillieres.index', compact('disponibilites'));
+}
+
 
     /**
      * Show the form for creating a new resource.

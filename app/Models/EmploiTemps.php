@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class EmploiTemps extends Model
 {
     use HasFactory;
+    public function filiere()
+    {
+        return $this->belongsTo(Filiere::class, 'id_filiere');
+    }
 
     protected $fillable = [
         'nom_departement',

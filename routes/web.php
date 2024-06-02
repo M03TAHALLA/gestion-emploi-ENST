@@ -75,6 +75,8 @@ Route::post('dashboard/EmploiTemps-Rech',[EmploiTempsController::class,'Resultat
 
 
 Route::resource('fillieres', FiliereController::class);
+Route::resource('etudiants', EtudiantController::class);
+
 Route::resource('departements', DepartementController::class);
 Route::resource('Emploitemps',EmploiTempsController::class);
 Route::resource('Seance',SeanceController::class);
@@ -115,3 +117,5 @@ Route::get('/get-groups/{filiere}/{semestre}', [EmploiTempsController::class, 'g
 
 Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
 Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+
+Route::get('/get-horaire', [SeanceController::class, 'getHoraire']);
