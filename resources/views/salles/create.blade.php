@@ -535,7 +535,7 @@ td{
                 </ul>
             </div>
         @endif
-        
+
         <form action="{{ route('salles.store') }}" method="POST" class="mx-auto mt-5">
             @csrf
             <div class="form-group">
@@ -574,7 +574,7 @@ td{
             </div>
             <button type="submit" class="btn create-salle-button">Créer une nouvelle salle</button>
         </form>
-        
+
         </section>
       </div>
       <!-- main-panel ends -->

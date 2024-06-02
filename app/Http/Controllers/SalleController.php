@@ -12,7 +12,7 @@ class SalleController extends Controller
 {
     public function index()
     {
-        
+
         $salles = Salle::all();
         return view('salles.index', compact('salles'));
     }
@@ -29,7 +29,6 @@ class SalleController extends Controller
             'nom_departement' => 'required|string|max:255',
             'type_salle' => 'required|in:Salle,Amphi,Laboratoire',
             'capacite' => 'required|integer',
-            'disponibilite' => 'required|boolean',
         ]);
 
         Salle::create($request->all());

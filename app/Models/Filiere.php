@@ -8,6 +8,11 @@ class Filiere extends Model
 {
     use HasFactory;
 
+    public function emploi_temps()
+    {
+        return $this->hasMany(EmploiTemps::class, 'id_filiere');
+    }
+
     protected $fillable = [
         'nom_filiere',
         'nom_departement',

@@ -95,6 +95,8 @@ Route::post('dashboard/EmploiTemps-Rech', [EmploiTempsController::class, 'Result
 
 
 Route::resource('fillieres', FiliereController::class);
+Route::resource('etudiants', EtudiantController::class);
+
 Route::resource('departements', DepartementController::class);
 Route::resource('Emploitemps', EmploiTempsController::class);
 Route::resource('Seance', SeanceController::class);
@@ -135,25 +137,3 @@ Route::get('/get-groups/{filiere}/{semestre}', [EmploiTempsController::class, 'g
 
 Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
 Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
-
-
-
-
-
-Route::get('/enseignants/by-filiere/{nom_filiere}', [ModuleController::class, 'getEnseignantsByFiliere']);
-
-
-
-//Route::get('/login', [SousAdminLoginController::class, 'show'])->name('login.show');
-//Route::post('/login', [SousAdminLoginController::class, 'login'])->name('login.login');
-
-
-Route::get('/login-super', [SuperAdminLoginController::class, 'show'])->name('login.show');
-Route::post('/login-super', [SuperAdminLoginController::class, 'login'])->name('login.login');
-
-use App\Http\Controllers\Auth\LoginController;
-
-
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');

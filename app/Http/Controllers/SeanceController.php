@@ -100,6 +100,19 @@ class SeanceController extends Controller
         'cin_enseignant' => 'required|string',
     ]);
 
+    // Vérifier si la séance existe déjà
+    $existingSeance = Seance::where('id_filiere', $validatedData['id_filiere'])
+        ->where('nom_groupe', $validatedData['nom_groupe'])
+        ->where('jour', $validatedData['jour'])
+        ->where('heure_debut', $validatedData['heure_debut'])
+        ->where('heure_fin', $validatedData['heure_fin'])
+        ->first();
+
+    if ($existingSeance) {
+        // Si la séance existe déjà, retourner un message d'erreur
+        return redirect()->back()->withErrors(['error' => 'Cette Horaire est déjà réservée dans l\'emploi du temps.']);
+    }
+
     // Créer un nouvel enregistrement de Seance
     $seance = new Seance();
     $seance->id_filiere = $validatedData['id_filiere'];
@@ -112,7 +125,7 @@ class SeanceController extends Controller
     $seance->num_salle = $validatedData['num_salle'];
     $seance->cin_enseignant = $validatedData['cin_enseignant'];
 
-    // Sauvegarder la seance dans la base de données
+    // Sauvegarder la séance dans la base de données
     $seance->save();
 
     // Stocker les informations nécessaires dans la session
@@ -124,7 +137,7 @@ class SeanceController extends Controller
 
     // Rediriger vers la route Seance.index avec un message de succès
     return redirect()->route('Seance.index')
-        ->with('success', 'Seance added successfully!');
+        ->with('success', 'Séance ajoutée avec succès!');
 }
 
 
@@ -133,27 +146,48 @@ class SeanceController extends Controller
      */
     public function show($id_filiere, $groupe, $semestre)
 {
+    $jour = request()->query('jour');
 
-    $nomfiliere = Filiere::where('id',$id_filiere)->first();
+    $nomfiliere = Filiere::where('id', $id_filiere)->first();
+    $modules = Module::where('id_filiere', $id_filiere)->get();
+    $salles = Salle::where('nom_departement', $nomfiliere->nom_departement)->get();
+    $enseignant = Enseignant::where('nom_departement', $nomfiliere->nom_departement)->get();
 
-    $modules = Module::where('id_filiere',$id_filiere)->get();
+    $id = EmploiTemps::where('id_filiere', $id_filiere)
+        ->where('semestre', $semestre)
+        ->where('groupe', $groupe)
+        ->first();
 
-    $salles = Salle::where('nom_departement',$nomfiliere->nom_departement)->get();
+    $horairesIndispo = Seance::where('id_filiere', $id_filiere)
+                                ->where('semestre',$semestre)
+                                ->where('nom_groupe',$groupe)
+                                ->where('jour',$jour)
+                                ->get();
 
-    $enseignant = Enseignant::where('nom_departement',$nomfiliere->nom_departement)->get();
+
+    $Horaires = Horaire::where('emploi_temps_id', $id->id)->get();
+
+    $countHoraires = $Horaires->count();
 
 
-    // You can return the Seance object or pass it to a view
     return view('Seance.create', [
-        'modules'=>$modules,
-        'id_filiere'=>$id_filiere,
-        'nomfiliere'=>$nomfiliere,
-        'groupe'=>$groupe,
-        'semestre'=>$semestre,
-        'salles'=>$salles,
-        'enseignant'=>$enseignant
+        'modules' => $modules,
+        'id_filiere' => $id_filiere,
+        'nomfiliere' => $nomfiliere,
+        'groupe' => $groupe,
+        'semestre' => $semestre,
+        'salles' => $salles,
+        'enseignant' => $enseignant,
+        'Horaires' => $Horaires,
+        'id' => $id,
+        'jour' => $jour,
+        'horairesIndispo'=>$horairesIndispo,
+        'countHoraires'=>$countHoraires
     ]);
 }
+
+
+
 
     /**
      * Show the form for editing the specified resource.

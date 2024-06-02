@@ -27,7 +27,7 @@
   <link rel="shortcut icon" href="/images/logo.png" />
   <style>
     .alert-success {
-      color: #3c763d;
+      color: #43cd21;
       background-color: #dff0d8;
       border-color: #d6e9c6;
       margin: 2%;
