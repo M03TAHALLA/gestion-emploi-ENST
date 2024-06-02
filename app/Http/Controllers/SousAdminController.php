@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\SousAdmin;
 
@@ -38,8 +39,9 @@ class SousAdminController extends Controller
 
     public function show($id)
     {
-        $sousAdmin = SousAdmin::findOrFail($id);
-        return view('sous_admins.show', compact('sousAdmin'));
+        $sousAdmins = SousAdmin::all();
+        $roles = Role::all();
+        return view('assign-roles', compact('sousAdmins','roles'));
     }
 
     public function edit($id)
@@ -73,5 +75,14 @@ class SousAdminController extends Controller
 
         return redirect()->route('admins.index')
             ->with('success', 'Sous admin deleted successfully.');
+    }
+
+
+    public function assignRoles(Request $request, $id)
+    {
+        $admin = SousAdmin::find($request->admin);
+        $admin->roles()->sync($request->roles);
+
+        return redirect()->back()->with('success', 'Roles assigned successfully.');
     }
 }

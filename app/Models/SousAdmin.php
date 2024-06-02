@@ -8,5 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class SousAdmin extends Model
 {
     use HasFactory;
-    protected $fillable = ['cin', 'matricule', 'nom', 'prenom', 'email', 'password', 'role', 'aac'];
+    protected $fillable = ['cin', 'matricule', 'nom', 'prenom', 'email', 'password', 'aac'];
+
+    public function rolesAdmins()
+    {
+        return $this->hasMany(RolesAdmin::class, 'id_sous_admin');
+    }
+
 }
