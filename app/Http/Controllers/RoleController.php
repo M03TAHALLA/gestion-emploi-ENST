@@ -94,13 +94,13 @@ public function assignRoles(Request $request)
     ]);
 
     // Retrieve the selected admin ID
-    $adminId = $request->input('admin');
+    $id = $request->input('admin');
 
     // Retrieve the selected roles
     $roles = $request->input('roles');
 
     // Remove all previous role assignments for the selected admin
-    RolesAdmin::where('id_sous_admin', $adminId)->delete();
+    RolesAdmin::where('id_sous_admin', $id)->delete();
 
     // Loop through the roles and insert them into the roles_admins table
     foreach ($roles as $role) {
@@ -108,11 +108,19 @@ public function assignRoles(Request $request)
 
         RolesAdmin::create([
             'role_id' => $roleId,
-            'id_sous_admin' => $adminId
+            'id_sous_admin' => $id
         ]);
     }
+    $sousAdmins = SousAdmin::where('id', $id)->get(); // Use get() to retrieve the SousAdmin objects
 
-    return redirect()->route('assign.roles.form', ['admin' => $adminId])->with('success', 'Roles assigned successfully.');
+        $countSousAdmin = $sousAdmins->count();
+        $roles = Role::all();
+    return view('assign-roles', [
+        'sousAdmins'=> $sousAdmins,
+        'id'=>$id,
+        'roles'=>$roles,
+        'countSousAdmin'=>$countSousAdmin
+    ]);
 }
 
 }

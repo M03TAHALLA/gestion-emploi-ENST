@@ -537,45 +537,43 @@ td{
         @endif
 
         <form action="{{ route('modules.store') }}" method="POST" class="mx-auto mt-5">
-            @csrf
-            <div class="form-group">
-                <label for="nom_module">Nom module</label>
-                <input type="text" id="nom_module" name="nom_module" value="{{ old('nom_module') }}" required class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="nom_filiere">Nom du Filiére</label>
-                <select id="nom_filiere" name="nom_filiere" required class="form-control">
-                    @foreach($modules as $module)
-                        <option value="{{ $module->nom_filiere }}">{{ $module->nom_filiere }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="volume_horaire">Volume horaire:</label>
-                <input type="number" id="volume_horaire" name="volume_horaire" value="{{ old('volume_horaire') }}" required class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="nature_module">Nature de Module</label>
-              <select id="nature_module" name="nature_module" required class="form-control">
-                  @foreach($modules->unique('nature_module') as $module)
-                      <option value="{{ $module->nature_module }}">{{ $module->nature_module }}</option>
+          @csrf
+          <div class="form-group">
+              <label for="nom_module">Nom module</label>
+              <input type="text" id="nom_module" name="nom_module" value="{{ old('nom_module') }}" required class="form-control">
+          </div>
+          <div class="form-group">
+              <label for="nom_filiere">Nom du Filiére</label>
+              <select id="nom_filiere" name="nom_filiere" required class="form-control">
+                  @foreach($filieres as $filiere)
+                      <option value="{{ $filiere->nom_filiere }}">{{ $filiere->nom_filiere }}</option>
                   @endforeach
               </select>
           </div>
+          <div class="form-group">
+              <label for="volume_horaire">Volume horaire:</label>
+              <input type="number" id="volume_horaire" name="volume_horaire" value="{{ old('volume_horaire') }}" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="nature_module">Nature de Module</label>
+            <select id="nature_module" name="nature_module" required class="form-control">
+                @foreach($natures as $nature)
+                    <option value="{{ $nature }}">{{ $nature }}</option>
+                @endforeach
+            </select>
+        </div>
           
           <div class="form-group">
               <label for="nom_enseignant">Nom d'enseignant</label>
               <select id="nom_enseignant" name="nom_enseignant" required class="form-control">
-                  @foreach($modules as $module)
-                      <option value="{{ $module->nom_enseignant }}">{{ $module->nom_enseignant }}</option>
-                  @endforeach
+                  <!-- This will be populated dynamically -->
               </select>
           </div>
-            <div class="form-group mt-3">
-                <label for="annee_academique">Année Académique:</label>
-                <input type="text" id="annee_academique" name="annee_academique" value="2024-2025" readonly class="form-control">
-            </div>
-            <button type="submit" class="btn create-salle-button">Créer un nouveau module</button>
+          <div class="form-group mt-3">
+              <label for="annee_academique">Année Académique:</label>
+              <input type="text" id="annee_academique" name="annee_academique" value="2024-2025" readonly class="form-control">
+          </div>
+          <button type="submit" class="btn create-salle-button">Créer un nouveau module</button>
         </form>
         </section>
       </div>
@@ -595,72 +593,29 @@ td{
   <script src="/js/dataTables.select.min.js"></script>
 
   <script>
-    function filterTable() {
-    // Récupérer les valeurs saisies dans les champs de recherche pour filière, département, coordinateur et nombre de semestres
-    var inputFilliere = document.getElementById("filliereInput");
-    var inputDepartement = document.getElementById("departementInput");
-    var inputCordinateur = document.getElementById("cordinateurInput");
-    var inputSemestre = document.getElementById("semestreInput");
-    var filterFilliere = inputFilliere ? inputFilliere.value.toUpperCase() : "";
-    var filterDepartement = inputDepartement ? inputDepartement.value.toUpperCase() : "";
-    var filterCordinateur = inputCordinateur ? inputCordinateur.value.toUpperCase() : "";
-    var filterSemestre = inputSemestre ? inputSemestre.value.toUpperCase() : "";
+    document.addEventListener('DOMContentLoaded', function() {
+        const filiereSelect = document.getElementById('nom_filiere');
+        const enseignantSelect = document.getElementById('nom_enseignant');
 
-    // Récupérer l'état des cases à cocher pour emploi du temps
-    var disponibleCheckbox = document.getElementById("disponibleCheckbox").checked;
-    var nonDisponibleCheckbox = document.getElementById("nonDisponibleCheckbox").checked;
+        filiereSelect.addEventListener('change', function() {
+            const nomFiliere = this.value;
 
-    // Récupérer les lignes de la table
-    var table = document.getElementById("myTable");
-    var rows = table.getElementsByTagName("tr");
+            fetch(`/enseignants/by-filiere/${nomFiliere}`)
+                .then(response => response.json())
+                .then(data => {
+                    enseignantSelect.innerHTML = '';
 
-    // Parcourir toutes les lignes du tableau
-    for (var i = 0; i < rows.length; i++) {
-        // Récupérer le contenu des colonnes
-        var tdFilliere = rows[i].getElementsByTagName("td")[0];
-        var tdDepartement = rows[i].getElementsByTagName("td")[1];
-        var tdCordinateur = rows[i].getElementsByTagName("td")[2];
-        var tdSemestre = rows[i].getElementsByTagName("td")[3];
-        var tdEmploiTemps = rows[i].getElementsByTagName("td")[4];
-
-        if (tdFilliere && tdDepartement && tdCordinateur && tdSemestre && tdEmploiTemps) {
-            var txtValueFilliere = tdFilliere.textContent || tdFilliere.innerText;
-            var txtValueDepartement = tdDepartement.textContent || tdDepartement.innerText;
-            var txtValueCordinateur = tdCordinateur.textContent || tdCordinateur.innerText;
-            var txtValueSemestre = tdSemestre.textContent || tdSemestre.innerText;
-            var emploiTempsIcon = tdEmploiTemps.querySelector("i");
-            var emploiTempsDisponible = emploiTempsIcon.classList.contains("fa-check-circle");
-            var emploiTempsNonDisponible = emploiTempsIcon.classList.contains("fa-exclamation-triangle");
-
-            // Vérifier si le contenu correspond aux recherches
-            var matchFilliere = txtValueFilliere.toUpperCase().indexOf(filterFilliere) > -1;
-            var matchDepartement = txtValueDepartement.toUpperCase().indexOf(filterDepartement) > -1;
-            var matchCordinateur = txtValueCordinateur.toUpperCase().indexOf(filterCordinateur) > -1;
-            var matchSemestre = txtValueSemestre.toUpperCase().indexOf(filterSemestre) > -1;
-            var matchEmploiTemps = (disponibleCheckbox && emploiTempsDisponible) ||
-                                   (nonDisponibleCheckbox && emploiTempsNonDisponible) ||
-                                   (!disponibleCheckbox && !nonDisponibleCheckbox);
-
-            // Afficher la ligne si toutes les correspondances sont trouvées
-            if (matchFilliere && matchDepartement && matchCordinateur && matchSemestre && matchEmploiTemps) {
-                rows[i].style.display = "";
-            } else {
-                // Masquer la ligne sinon
-                rows[i].style.display = "none";
-            }
-        }
-    }
-}
-
-// Ajouter des écouteurs d'événements pour déclencher le filtrage lors de la saisie ou de la sélection
-document.getElementById("filliereInput").addEventListener("input", filterTable);
-document.getElementById("departementInput").addEventListener("input", filterTable);
-document.getElementById("cordinateurInput").addEventListener("input", filterTable);
-document.getElementById("semestreInput").addEventListener("input", filterTable);
-document.getElementById("disponibleCheckbox").addEventListener("change", filterTable);
-document.getElementById("nonDisponibleCheckbox").addEventListener("change", filterTable);
-
-  </script>
+                    data.forEach(enseignant => {
+                        const option = document.createElement('option');
+                        option.value = enseignant.nom_enseignant;
+                        option.textContent = enseignant.nom_enseignant;
+                        enseignantSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching enseignants:', error));
+        });
+    });
+</script>
 
   <!-- End plugin js for this page -->
   <!-- inject:js -->

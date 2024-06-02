@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\SousAdmin;
+use Illuminate\Support\Facades\Auth;
 
 class SousAdminController extends Controller
 {
@@ -39,9 +40,17 @@ class SousAdminController extends Controller
 
     public function show($id)
     {
-        $sousAdmins = SousAdmin::all();
+        $sousAdmins = SousAdmin::where('id', $id)->get(); // Use get() to retrieve the SousAdmin objects
+
+        $countSousAdmin = $sousAdmins->count();
         $roles = Role::all();
-        return view('assign-roles', compact('sousAdmins','roles'));
+        return view('assign-roles', [
+            'sousAdmins'=> $sousAdmins,
+            'id'=>$id,
+            'roles'=>$roles,
+            'countSousAdmin'=>$countSousAdmin
+        ]);
+    
     }
 
     public function edit($id)
@@ -85,4 +94,6 @@ class SousAdminController extends Controller
 
         return redirect()->back()->with('success', 'Roles assigned successfully.');
     }
+
+    
 }
