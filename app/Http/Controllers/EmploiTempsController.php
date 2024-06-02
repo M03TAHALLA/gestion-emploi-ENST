@@ -6,6 +6,7 @@ use App\Models\Departement;
 use Illuminate\Http\Request;
 use App\Models\Filiere;
 use App\Models\EmploiTemps;
+use App\Models\Horaire;
 use App\Models\Seance;
 use Illuminate\Support\Facades\DB;
 
@@ -87,42 +88,55 @@ public function getSemesters($filiere)
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        // Valider les données du formulaire
-        $request->validate([
-            'nom_departement' => 'required',
-            'nom_filiere' => 'required',
-            'semestre' => 'required',
-            'groupe' => 'required',
-            'crenau_debut' => 'required',
-            'crenau_fin' => 'required',
-        ]);
+{
+    // Valider les données du formulaire
+    $request->validate([
+        'nom_departement' => 'required',
+        'nom_filiere' => 'required',
+        'semestre' => 'required',
+        'groupe' => 'required',
+        'nombre_seance' => 'required|integer|min:1', // Assurez-vous que le nombre de séances est un entier positif
+        'horaires_debut' => 'required|array', // Assurez-vous que les horaires de début sont un tableau
+        'horaires_fin' => 'required|array', // Assurez-vous que les horaires de fin sont un tableau
+        'horaires_debut.*' => 'required|date_format:H:i', // Assurez-vous que chaque horaire de début est au format valide
+        'horaires_fin.*' => 'required|date_format:H:i', // Assurez-vous que chaque horaire de fin est au format valide
+    ]);
 
-        // Trouver l'ID de la filière à partir de son nom
-        $nomFiliere = $request->input('nom_filiere');
-        $filiere = Filiere::where('nom_filiere', $nomFiliere)->first();
+    // Trouver l'ID de la filière à partir de son nom
+    $nomFiliere = $request->input('nom_filiere');
+    $filiere = Filiere::where('nom_filiere', $nomFiliere)->first();
 
-        if (!$filiere) {
-            // Si la filière n'est pas trouvée, vous pouvez retourner un message d'erreur ou gérer la situation selon vos besoins
-            return redirect()->back()->with('error', 'La filière sélectionnée n\'existe pas.');
-        }
-
-        // Créer un nouvel emploi du temps
-        $emploiTemps = new EmploiTemps();
-        $emploiTemps->nom_departement = $request->input('nom_departement');
-        $emploiTemps->id_filiere = $filiere->id; // Utilisez l'ID de la filière trouvée
-        $emploiTemps->semestre = $request->input('semestre');
-        $emploiTemps->groupe = $request->input('groupe');
-        $emploiTemps->crenau_debut = $request->input('crenau_debut');
-        $emploiTemps->crenau_fin = $request->input('crenau_fin');
-        // Vous pouvez également définir d'autres champs de votre emploi du temps si nécessaire
-
-        // Enregistrer l'emploi du temps dans la base de données
-        $emploiTemps->save();
-
-        // Rediriger avec un message de succès
-        return redirect()->route('Emploitemps.index')->with('success', 'L\'emploi du temps a été ajouté avec succès.');
+    if (!$filiere) {
+        // Si la filière n'est pas trouvée, vous pouvez retourner un message d'erreur ou gérer la situation selon vos besoins
+        return redirect()->back()->with('error', 'La filière sélectionnée n\'existe pas.');
     }
+
+    // Créer un nouvel emploi du temps
+    $emploiTemps = new EmploiTemps();
+    $emploiTemps->nom_departement = $request->input('nom_departement');
+    $emploiTemps->id_filiere = $filiere->id; // Utilisez l'ID de la filière trouvée
+    $emploiTemps->semestre = $request->input('semestre');
+    $emploiTemps->groupe = $request->input('groupe');
+    $emploiTemps->save();
+
+    // Récupérer les horaires de début et de fin de chaque séance et les associer à l'emploi du temps
+    $horairesDebut = $request->input('horaires_debut');
+    $horairesFin = $request->input('horaires_fin');
+
+    foreach ($horairesDebut as $key => $horaireDebut) {
+        $horaireFin = $horairesFin[$key];
+
+        $horaire = new Horaire();
+        $horaire->emploi_temps_id = $emploiTemps->id;
+        $horaire->heure_debut = $horaireDebut;
+        $horaire->heure_fin = $horaireFin;
+        $horaire->save();
+    }
+
+    // Rediriger avec un message de succès
+    return redirect()->route('Emploitemps.index')->with('success', 'L\'emploi du temps a été ajouté avec succès.');
+}
+
     /**
      * Display the specified resource.
      */
@@ -151,19 +165,33 @@ public function getSemesters($filiere)
         $idFiliere = $filiere->id;
 
         // Sélectionner toutes les séances en fonction des critères
-        $seances = Seance::where('id_filiere', $idFiliere)
-            ->where('semestre', $semestre)
-            ->where('nom_groupe', $groupe)
-            ->get();
+        $seances = Seance::with('module')
+                ->where('id_filiere', $idFiliere)
+                ->where('semestre', $semestre)
+                ->where('nom_groupe', $groupe)
+                ->get();
+
+
+            $nombreSeances = $seances->count();
+
 
         // Requête pour récupérer les données correspondantes dans la table EmploiTemps
-        $resultats = EmploiTemps::where('nom_departement', $departement)
-            ->where('id_filiere', $idFiliere)
+        $resultats = EmploiTemps::where('id_filiere', $idFiliere)
             ->where('semestre', $semestre)
             ->where('groupe', $groupe)
             ->first();
 
             $Departements = Departement::all();
+
+            if ($resultats) {
+        $Horaire = Horaire::where('emploi_temps_id',$resultats->id)->get();
+        $countHoraire = $Horaire->count();
+            }else{
+                $Horaire = collect();
+                $countHoraire = $Horaire->count();
+
+            }
+
 
 
         // Vous pouvez ensuite envoyer ces résultats à une vue pour l'affichage
@@ -173,7 +201,10 @@ public function getSemesters($filiere)
          'Departements'=>$Departements,
         'nomFiliere'=>$nomFiliere,
         'semestre'=>$semestre,
-        'groupe'=>$groupe
+        'groupe'=>$groupe,
+        'nombreSeances'=>$nombreSeances,
+        'Horaire'=>$Horaire,
+        'countHoraire' => $countHoraire
     ]);
     }
 

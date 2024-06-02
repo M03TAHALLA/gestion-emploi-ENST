@@ -8,6 +8,15 @@ class Module extends Model
 {
     use HasFactory;
 
+    public function seances() {
+        return $this->hasMany(Seance::class, 'id_module');
+    }
+
+    public function enseignant()
+{
+    return $this->belongsTo(Enseignant::class, 'cin_enseignant', 'cin');
+}
+
     protected $fillable = [
         'nom_module',
         'id_filiere',
