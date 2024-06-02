@@ -68,7 +68,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link"  href="{{ route('sous_admin') }}" >
+    <a class="nav-link"  href="{{ route('admins.index') }}" >
         <i class="mdi mdi-account-network menu-icon" style="font-size: 22px;"></i>
       <span class="menu-title">Gestion Sous Admin's </span>
     </a>

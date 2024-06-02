@@ -589,50 +589,39 @@ td{
     document.addEventListener('DOMContentLoaded', function() {
         const numSalleInput = document.getElementById('numSalleInput');
         const jourInput = document.getElementById('jourInput');
+        const filterInput = document.getElementById('filterInput');
         const table = document.getElementById('myTable').getElementsByTagName('tbody')[0];
-
+    
         function filterTable() {
-            const numSalleValue = numSalleInput.value.toLowerCase();
-            const jourValue = jourInput.value.toLowerCase();
-
+            const numSalleValue = numSalleInput.value.trim().toLowerCase();
+            const jourValue = jourInput.value.trim().toLowerCase();
+            const filterTime = filterInput.value.trim().toLowerCase();
+    
             for (let row of table.rows) {
                 const numSalleCell = row.cells[0].innerText.toLowerCase();
                 const jourCell = row.cells[1].innerText.toLowerCase();
-                
+                const heureDebutCell = row.cells[2].textContent.toLowerCase();
+    
                 const numSalleMatch = numSalleCell.includes(numSalleValue);
                 const jourMatch = jourValue === "aucun jour" || jourCell.includes(jourValue);
-
-                if (numSalleMatch && jourMatch) {
+                const heureDebutMatch = heureDebutCell.includes(filterTime);
+    
+                if (numSalleMatch && jourMatch && heureDebutMatch) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
                 }
             }
         }
-
+    
         numSalleInput.addEventListener('input', filterTable);
         jourInput.addEventListener('change', filterTable);
+        filterInput.addEventListener('keyup', filterTable);
     });
-</script>
+    </script>
+    
   
-  <script>
-    // Add event listener to input field
-    document.getElementById('filterInput').addEventListener('keyup', function() {
-        var filterTime = this.value.trim().toLowerCase(); // Get the value of the input and convert to lowercase
-        var rows = document.getElementById('myTable').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
 
-        // Loop through all table rows, and hide those who don't match the filter
-        for (var i = 0; i < rows.length; i++) {
-            var heureDebut = rows[i].getElementsByTagName('td')[2].textContent.trim().toLowerCase(); // Get the value of heure debut column
-            if (heureDebut.includes(filterTime)) {
-                rows[i].style.display = ""; // Show row if heure debut matches filter
-            } else {
-                rows[i].style.display = "none"; // Hide row if heure debut does not match filter
-            }
-        }
-    });
-
-   </script>
 
   <!-- End plugin js for this page -->
   <!-- inject:js -->

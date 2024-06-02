@@ -63,13 +63,14 @@
               <div style="margin-top: 2%" class="formbold-input-group">
                   <input
                       type="text"
+                      id="NomModuleInput"
                       placeholder="Rechercher par nom de module"
                       class="formbold-form-input"
                   />
               </div>
               <div class="formbold-input-group" style="margin-top: 2%">
-                  <select class="form-select form-select-lg mb-3">
-                      <option value="" disabled selected>Nature de module</option>
+                  <select id="NatureModuleInput" class="form-select form-select-lg mb-3">
+                      <option value="" selected>Nature de module</option>
                       <option value="Disciplinaire">Disciplinaire</option>
                       <option value="Complementaire">Complémentaire</option>
                   </select>
@@ -79,7 +80,7 @@
               <div style="margin-top: 1%" class="formbold-input-group">
                   <input
                       type="number"
-                      id="capaciteInput"
+                      id="VolumeHoraireInput"
                       placeholder="Rechercher par volume horaire"
                       class="formbold-form-input"
                   />
@@ -87,6 +88,7 @@
               <div style="margin-top: 1%" class="formbold-input-group">
                   <input
                       type="text"
+                      id="NomFiliereInput"
                       placeholder="Rechercher par nom filiére"
                       class="formbold-form-input"
                   />
@@ -94,6 +96,7 @@
               <div style="margin-top: 1%" class="formbold-input-group">
                 <input
                     type="text"
+                    id="NomEnseignantInput"
                     placeholder="Rechercher par nom d'enseignant"
                     class="formbold-form-input"
                 />
@@ -121,8 +124,8 @@
                           <td>{{ $module->nom_filiere }}</td>
                           <td>{{ $module->volume_horaire }}</td>
                           <td>{{ $module->nature_module }}</td>
-                          <td>{{ $module->nom_professeur}}</td>
-                          <td>{{ $module->AAc }}</td>
+                          <td>{{ $module->nom_enseignant}}</td>
+                          <td>{{ $module->aac }}</td>
                           <td class="td-crud-operations">
                               <a href="{{ route('modules.edit', $module->id) }}" class="">
                                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
@@ -164,56 +167,44 @@
 
 
   <script>
-    function filterTable() {
-        var inputNomModule = document.getElementById("nomModuleInput");
-        var inputNatureModule = document.getElementById("natureModuleInput");
-        var inputVolumeHoraire = document.getElementById("volumeHoraireInput");
-        var inputNomFiliere = document.getElementById("nomFiliereInput");
-        var inputNomEnseignant = document.getElementById("nomEnseignantInput");
+             document.addEventListener('DOMContentLoaded', function () {
+            const inputs = ['NomModuleInput', 'NatureModuleInput', 'VolumeHoraireInput', 'NomFiliereInput', 'NomEnseignantInput'];
 
-        var filterNomModule = inputNomModule ? inputNomModule.value.toUpperCase() : "";
-        var filterNatureModule = inputNatureModule ? inputNatureModule.value.toUpperCase() : "";
-        var filterVolumeHoraire = inputVolumeHoraire ? inputVolumeHoraire.value : "";
-        var filterNomFiliere = inputNomFiliere ? inputNomFiliere.value.toUpperCase() : "";
-        var filterNomEnseignant = inputNomEnseignant ? inputNomEnseignant.value.toUpperCase() : "";
+            inputs.forEach(inputId => {
+                document.getElementById(inputId).addEventListener('input', filterTable);
+            });
 
-        var table = document.getElementById("myTable");
-        var rows = table.getElementsByTagName("tr");
+            function filterTable() {
+                const nomModule = document.getElementById('NomModuleInput').value.toLowerCase();
+                const natureModule = document.getElementById('NatureModuleInput').value.toLowerCase();
+                const volumeHoraire = document.getElementById('VolumeHoraireInput').value;
+                const nomFiliere = document.getElementById('NomFiliereInput').value.toLowerCase();
+                const nomEnseignant = document.getElementById('NomEnseignantInput').value.toLowerCase();
+                
+                const table = document.getElementById('myTable').getElementsByTagName('tbody')[0];
+                const rows = table.getElementsByTagName('tr');
 
-        for (var i = 0; i < rows.length; i++) {
-            var tdNomModule = rows[i].getElementsByTagName("td")[0];
-            var tdNomFiliere = rows[i].getElementsByTagName("td")[1];
-            var tdVolumeHoraire = rows[i].getElementsByTagName("td")[2];
-            var tdNatureModule = rows[i].getElementsByTagName("td")[3];
-            var tdNomEnseignant = rows[i].getElementsByTagName("td")[4];
+                Array.from(rows).forEach(row => {
+                    const tdNomModule = row.cells[0].textContent.toLowerCase();
+                    const tdNomFiliere = row.cells[1].textContent.toLowerCase();
+                    const tdVolumeHoraire = row.cells[2].textContent;
+                    const tdNatureModule = row.cells[3].textContent.toLowerCase();
+                    const tdNomEnseignant = row.cells[4].textContent.toLowerCase();
 
-            if (tdNomModule && tdNomFiliere && tdVolumeHoraire && tdNatureModule && tdNomEnseignant) {
-                var txtValueNomModule = tdNomModule.textContent || tdNomModule.innerText;
-                var txtValueNomFiliere = tdNomFiliere.textContent || tdNomFiliere.innerText;
-                var txtValueVolumeHoraire = tdVolumeHoraire.textContent || tdVolumeHoraire.innerText;
-                var txtValueNatureModule = tdNatureModule.textContent || tdNatureModule.innerText;
-                var txtValueNomEnseignant = tdNomEnseignant.textContent || tdNomEnseignant.innerText;
+                    const matchesNomModule = !nomModule || tdNomModule.includes(nomModule);
+                    const matchesNatureModule = !natureModule || tdNatureModule.includes(natureModule);
+                    const matchesVolumeHoraire = !volumeHoraire || parseInt(tdVolumeHoraire) >= parseInt(volumeHoraire);
+                    const matchesNomFiliere = !nomFiliere || tdNomFiliere.includes(nomFiliere);
+                    const matchesNomEnseignant = !nomEnseignant || tdNomEnseignant.includes(nomEnseignant);
 
-                var matchNomModule = txtValueNomModule.toUpperCase().indexOf(filterNomModule) > -1;
-                var matchNomFiliere = txtValueNomFiliere.toUpperCase().indexOf(filterNomFiliere) > -1;
-                var matchVolumeHoraire = filterVolumeHoraire === "" || parseInt(txtValueVolumeHoraire) >= parseInt(filterVolumeHoraire);
-                var matchNatureModule = txtValueNatureModule.toUpperCase().indexOf(filterNatureModule) > -1;
-                var matchNomEnseignant = txtValueNomEnseignant.toUpperCase().indexOf(filterNomEnseignant) > -1;
-
-                if (matchNomModule && matchNomFiliere && matchVolumeHoraire && matchNatureModule && matchNomEnseignant) {
-                    rows[i].style.display = "";
-                } else {
-                    rows[i].style.display = "none";
-                }
+                    if (matchesNomModule && matchesNatureModule && matchesVolumeHoraire && matchesNomFiliere && matchesNomEnseignant) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
             }
-        }
-    }
-
-    document.getElementById("nomModuleInput").addEventListener("input", filterTable);
-    document.getElementById("natureModuleInput").addEventListener("input", filterTable);
-    document.getElementById("volumeHoraireInput").addEventListener("input", filterTable);
-    document.getElementById("nomFiliereInput").addEventListener("input", filterTable);
-    document.getElementById("nomEnseignantInput").addEventListener("input", filterTable);
+        });
 </script>
 
   <!-- End plugin js for this page -->

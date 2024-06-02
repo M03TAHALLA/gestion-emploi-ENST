@@ -545,8 +545,8 @@ td{
             <div class="form-group">
                 <label for="nom_filiere">Nom du Filiére</label>
                 <select id="nom_filiere" name="nom_filiere" required class="form-control">
-                    @foreach($filieres as $filiere)
-                        <option value="{{ $filiere->NomFilliere }}">{{ $filiere->NomFilliere }}</option>
+                    @foreach($modules as $module)
+                        <option value="{{ $module->nom_filiere }}">{{ $module->nom_filiere }}</option>
                     @endforeach
                 </select>
             </div>
@@ -555,20 +555,22 @@ td{
                 <input type="number" id="volume_horaire" name="volume_horaire" value="{{ old('volume_horaire') }}" required class="form-control">
             </div>
             <div class="form-group">
-                <label for="type_salle">Nature de Module</label>
-                <select class="form-select form-select-lg mb-3">
-                    <option value="" selected>Disciplinaire</option>
-                    <option value="Complementaire">Complémentaire</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="nom_enseignant">Nom d'enseignant</label>
-                <select id="nom_enseignant" name="nom_enseignant" required class="form-control">
-                    @foreach($enseignant as $ens)
-                        <option value="{{ $ens->NomEnseignant }}">{{ $ens->NomEnseignant }}</option>
-                    @endforeach
-                </select>
-            </div>
+              <label for="nature_module">Nature de Module</label>
+              <select id="nature_module" name="nature_module" required class="form-control">
+                  @foreach($modules->unique('nature_module') as $module)
+                      <option value="{{ $module->nature_module }}">{{ $module->nature_module }}</option>
+                  @endforeach
+              </select>
+          </div>
+          
+          <div class="form-group">
+              <label for="nom_enseignant">Nom d'enseignant</label>
+              <select id="nom_enseignant" name="nom_enseignant" required class="form-control">
+                  @foreach($modules as $module)
+                      <option value="{{ $module->nom_enseignant }}">{{ $module->nom_enseignant }}</option>
+                  @endforeach
+              </select>
+          </div>
             <div class="form-group mt-3">
                 <label for="annee_academique">Année Académique:</label>
                 <input type="text" id="annee_academique" name="annee_academique" value="2024-2025" readonly class="form-control">
