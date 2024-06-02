@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tps', function (Blueprint $table) {
+        Schema::create('horaires', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_seance');
+            $table->unsignedBigInteger('emploi_temps_id');
+            $table->time('heure_debut');
+            $table->time('heure_fin');
+
+
             $table->timestamps();
-            $table->foreign('id_seance')->references('id')->on('seances')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('emploi_temps_id')->references('id')->on('emploi_temps')->onDelete('cascade')->onUpdate('cascade');
 
         });
     }
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tps');
+        Schema::dropIfExists('horaires');
     }
 };

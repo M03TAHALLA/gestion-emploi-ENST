@@ -9,10 +9,13 @@ class Departement extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'NomDepartement',
-        'aac',
-        // Add other fillable fields here if you have any
-    ];
+        protected $primaryKey = 'nom_departement';
+        public $incrementing = false;
+        protected $keyType = 'string';
+
+        protected $fillable = [
+            'nom_departement',
+            'aac',
+        ];
 }
 

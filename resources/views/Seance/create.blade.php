@@ -60,17 +60,17 @@
         <!-- Learn More: https://formbold.com -->
         <div class="formbold-form-wrapper">
             <h2 style="margin-bottom: 5%;text-align:center" class=""> Emploi Temps</h2>
-            <form action="{{ route('EmploiStock.store') }}" method="POST">
+            <form action="{{ route('Seance.store') }}" method="POST">
                 @csrf
-                <input type="hidden" name="NomFilliere" value="{{ $EmploiTemps->NomFilliere }}">
-                <input type="hidden" name="NomGroupe" value="{{ $EmploiTemps->Groupe }}">
-                <input type="hidden" name="Semestre" value="{{ $EmploiTemps->Semestre }}">
+                <input type="hidden" name="id_filiere" value="{{ $id_filiere }}">
+                <input type="hidden" name="nom_groupe" value="{{ $groupe }}">
+                <input type="hidden" name="semestre" value="{{ $semestre }}">
                 <div class="formbold-input-flex">
                     <div style="margin-top: 2%" class="formbold-input-group">
                         <label for="">Filliere</label>
                         <input
                             type="text"
-                            value="{{ $EmploiTemps->NomFilliere }}"
+                            value="{{ $nomfiliere->nom_filiere }}"
                             class="formbold-form-input"
                             disabled
                         />
@@ -79,7 +79,7 @@
                         <label for="">Semestre</label>
                         <input
                             type="text"
-                            value="{{ $EmploiTemps->Semestre }}"
+                            value="{{ $semestre }}"
                             class="formbold-form-input"
                             disabled
                         />
@@ -88,25 +88,24 @@
                         <label for="">Groupe</label>
                         <input
                             type="text"
-                            value="{{ $EmploiTemps->Groupe }}"
+                            value="{{ $groupe }}"
                             class="formbold-form-input"
                             disabled
                         />
                     </div>
                 </div>
-                <div class="formbold-input-group">
-                    <label for="NomModule" class="formbold-form-label">Nom Module</label>
-                    <input required
-                        type="text"
-                        name="NomModule"
-                        id="NomModule"
-                        placeholder="Enter Nom Module"
-                        class="formbold-form-input"
-                    />
+                <div>
+                    <label class="formbold-form-label">Nom Module</label>
+                    <select class="formbold-form-select" name="id_module" id="NomModule">
+                        <option value="">Select Nom Module</option>
+                        @foreach ( $modules as $modules )
+                            <option value="{{ $modules->id }}">{{ $modules->nom_module }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div>
                     <label class="formbold-form-label">Jour</label>
-                    <select class="formbold-form-select" name="Jour" id="occupation">
+                    <select class="formbold-form-select" name="jour" id="occupation">
                         <option value="Lundi">Lundi</option>
                         <option value="Mardi">Mardi</option>
                         <option value="Mercredi">Mercredi</option>
@@ -121,7 +120,7 @@
                             <label for="HeurDebut" class="formbold-form-label">Heur Debut Cour</label>
                             <input
                                 type="time"
-                                name="HeurDebut"
+                                name="heure_debut"
                                 id="HeurDebut"
                                 class="formbold-form-input"
                                 required
@@ -133,7 +132,7 @@
                             <label for="HeurFin" class="formbold-form-label">Heur Fin Cour</label>
                             <input
                                 type="time"
-                                name="HeurFin"
+                                name="heure_fin"
                                 id="HeurFin"
                                 class="formbold-form-input"
                                 required
@@ -141,45 +140,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="formbold-input-group">
-                    <label for="NumSalle" class="formbold-form-label">Num Salle</label>
-                    <input required
-                        type="number"
-                        name="NumSalle"
-                        id="NumSalle"
-                        placeholder="Enter Numero Salle"
-                        class="formbold-form-input"
-                    />
-                </div>
                 <div>
-                    <label class="formbold-form-label">Type Salle</label>
-                    <select class="formbold-form-select" name="TypeSalle" id="occupation">
-                        <option value="Amphi">Amphi</option>
-                        <option value="Salle">Salle</option>
+                    <label class="formbold-form-label">Num Salle</label>
+
+                    <select class="formbold-form-select" name="num_salle" id="NumSalle">
+                        <option value="">Selecter Votre Salle</option>
+                        @foreach ( $salles as $salles )
+                            <option value="{{ $salles->num_salle }}">Num : {{ $salles->num_salle }} - {{ $salles->type_salle }}</option>
+                        @endforeach
                     </select>
                 </div>
-                <div class="formbold-input-flex">
-                    <div style="margin-top: 2%" class="formbold-input-group">
-                        <label for="NomEnseignant">Nom Enseignant</label>
-                        <input
-                            type="text"
-                            name="NomEnseignant"
-                            id="NomEnseignant"
-                            class="formbold-form-input"
-                            placeholder="Entre Nom Enseignant"
-                        />
+                    <div>
+                        <label class="formbold-form-label">Nom Complete Enseignant</label>
+                        <select class="formbold-form-select" name="cin_enseignant" id="nom_enseignant">
+                            <option value=""> Selecter Votre Prof</option>
+                                @foreach ( $enseignant as $enseignant )
+                                    <option value="{{ $enseignant->cin_enseignant }}">{{ $enseignant->nom_enseignant }} {{ $enseignant->prenom_enseignant }}</option>
+                                @endforeach
+                        </select>
                     </div>
-                    <div style="margin-top: 2%" class="formbold-input-group">
-                        <label for="PrenomEnseignant">Prenom Enseignant</label>
-                        <input
-                            type="text"
-                            name="PrenomEnseignant"
-                            id="PrenomEnseignant"
-                            class="formbold-form-input"
-                            placeholder="Entrer Prenom Enseignant"
-                        />
-                    </div>
-                </div>
+
                 <button type="submit" class="formbold-btn">Ajouter Dans Emploi Temps</button>
             </form>
 
