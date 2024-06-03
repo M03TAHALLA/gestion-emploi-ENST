@@ -6,6 +6,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\SousAdmin;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class SousAdminController extends Controller
 {
@@ -32,7 +33,16 @@ class SousAdminController extends Controller
             'password' => 'required',
         ]);
 
-        SousAdmin::create($request->all());
+        $sousAdmin = new SousAdmin([
+            'cin' => $request->get('cin'),
+            'nom' => $request->get('nom'),
+            'matricule' => $request->get('matricule'),
+            'prenom' => $request->get('prenom'),
+            'email' => $request->get('email'),
+            'password' => Hash::make($request->get('password')),
+        ]);
+
+        $sousAdmin->save();
 
         return redirect()->route('admins.index')
             ->with('success', 'Sous admin created successfully.');
