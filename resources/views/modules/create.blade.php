@@ -555,14 +555,13 @@ td{
               <input type="number" id="volume_horaire" name="volume_horaire" value="{{ old('volume_horaire') }}" required class="form-control">
           </div>
           <div class="form-group">
-            <label for="nature_module">Nature de Module</label>
-            <select id="nature_module" name="nature_module" required class="form-control">
-                @foreach($natures as $nature)
-                    <option value="{{ $nature }}">{{ $nature }}</option>
-                @endforeach
-            </select>
-        </div>
-          
+              <label for="nature_module">Nature de Module</label>
+              <select id="nature_module" name="nature_module" required class="form-control">
+                  @foreach($natures as $nature)
+                      <option value="{{ $nature }}">{{ $nature }}</option>
+                  @endforeach
+              </select>
+          </div>
           <div class="form-group">
               <label for="nom_enseignant">Nom d'enseignant</label>
               <select id="nom_enseignant" name="nom_enseignant" required class="form-control">
@@ -574,7 +573,7 @@ td{
               <input type="text" id="annee_academique" name="annee_academique" value="2024-2025" readonly class="form-control">
           </div>
           <button type="submit" class="btn create-salle-button">Créer un nouveau module</button>
-        </form>
+      </form>
         </section>
       </div>
       <!-- main-panel ends -->
@@ -594,27 +593,30 @@ td{
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const filiereSelect = document.getElementById('nom_filiere');
-        const enseignantSelect = document.getElementById('nom_enseignant');
+    const filiereSelect = document.getElementById('nom_filiere');
+    const enseignantSelect = document.getElementById('nom_enseignant');
 
-        filiereSelect.addEventListener('change', function() {
-            const nomFiliere = this.value;
+    filiereSelect.addEventListener('change', function() {
+        const selectedFiliere = filiereSelect.value;
 
-            fetch(`/enseignants/by-filiere/${nomFiliere}`)
-                .then(response => response.json())
-                .then(data => {
-                    enseignantSelect.innerHTML = '';
+        fetch(`/getEnseignants/${selectedFiliere}`)
+            .then(response => response.json())
+            .then(data => {
+                enseignantSelect.innerHTML = ''; // Clear current options
 
-                    data.forEach(enseignant => {
-                        const option = document.createElement('option');
-                        option.value = enseignant.nom_enseignant;
-                        option.textContent = enseignant.nom_enseignant;
-                        enseignantSelect.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Error fetching enseignants:', error));
-        });
+                data.forEach(enseignant => {
+                    const option = document.createElement('option');
+                    option.value = enseignant.cin_enseignant;
+                    option.textContent = `${enseignant.nom_enseignant} ${enseignant.prenom_enseignant}`;
+                    enseignantSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error:', error));
     });
+
+    // Trigger change event to load enseignants for the initially selected filiere
+    filiereSelect.dispatchEvent(new Event('change'));
+});
 </script>
 
   <!-- End plugin js for this page -->
