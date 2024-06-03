@@ -23,7 +23,7 @@ use App\Models\SousAdmin;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('home');
 
 Route::get('/dashboard/Profile', function () {
     return view('Profile');
@@ -116,7 +116,7 @@ Route::get('/recherche', [SalleController::class, 'recherche'])->name('salles.re
 
 Route::resource('/dashboard/modules', ModuleController::class);
 
-Route::resource('/dashboard/admins', SousAdminController::class);
+Route::resource('/dashboard/admins', SousAdminController::class)->middleware('auth:sous_admin');
 Route::resource('/dashboard/super_admins', SuperAdminController::class);
 Route::resource('/dashboard/super_admins/roles', RoleController::class);
 
