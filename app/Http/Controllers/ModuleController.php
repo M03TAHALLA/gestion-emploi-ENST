@@ -7,6 +7,7 @@ use App\Models\Filiere;
 use Illuminate\Http\Request;
 use App\Models\Module;
 use App\Models\Filliere;
+use Illuminate\Support\Facades\DB;
 
 class ModuleController extends Controller
 {
@@ -125,5 +126,28 @@ class ModuleController extends Controller
         return redirect()->route('modules.index')
             ->with('success', 'Module supprimé avec succès.');
     }
-   
+
+
+    public function getEnseignantsByFiliere($nom_filiere)
+    {
+        $filiere = Filiere::where('nom_filiere', $nom_filiere)->first();
+        if ($filiere) {
+            $enseignants = Enseignant::where('nom_departement', $filiere->nom_departement)->get();
+            return response()->json($enseignants);
+        } else {
+            return response()->json([]);
+        }
+    }
+    public function getEnseignants($filiere)
+{
+    $test = null;
+    $enseignants = DB::table('enseignants')
+        ->join('filieres', 'enseignants.nom_departement', '=', 'filieres.nom_departement')
+        ->where('filieres.nom_filiere', $filiere)
+        ->select('enseignants.cin_enseignant', 'enseignants.nom_enseignant', 'enseignants.prenom_enseignant')
+        ->get();
+
+    return response()->json($enseignants);
+}
+
 }
