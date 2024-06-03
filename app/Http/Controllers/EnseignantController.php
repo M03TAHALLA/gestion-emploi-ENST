@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Departement;
 use App\Models\Enseignant;
+use App\Models\Module;
 use Illuminate\Http\Request;
 
 class EnseignantController extends Controller
@@ -44,6 +45,11 @@ class EnseignantController extends Controller
             'nom_departement' => 'required|string|exists:departements,nom_departement',
         ]);
 
+        $existingEnseignant = Enseignant::where('cin_enseignant', $request->cin_enseignant)->first();
+            if ($existingEnseignant) {
+                return redirect()->back()->with('error', 'CIN enseignant déjà existant.');
+            }
+
         // Créer un nouvel enseignant
         Enseignant::create([
             'cin_enseignant' => $request->cin_enseignant,
@@ -65,32 +71,87 @@ class EnseignantController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $cin_enseignant)
     {
-        //
+        $enseignant = Enseignant::where('cin_enseignant', $cin_enseignant)->first();
+        $modules = Module::where('cin_enseignant',$cin_enseignant)->get();
+        return view('Enseignant.show',[
+            'enseignant'=>$enseignant,
+            'models'=>$modules
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($cin_enseignant)
     {
-        //
+        $enseignant = Enseignant::where('cin_enseignant',$cin_enseignant)->first();
+
+        $departements = Departement::all();
+
+        // Retourner la vue avec les données de l'enseignant et les départements
+        return view('enseignant.edit', [
+            'enseignant'=>$enseignant,
+            'departements'=>$departements
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $cin_enseignant)
     {
-        //
+        // Valider les données du formulaire
+        $request->validate([
+            'cin_enseignant' => 'required|string|max:255',
+            'nom_enseignant' => 'required|string|max:255',
+            'prenom_enseignant' => 'required|string|max:255',
+            'date_naissance' => 'required|date',
+            'email' => 'required|email|max:255',
+            'specialite' => 'required|string|max:255',
+            'situation' => 'required|string|max:255',
+            'horaire_total' => 'required|integer',
+            'date_affectation' => 'required|date',
+            'nom_departement' => 'required|string|max:255',
+        ]);
+
+        $existingEnseignant = Enseignant::where('cin_enseignant', $request->cin_enseignant)->where('cin_enseignant', '!=', $cin_enseignant)->first();
+        if ($existingEnseignant) {
+            return redirect()->back()->with('error', 'CIN enseignant déjà existant.');
+        }
+
+        // Récupérer l'enseignant à mettre à jour
+        $enseignant = Enseignant::where('cin_enseignant',$cin_enseignant)->first();
+
+        // Mettre à jour les informations de l'enseignant
+        $enseignant->cin_enseignant = $request->cin_enseignant;
+        $enseignant->nom_enseignant = $request->nom_enseignant;
+        $enseignant->prenom_enseignant = $request->prenom_enseignant;
+        $enseignant->date_naissance = $request->date_naissance;
+        $enseignant->email = $request->email;
+        $enseignant->specialite = $request->specialite;
+        $enseignant->situation = $request->situation;
+        $enseignant->horaire_total = $request->horaire_total;
+        $enseignant->date_affectation = $request->date_affectation;
+        $enseignant->nom_departement = $request->nom_departement;
+
+        // Sauvegarder les modifications
+        $enseignant->save();
+
+        // Rediriger avec un message de succès
+        return redirect()->route('enseignant.index')->with('success', 'Enseignant mis à jour avec succès');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
+    public function destroy($cin_enseignant)
+{
+    // Rechercher l'enseignant à supprimer
+    $enseignant = Enseignant::where('cin_enseignant', $cin_enseignant)->firstOrFail();
+
+    // Supprimer l'enseignant
+    $enseignant->delete();
+
+    // Redirection avec un message de succès
+    return redirect()->route('enseignant.index')->with('success', 'Enseignant supprimé avec succès');
+}
 }

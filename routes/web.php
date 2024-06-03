@@ -149,7 +149,4 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('sous-admin/password/reset', [SousAdminForgotPasswordController::class, 'sendResetLinkEmail'])->name('sous_admin.password.request');
-Route::post('sous-admin/password/email', [SousAdminForgotPasswordController::class, 'sendResetLinkEmail'])->name('sous_admin.password.email');
-Route::get('sous-admin/password/reset/{token}', [SousAdminResetPasswordController::class, 'showResetForm'])->name('sous_admin.password.reset');
-Route::post('sous-admin/password/reset', [SousAdminResetPasswordController::class, 'reset'])->name('sous_admin.password.update');
+

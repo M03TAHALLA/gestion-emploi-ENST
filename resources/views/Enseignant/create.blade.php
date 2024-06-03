@@ -37,6 +37,42 @@
   border: 1px solid #ddd;
   margin-bottom: 12px;
 }
+.alert {
+                padding: 20px;
+                margin-bottom: 15px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+
+            .alert-danger {
+                color: #a94442;
+                background-color: #f2dede;
+                border-color: #ebccd1;
+            }
+
+            .alert-success {
+                color: #3c763d;
+                background-color: #dff0d8;
+                border-color: #d6e9c6;
+            }
+
+            .alert-info {
+                color: #31708f;
+                background-color: #d9edf7;
+                border-color: #bce8f1;
+            }
+
+            .alert-warning {
+                color: #8a6d3b;
+                background-color: #fcf8e3;
+                border-color: #faebcc;
+            }
+
+            .alert ul {
+                margin: 0;
+                padding: 0;
+                list-style-type: none;
+            }
   </style>
 </head>
 <body>
@@ -64,11 +100,16 @@
               <span>Tableau de board / </span><a href=""> Fillieres de l'ENS</a>
             </div>
           </div>
-          @if (session('error'))
-          <div id="success-message" class="alert alert-success">
-              {{ session('error') }}
-          </div>
-      @endif
+          <div class="formbold-form-wrapper">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
           <div class="formbold-form-wrapper">
             <form action="{{ route('enseignant.store') }}" method="POST">
                 @csrf

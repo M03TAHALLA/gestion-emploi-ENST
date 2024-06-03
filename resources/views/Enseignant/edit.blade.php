@@ -53,14 +53,14 @@
               <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"></path>
             </svg>
             <span class="title-section">
-              Edit Enseignant
+              Modifier Enseignant
             </span>
           </div>
           <div class="right-section">
             <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-laptop" viewBox="0 0 16 16">
               <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5"></path>
             </svg>
-            <span>Tableau de board / </span><a href=""> Fillieres de l'ENS</a>
+            <span>Tableau de board / </span><a href=""> Enseignant de l'ENS</a>
           </div>
         </div>
 
@@ -71,7 +71,7 @@
         @endif
 
         <div class="formbold-form-wrapper">
-          <form action="{{ route('enseignant.update', $enseignant->id) }}" method="POST">
+          <form action="{{ route('enseignant.update', $enseignant->cin_enseignant) }}" method="POST">
               @csrf
               @method('PUT')
               <div class="formbold-input-group">
