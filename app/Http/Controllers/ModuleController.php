@@ -7,7 +7,6 @@ use App\Models\Filiere;
 use Illuminate\Http\Request;
 use App\Models\Module;
 use App\Models\Filliere;
-use Illuminate\Support\Facades\DB;
 
 class ModuleController extends Controller
 {
@@ -37,7 +36,6 @@ class ModuleController extends Controller
     // Validate the request data
     $validatedData = $request->validate([
         'nom_module' => 'required|string',
-        'semestre'=>'required|integer',
         'volume_horaire' => 'required|integer',
         'nature_module' => 'required|in:Disciplinaire,Complémentaire',
         'nom_filiere' => 'required|string|exists:filieres,nom_filiere', // Ensure nom_filiere exists in filieres table
@@ -45,9 +43,7 @@ class ModuleController extends Controller
     ]);
 
     // Fetch id_filiere based on the nom_filiere entered by the user
-    $filiere = Filiere::where('nom_filiere', $validatedData['nom_filiere'])
-                        ->where('semestre',$validatedData['semestre'])
-                        ->firstOrFail();
+    $filiere = Filiere::where('nom_filiere', $validatedData['nom_filiere'])->firstOrFail();
     $id_filiere = $filiere->id;
 
     // Fetch cin_enseignant based on specific criteria
@@ -129,50 +125,5 @@ class ModuleController extends Controller
         return redirect()->route('modules.index')
             ->with('success', 'Module supprimé avec succès.');
     }
-    public function getEnseignantsByFiliere($nom_filiere)
-    {
-        $filiere = Filiere::where('nom_filiere', $nom_filiere)->first();
-        if ($filiere) {
-            $enseignants = Enseignant::where('nom_departement', $filiere->nom_departement)->get();
-            return response()->json($enseignants);
-        } else {
-            return response()->json([]);
-        }
-    }
-
-    public function getSemesters($filiere)
-{
-    // Récupérer tous les enregistrements correspondant au nom de filière donné
-    $filiereData = Filiere::where('nom_filiere', $filiere)->get();
-
-    // Vérifier si des enregistrements ont été trouvés
-    if ($filiereData->isEmpty()) {
-        return response()->json(['error' => 'Filière non trouvée'], 404);
-    }
-
-    // Initialiser un tableau pour stocker tous les semestres
-    $semesters = [];
-
-    // Parcourir chaque enregistrement et ajouter ses semestres à la liste
-    foreach ($filiereData as $record) {
-        $semesters = array_merge($semesters, explode(',', $record->semestre));
-    }
-
-    // Supprimer les doublons et réorganiser les indices du tableau
-    $semesters = array_values(array_unique($semesters));
-
-    return response()->json($semesters);
-}
-
-
-    public function getEnseignants($filiere)
-{
-    $enseignants = DB::table('enseignants')
-        ->join('filieres', 'enseignants.nom_departement', '=', 'filieres.nom_departement')
-        ->where('filieres.nom_filiere', $filiere)
-        ->select('enseignants.cin_enseignant', 'enseignants.nom_enseignant', 'enseignants.prenom_enseignant')
-        ->get();
-
-    return response()->json($enseignants);
-}
+   
 }
