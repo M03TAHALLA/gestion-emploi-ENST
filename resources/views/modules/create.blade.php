@@ -535,7 +535,9 @@ td{
                 </ul>
             </div>
         @endif
-
+            <h2>tester 
+              finalement
+            </h2>
         <form action="{{ route('modules.store') }}" method="POST" class="mx-auto mt-5">
           @csrf
           <div class="form-group">
