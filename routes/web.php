@@ -12,10 +12,12 @@ use App\Http\Controllers\SalleController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmploiStockController;
+use App\Http\Controllers\EnseignantController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SeanceController;
 use App\Http\Controllers\SousAdminController;
 use App\Http\Controllers\SuperAdminController;
+use App\Models\Enseignant;
 use App\Models\Seance;
 use App\Models\SousAdmin;
 
@@ -96,7 +98,7 @@ Route::post('dashboard/EmploiTemps-Rech', [EmploiTempsController::class, 'Result
 
 Route::resource('fillieres', FiliereController::class);
 Route::resource('etudiants', EtudiantController::class);
-
+Route::resource('enseignant', EnseignantController::class);
 Route::resource('departements', DepartementController::class);
 Route::resource('Emploitemps', EmploiTempsController::class);
 Route::resource('Seance', SeanceController::class);
