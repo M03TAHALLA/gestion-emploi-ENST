@@ -81,27 +81,26 @@
                   <h1  data-aos="fade-up" data-aos-delay="100">ENS TETOUAN <span style="font-size: 50%">Emploi Temps <span></h1>
                   <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">Optimisez votre emploi du temps à l'École Normale Supérieure de Tétouan grâce à notre plateforme intuitive</p>
                 </div>
-
+                
                 <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
-                  <form action="{{ route('login') }}" method="POST" class="form-box">
-                    @csrf
-                    <h3 class="h4 text-black mb-4">LOG IN</h3>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="email" placeholder="Email Address">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="Password">
-                    </div>
-                    @error('email')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                    <div class="form-group">
-                        <span class="text mb-5"><a href="{{ route('password.request') }}">mot de passe oublié ?</a></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" class="btn btn-primary btn-pill" value="Log In">
-                    </div>
-                </form>
+                  @if (session('status'))
+                      <div class="alert alert-success alert-dismissible fade show" role="alert" id="status-alert">
+                          {{ session('status') }}
+                      </div>
+                  @endif
+                    <form action="{{ route('password.email') }}" method="POST" class="form-box">
+                        @csrf
+                        <h3 class="h4 text-black mb-4">Forgot Password</h3>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="email" placeholder="Email Address">
+                        </div>
+                        @error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary btn-pill" value="Send Password Reset Link">
+                        </div>
+                    </form>
                 
 
                 </div>
@@ -112,102 +111,27 @@
         </div>
       </div>
     </div>
-    <div class="site-section bg-light" id="contact-section">
-      <div class="container">
 
-        <div class="row justify-content-center">
-          <div class="col-md-7">
-
-
-
-            <h2 class="section-title mb-3">Message Us</h2>
-            <p class="mb-5">Nous sommes là pour vous aider ! Si vous avez des questions, des commentaires ou des suggestions, n'hésitez pas à nous contacter. Notre équipe dévouée est disponible pour répondre à toutes vos demandes et vous assister dans l'utilisation de notre plateforme. Envoyez-nous un message et nous vous répondrons dès que possible. Votre satisfaction est notre priorité !</p>
-
-            <form method="post" data-aos="fade">
-              <div class="form-group row">
-                <div class="col-md-6 mb-3 mb-lg-0">
-                  <input type="text" class="form-control" placeholder="First name">
-                </div>
-                <div class="col-md-6">
-                  <input type="text" class="form-control" placeholder="Last name">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="text" class="form-control" placeholder="Subject">
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <input type="email" class="form-control" placeholder="Email">
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-md-12">
-                  <textarea class="form-control" id="" cols="30" rows="10" placeholder="Write your message here."></textarea>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-md-6">
-
-                  <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Send Message">
-                </div>
-              </div>
-
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <footer class="footer-section bg-white">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h3>About OneSchool</h3>
-            <p>L´Ecole Normale Supérieure de Tétouan a été créée le 1er octobre 1987, elle a été construite sur une superficie totale de 73.370 m². La surface construite est de 15.700 m².
-            </p>
-          </div>
-
-          <div class="col-md-4">
-            <img style="width: 50%;margin-left:30%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/LOGO_ENS_MARTIL_%281%29.png/2039px-LOGO_ENS_MARTIL_%281%29.png" alt="">
-          </div>
-
-
-          <div class="col-md-2 ml-auto">
-            <h3>Links</h3>
-            <ul class="list-unstyled footer-links">
-                <li><a href="#home-section" >Home</a></li>
-                <li><a href="#courses-section">About</a></li>
-                <li><a href="#programs-section">Policy</a></li>
-            </ul>
-          </div>
-
-
-
-        </div>
-
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <div class="border-top pt-5">
-            <p>
-        ENS TETOUAN 2024
-      </p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </footer>
 
 
 
   </div> <!-- .site-wrap -->
 
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const alert = document.getElementById('status-alert');
+        if (alert) {
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 5000); // 5 seconds
+
+            // Optionally, completely remove the alert from the DOM after the fade out
+            setTimeout(() => {
+                alert.remove();
+            }, 5500); // slightly more than 5 seconds to ensure it has faded out
+        }
+    });
+  </script>
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
   <script src="js/jquery-ui.js"></script>
@@ -227,3 +151,4 @@
 
   </body>
 </html>
+

@@ -7,6 +7,7 @@ use App\Models\Filiere;
 use Illuminate\Http\Request;
 use App\Models\Module;
 use App\Models\Filliere;
+use Illuminate\Support\Facades\DB;
 
 class ModuleController extends Controller
 {
@@ -163,4 +164,15 @@ class ModuleController extends Controller
     return response()->json($semesters);
 }
 
+
+    public function getEnseignants($filiere)
+{
+    $enseignants = DB::table('enseignants')
+        ->join('filieres', 'enseignants.nom_departement', '=', 'filieres.nom_departement')
+        ->where('filieres.nom_filiere', $filiere)
+        ->select('enseignants.cin_enseignant', 'enseignants.nom_enseignant', 'enseignants.prenom_enseignant')
+        ->get();
+
+    return response()->json($enseignants);
+}
 }

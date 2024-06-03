@@ -30,8 +30,6 @@ class EmploiTempsFactory extends Factory
             'id_filiere' => $filiere->id,
             'semestre' => $this->faker->numberBetween(1, 8),
             'groupe' => $this->faker->numberBetween(1, 5),
-            'crenau_debut' => $this->faker->time(),
-            'crenau_fin' => $this->faker->dateTimeBetween('+1 hour', '+2 hours'),
             'aac' => '24-25', // Valeur par défaut
         ];
     }
