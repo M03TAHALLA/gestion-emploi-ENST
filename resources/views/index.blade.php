@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
-                  <form action="" method="POST" class="form-box">
+                  <form action="{{ route('login') }}" method="POST" class="form-box">
                     @csrf
                     <h3 class="h4 text-black mb-4">LOG IN</h3>
                     <div class="form-group">
