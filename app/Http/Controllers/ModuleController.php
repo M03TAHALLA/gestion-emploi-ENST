@@ -126,6 +126,8 @@ class ModuleController extends Controller
         return redirect()->route('modules.index')
             ->with('success', 'Module supprimé avec succès.');
     }
+
+
     public function getEnseignantsByFiliere($nom_filiere)
     {
         $filiere = Filiere::where('nom_filiere', $nom_filiere)->first();
@@ -147,4 +149,5 @@ class ModuleController extends Controller
 
     return response()->json($enseignants);
 }
+
 }

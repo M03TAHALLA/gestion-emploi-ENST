@@ -17,15 +17,15 @@ class Module extends Model
     return $this->belongsTo(Enseignant::class, 'cin_enseignant', 'cin');
 }
 
-    protected $fillable = [
-        'nom_module',
-        'id_filiere',
-        'volume_horaire',
-        'nature_module',
-        'cin_enseignant',
-        'aac',
-        // Add other fillable fields here if you have any
-    ];
+protected $fillable = [
+    'nom_module',
+    'id_filiere',
+    'volume_horaire',
+    'nature_module',
+    'cin_enseignant',
+    'aac',
+    'semestre',  // Ajoutez ce champ ici
+];
 
     // Add any relationships or custom methods here
 }

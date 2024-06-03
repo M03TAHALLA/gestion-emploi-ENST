@@ -535,47 +535,47 @@ td{
                 </ul>
             </div>
         @endif
-            <h2>tester 
+            <h2>tester
               finalement
             </h2>
-        <form action="{{ route('modules.store') }}" method="POST" class="mx-auto mt-5">
-          @csrf
-          <div class="form-group">
-              <label for="nom_module">Nom module</label>
-              <input type="text" id="nom_module" name="nom_module" value="{{ old('nom_module') }}" required class="form-control">
-          </div>
-          <div class="form-group">
-              <label for="nom_filiere">Nom du Filiére</label>
-              <select id="nom_filiere" name="nom_filiere" required class="form-control">
-                  @foreach($filieres as $filiere)
-                      <option value="{{ $filiere->nom_filiere }}">{{ $filiere->nom_filiere }}</option>
-                  @endforeach
-              </select>
-          </div>
-          <div class="form-group">
-              <label for="volume_horaire">Volume horaire:</label>
-              <input type="number" id="volume_horaire" name="volume_horaire" value="{{ old('volume_horaire') }}" required class="form-control">
-          </div>
-          <div class="form-group">
-              <label for="nature_module">Nature de Module</label>
-              <select id="nature_module" name="nature_module" required class="form-control">
-                  @foreach($natures as $nature)
-                      <option value="{{ $nature }}">{{ $nature }}</option>
-                  @endforeach
-              </select>
-          </div>
-          <div class="form-group">
-              <label for="nom_enseignant">Nom d'enseignant</label>
-              <select id="nom_enseignant" name="nom_enseignant" required class="form-control">
-                  <!-- This will be populated dynamically -->
-              </select>
-          </div>
-          <div class="form-group mt-3">
-              <label for="annee_academique">Année Académique:</label>
-              <input type="text" id="annee_academique" name="annee_academique" value="2024-2025" readonly class="form-control">
-          </div>
-          <button type="submit" class="btn create-salle-button">Créer un nouveau module</button>
-      </form>
+            <form action="{{ route('modules.store') }}" method="POST" class="mx-auto mt-5">
+                @csrf
+                <div class="form-group">
+                    <label for="nom_module">Nom module</label>
+                    <input type="text" id="nom_module" name="nom_module" value="{{ old('nom_module') }}" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="nom_filiere">Nom du Filiére</label>
+                    <select id="nom_filiere" name="nom_filiere" required class="form-control">
+                        @foreach($filieres as $filiere)
+                            <option value="{{ $filiere->nom_filiere }}">{{ $filiere->nom_filiere }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="volume_horaire">Volume horaire:</label>
+                    <input type="number" id="volume_horaire" name="volume_horaire" value="{{ old('volume_horaire') }}" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="nature_module">Nature de Module</label>
+                    <select id="nature_module" name="nature_module" required class="form-control">
+                        @foreach($natures as $nature)
+                            <option value="{{ $nature }}">{{ $nature }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="nom_enseignant">Nom d'enseignant</label>
+                    <select id="nom_enseignant" name="nom_enseignant" required class="form-control">
+                        <!-- This will be populated dynamically -->
+                    </select>
+                </div>
+                <div class="form-group mt-3">
+                    <label for="annee_academique">Année Académique:</label>
+                    <input type="text" id="annee_academique" name="annee_academique" value="2024-2025" readonly class="form-control">
+                </div>
+                <button type="submit" class="btn create-salle-button">Créer un nouveau module</button>
+            </form>
         </section>
       </div>
       <!-- main-panel ends -->
@@ -619,7 +619,7 @@ td{
     // Trigger change event to load enseignants for the initially selected filiere
     filiereSelect.dispatchEvent(new Event('change'));
 });
-</script>
+  </script>
 
   <!-- End plugin js for this page -->
   <!-- inject:js -->

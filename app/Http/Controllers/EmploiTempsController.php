@@ -104,7 +104,10 @@ public function getSemesters($filiere)
 
     // Trouver l'ID de la filière à partir de son nom
     $nomFiliere = $request->input('nom_filiere');
-    $filiere = Filiere::where('nom_filiere', $nomFiliere)->first();
+    $semestre = $request->input('semestre');
+    $filiere = Filiere::where('nom_filiere', $nomFiliere)
+                        ->where('semestre',$semestre)
+                        ->first();
 
     if (!$filiere) {
         // Si la filière n'est pas trouvée, vous pouvez retourner un message d'erreur ou gérer la situation selon vos besoins
@@ -161,8 +164,12 @@ public function getSemesters($filiere)
         $groupe = $request->input('groupe');
 
         // Trouver l'ID de la filière à partir de son nom
-        $filiere = Filiere::where('nom_filiere', $nomFiliere)->first();
+        $filiere = Filiere::where('nom_filiere', $nomFiliere)
+                            ->where('semestre',$semestre)
+                            ->first();
+
         $idFiliere = $filiere->id;
+
 
         // Sélectionner toutes les séances en fonction des critères
         $seances = Seance::with('module')
@@ -204,7 +211,8 @@ public function getSemesters($filiere)
         'groupe'=>$groupe,
         'nombreSeances'=>$nombreSeances,
         'Horaire'=>$Horaire,
-        'countHoraire' => $countHoraire
+        'countHoraire' => $countHoraire,
+
     ]);
     }
 

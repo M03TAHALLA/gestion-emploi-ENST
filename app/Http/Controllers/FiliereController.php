@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Filiere;
 use App\Models\Departement;
+use App\Models\EmploiTemps;
 use Illuminate\Http\Request;
 
 class FiliereController extends Controller
@@ -10,18 +11,29 @@ class FiliereController extends Controller
     public function index()
 {
     $filieres = Filiere::with('emploi_temps')->get();
+    $filierescount = $filieres->count();
 
-    $disponibilites = $filieres->map(function($filiere) {
-        $nombreGroupes = $filiere->groupe; // Assumant que vous avez une colonne 'nombre_groupes' dans la table 'filieres'
-        $nombreEmploisTemps = $filiere->emploi_temps->count();
+    $EmploiTemps = [];
 
-        return [
-            'filiere' => $filiere,
-            'disponible' => $nombreGroupes == $nombreEmploisTemps
-        ];
-    });
+    for($i = 0 ;  $i<$filierescount ; $i++ ){
+        $count = EmploiTemps::where('id_filiere',$filieres[$i]->id)
+                                ->where('semestre',$filieres[$i]->semestre)
+                                ->count();
+        if($filieres[$i]->groupe == $count){
+            $EmploiTemps[$i] = 1;
+        }else{
+            $EmploiTemps[$i] = 0;
+        }
+    }
 
-    return view('Fillieres.index', compact('disponibilites'));
+
+
+
+    return view('Fillieres.index',[
+        'filieres'=>$filieres,
+        'filierescount'=>$filierescount,
+        'EmploiTemps'=>$EmploiTemps
+    ]);
 }
 
 

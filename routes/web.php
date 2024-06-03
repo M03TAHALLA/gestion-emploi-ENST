@@ -23,7 +23,7 @@ use App\Models\SousAdmin;
 
 Route::get('/', function () {
     return view('index');
-})->name('home');
+});
 
 Route::get('/dashboard/Profile', function () {
     return view('Profile');
@@ -116,7 +116,7 @@ Route::get('/recherche', [SalleController::class, 'recherche'])->name('salles.re
 
 Route::resource('/dashboard/modules', ModuleController::class);
 
-Route::resource('/dashboard/admins', SousAdminController::class)->middleware('auth:sous_admin','auth:super_admin');
+Route::resource('/dashboard/admins', SousAdminController::class);
 Route::resource('/dashboard/super_admins', SuperAdminController::class);
 Route::resource('/dashboard/super_admins/roles', RoleController::class);
 
@@ -133,6 +133,7 @@ Route::get('/get-filieres/{departement}', [EmploiTempsController::class, 'getFil
 
 Route::get('/get-filieres/{departement}', [EmploiTempsController::class, 'getFilieres']);
 Route::get('/get-semesters/{filiere}', [EmploiTempsController::class, 'getSemesters']);
+
 Route::get('/get-groups/{filiere}/{semestre}', [EmploiTempsController::class, 'getGroups']);
 
 
@@ -150,9 +151,6 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-//Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
-
-
 
 Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
 Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
@@ -161,3 +159,5 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 
 // web.php
 Route::get('/getEnseignants/{filiere}', [App\Http\Controllers\ModuleController::class, 'getEnseignants']);
+
+
