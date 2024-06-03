@@ -24,9 +24,10 @@ class ModuleController extends Controller
     // Afficher le formulaire de création d'un module
     public function create()
     {
-        $filieres = Filiere::all();
+        $filieres = Filiere::select('nom_filiere')->distinct()->get();
         $natures = ['Disciplinaire', 'Complémentaire'];
         return view('modules.create', compact('filieres','natures'));
+
     }
 
     // Sauvegarder un nouveau module dans la base de données
