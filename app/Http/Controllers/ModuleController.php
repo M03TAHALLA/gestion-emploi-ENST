@@ -138,6 +138,7 @@ class ModuleController extends Controller
     }
     public function getEnseignants($filiere)
 {
+    $test = null;
     $enseignants = DB::table('enseignants')
         ->join('filieres', 'enseignants.nom_departement', '=', 'filieres.nom_departement')
         ->where('filieres.nom_filiere', $filiere)
