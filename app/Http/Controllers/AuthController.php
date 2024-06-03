@@ -33,7 +33,7 @@ class AuthController extends Controller
             $message->subject('Password Reset Link');
         });
 
-        return back()->with('status', 'We have emailed your password reset link!');
+        return back()->with('status', 'Nous avons envoyé un lien de réinitialisation de mot de passe par e-mail !');
     }
 
     public function showResetPasswordForm($token)

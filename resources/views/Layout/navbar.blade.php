@@ -2,6 +2,7 @@
     <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
       <a class="navbar-brand brand-logo ens-logo" href="/dashboard"><img src="/images/ENSlogo-removebg-preview.png" alt="logo" style="width:140px; height:70px;"/>ENST</a>
       <a class="navbar-brand brand-logo-mini ens-logo" href="/dashboard" style="margin-left: 35px">ENST</a>
+
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
       <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -17,6 +18,8 @@
             </div>
             <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
           </div>
+
+
         </li>
       </ul>
       <ul class="navbar-nav navbar-nav-right">
@@ -77,11 +80,12 @@
                   <i class="ti-user text-primary"></i>
                   Profile
                 </a>
-            <a class="dropdown-item">
-            
-              <i class="ti-power-off text-primary"></i>
-              Logout
-            </a>
+                <form action="{{ route('logout') }}" method="POST">
+                  @csrf
+                  <button type="submit">Logout</button>
+                </form>  
+
+                                              
           </div>
         </li>
         <li class="nav-item nav-settings d-none d-lg-flex">
