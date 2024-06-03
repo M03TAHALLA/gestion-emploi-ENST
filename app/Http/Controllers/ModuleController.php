@@ -36,6 +36,7 @@ class ModuleController extends Controller
     // Validate the request data
     $validatedData = $request->validate([
         'nom_module' => 'required|string',
+        'semestre'=>'required|integer',
         'volume_horaire' => 'required|integer',
         'nature_module' => 'required|in:Disciplinaire,Complémentaire',
         'nom_filiere' => 'required|string|exists:filieres,nom_filiere', // Ensure nom_filiere exists in filieres table
@@ -43,7 +44,9 @@ class ModuleController extends Controller
     ]);
 
     // Fetch id_filiere based on the nom_filiere entered by the user
-    $filiere = Filiere::where('nom_filiere', $validatedData['nom_filiere'])->firstOrFail();
+    $filiere = Filiere::where('nom_filiere', $validatedData['nom_filiere'])
+                        ->where('semestre',$validatedData['semestre'])
+                        ->firstOrFail();
     $id_filiere = $filiere->id;
 
     // Fetch cin_enseignant based on specific criteria
@@ -135,4 +138,29 @@ class ModuleController extends Controller
             return response()->json([]);
         }
     }
+
+    public function getSemesters($filiere)
+{
+    // Récupérer tous les enregistrements correspondant au nom de filière donné
+    $filiereData = Filiere::where('nom_filiere', $filiere)->get();
+
+    // Vérifier si des enregistrements ont été trouvés
+    if ($filiereData->isEmpty()) {
+        return response()->json(['error' => 'Filière non trouvée'], 404);
+    }
+
+    // Initialiser un tableau pour stocker tous les semestres
+    $semesters = [];
+
+    // Parcourir chaque enregistrement et ajouter ses semestres à la liste
+    foreach ($filiereData as $record) {
+        $semesters = array_merge($semesters, explode(',', $record->semestre));
+    }
+
+    // Supprimer les doublons et réorganiser les indices du tableau
+    $semesters = array_values(array_unique($semesters));
+
+    return response()->json($semesters);
+}
+
 }

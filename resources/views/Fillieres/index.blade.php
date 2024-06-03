@@ -326,32 +326,32 @@ td{
                             <th scope="col">Nom Departement</th>
                             <th scope="col">Cordinateur</th>
                             <th scope="col">Semestre Actuelle</th>
-                            <th scope="col">Emploi Temps</th> <!-- Ajouter cette ligne -->
+                            <th scope="col">Emploi Temps </th> <!-- Ajouter cette ligne -->
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($disponibilites as $filliere)
+                        @for ($i = 0 ; $i < $filierescount ; $i++)
                         <tr>
-                            <td style="font-weight: bold">{{ $filliere['filiere']->nom_filiere }}</td>
-                            <td>{{ $filliere['filiere']->nom_departement }}</td>
-                            <td>{{ $filliere['filiere']->cordinateur }}</td>
-                            <td>{{ $filliere['filiere']->semestre }}</td>
+                            <td style="font-weight: bold">{{ $filieres[$i]->nom_filiere }}</td>
+                            <td>{{ $filieres[$i]->nom_departement }}</td>
+                            <td>{{ $filieres[$i]->cordinateur }}</td>
+                            <td>{{ $filieres[$i]->semestre }}</td>
                             <td>
-                                @if ($filliere['disponible'])
-                                <i class="fas fa-check-circle" style="color: green; font-size: 20px"></i>
-                            @else
-                                <i class="fas fa-exclamation-triangle" style="color: red; font-size: 20px"></i>
-                            @endif
+                                @if ($EmploiTemps[$i] == 1)
+                                <i class="fas fa-check-circle" style="color: green; font-size:20px"></i>
+                                @else
+                                <i class="fas fa-exclamation-triangle" style="color: red; font-size:20px"></i>
+                                @endif
                             </td>
                             <td class="td-crud-operations">
-                                <a href="{{ route('fillieres.edit', $filliere['filiere']->id) }}" class="">
+                                <a href="{{ route('fillieres.edit', $filieres[$i]->id) }}" class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                     </svg>
                                 </a>
-                                <form action="{{ route('fillieres.destroy', $filliere['filiere']->id) }}" method="POST" style="display: inline;">
+                                <form action="{{ route('fillieres.destroy', $filieres[$i]->id) }}" method="POST" style="display: inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-link" style="padding: 0; background-color: transparent; border: none;">
@@ -362,7 +362,7 @@ td{
                                 </form>
                             </td>
                         </tr>
-                        @endforeach
+                        @endfor
                     </tbody>
                 </table>
         </section>

@@ -256,6 +256,7 @@
                 </div>
             @endif
 
+
             <div style="margin-top: 1%" class="formbold-input-group">
                 <input
                 type="text" id="myInput" onkeyup="searchTable()" placeholder="Rechercher par CIN , Nom , Prenom ....."
@@ -284,7 +285,7 @@
                             <td>{{ $enseignants->specialite }}</td>
                             <td>{{ $enseignants->nom_departement }}</td>
                             <td>{{ $enseignants->situation }}</td>
-                            <td>{{ $enseignants->horaire_total }}</td>
+                            <td>{{ $total_volumes_horaires[$enseignants->cin_enseignant] }}</td>
                             <td>
                                 <a href="{{ route('enseignant.edit',$enseignants->cin_enseignant) }}" class="">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">

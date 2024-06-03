@@ -133,6 +133,7 @@ Route::get('/get-filieres/{departement}', [EmploiTempsController::class, 'getFil
 
 Route::get('/get-filieres/{departement}', [EmploiTempsController::class, 'getFilieres']);
 Route::get('/get-semesters/{filiere}', [EmploiTempsController::class, 'getSemesters']);
+Route::get('/get-semesters/{filiere}', [ModuleController::class, 'getSemesters']);
 Route::get('/get-groups/{filiere}/{semestre}', [EmploiTempsController::class, 'getGroups']);
 
 

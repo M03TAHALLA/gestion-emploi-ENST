@@ -12,10 +12,20 @@ class EnseignantController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $enseignants = Enseignant::all();
-        return view('Enseignant.index', compact('enseignants'));
+{
+    $enseignants = Enseignant::all();
+
+    // Tableau pour stocker le total des volumes horaires par enseignant
+    $total_volumes_horaires = [];
+
+    // Boucle à travers chaque enseignant
+    foreach ($enseignants as $enseignant) {
+        // Requête pour obtenir la somme des volumes horaires pour cet enseignant
+        $total_volumes_horaires[$enseignant->cin_enseignant] = Module::where('cin_enseignant', $enseignant->cin_enseignant)->sum('volume_horaire');
     }
+
+    return view('Enseignant.index', compact('enseignants', 'total_volumes_horaires'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -23,6 +33,7 @@ class EnseignantController extends Controller
     public function create()
     {
         $departements = Departement::all();
+
         return view('Enseignant.create', compact('departements'));
     }
 

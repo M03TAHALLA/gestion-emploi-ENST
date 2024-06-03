@@ -19,6 +19,8 @@
         <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
         <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
         <link rel="stylesheet" type="text/css" href="/js/select.dataTables.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <!-- End plugin css for this page -->
         <!-- inject:css -->
         <link rel="stylesheet" href="/css/vertical-layout-light/dashboard.css">
@@ -33,7 +35,7 @@
           <style>
 
 .cadre {
-    border: 4px solid #000000; /* Couleur et épaisseur de la bordure */
+    border: 1px solid #000000; /* Couleur et épaisseur de la bordure */
     padding: 10px; /* Espace intérieur du cadre */
     margin: 20px auto; /* Marge extérieure pour centrer le cadre */
     max-width: 500px; /* Largeur maximale du cadre */
@@ -61,7 +63,11 @@
               <span>Enseignant / </span><a href=""> info</a>
             </div>
           </div>
+
         <h2 style="text-align: center" class="mb-5 mt-5"><svg id='Teacher_24' width='50' height='50' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#000000' opacity='0'/>
+
+
+
 
 
             <g transform="matrix(0.83 0 0 0.83 12 12)" >
@@ -69,8 +75,8 @@
             </g>
             </svg>  Prof : {{ $enseignant->nom_enseignant  }} {{ $enseignant->prenom_enseignant }}</h2>
             <div style="text-align: center; margin-left: 0%;" class="form-group">
-            <label  style="font-weight: bold; font-size:20px">Infos :</label>
         </div>
+
             <div class="cadre">
 
                 <div class="form-group">

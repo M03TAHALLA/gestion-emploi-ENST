@@ -149,7 +149,10 @@ class SeanceController extends Controller
     $jour = request()->query('jour');
 
     $nomfiliere = Filiere::where('id', $id_filiere)->first();
+    
     $modules = Module::where('id_filiere', $id_filiere)->get();
+
+
     $salles = Salle::where('nom_departement', $nomfiliere->nom_departement)->get();
     $enseignant = Enseignant::where('nom_departement', $nomfiliere->nom_departement)->get();
 
