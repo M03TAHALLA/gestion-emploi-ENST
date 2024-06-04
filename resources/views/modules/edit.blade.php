@@ -266,7 +266,7 @@ td{
                 </ul>
             </div>
         @endif
-        
+
                          <form action="{{ route('modules.update', $module->id) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -308,7 +308,7 @@ td{
                         </div>
                         <button type="submit" class="btn btn-primary">Update Module</button>
                     </form>
-        
+
         </section>
       </div>
       <!-- main-panel ends -->

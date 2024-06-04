@@ -157,3 +157,11 @@ Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name(
 Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
+
+// web.php
+Route::get('/getEnseignants/{filiere}', [App\Http\Controllers\ModuleController::class, 'getEnseignants']);
+
+Route::get('/get-enseignants/{moduleId}/{filiereId}/{semestre}', [SeanceController::class, 'getEnseignants']);
+
+
+

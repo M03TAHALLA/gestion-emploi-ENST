@@ -105,6 +105,12 @@
             </div>
         @endif
 
+        @if (session('error'))
+        <div id="message" class="alert alert-danger">
+          {{ session('error') }}
+        </div>
+        @endif
+
             <h2 style="margin-bottom: 5%;text-align:center" class=""> Emploi Temps</h2>
           <form action="{{ route('Emploitemps.store') }}" method="POST">
             @csrf
