@@ -45,7 +45,8 @@
 
       <div class="container-fluid">
         <div class="d-flex align-items-center">
-          <div class="site-logo mr-auto w-25"><img style="width: 30% " src="/images/LOGO_ENS.png"></img></div>
+          
+          <div class="site-logo mr-auto w-25"><a href="{{ route('home') }}"><img style="width: 30% " src="/images/LOGO_ENS.png"></img></a></div>
 
           <div class="mx-auto text-center">
             <nav class="site-navigation position-relative text-right" role="navigation">
@@ -53,7 +54,7 @@
                     <li><a href="#home-section" class="nav-link">Home</a></li>
                     <li><a href="#courses-section" class="nav-link">About</a></li>
                     <li><a href="#programs-section" class="nav-link">Policy</a></li>
-                </ul>
+                </ul>
             </nav>
           </div>
 
@@ -90,7 +91,7 @@
                   @endif
                     <form action="{{ route('password.email') }}" method="POST" class="form-box">
                         @csrf
-                        <h3 class="h4 text-black mb-4">Forgot Password</h3>
+                        <h3 class="h4 text-black mb-4">Mot de passe oublié</h3>
                         <div class="form-group">
                             <input type="email" class="form-control" name="email" placeholder="Email Address">
                         </div>
@@ -98,7 +99,7 @@
                         <span class="text-danger">{{ $message }}</span>
                         @enderror
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-pill" value="Send Password Reset Link">
+                            <input type="submit" class="btn btn-primary btn-pill" value="Envoyer le lien de réinitialisation">
                         </div>
                     </form>
                 

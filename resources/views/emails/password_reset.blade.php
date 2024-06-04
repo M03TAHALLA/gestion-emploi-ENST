@@ -1,6 +1,6 @@
-<p>Hello,</p>
-<p>You are receiving this email because we received a password reset request for your account.</p>
-<p>Click the link below to reset your password:</p>
+<h4>Bonjour,</h4>
+<p>Vous recevez cet e-mail car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.</p>
+<p>Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe :</p>
 <a href="{{ $resetLink }}">{{ $resetLink }}</a>
-<p>If you did not request a password reset, no further action is required.</p>
-<p>Regards,<br>{{ config('app.name') }}</p>
+<p>Si vous n'avez pas demandé de réinitialisation de mot de passe, aucune action supplémentaire n'est requise.</p>
+<p>Cordialement, <br> @ens<br>{{ config('app.name') }}</p>

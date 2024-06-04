@@ -258,7 +258,12 @@
               </div>
             </div>
           </div>
-          
+          @superadmin
+          <p>Bienvenue, Super Admin!</p>
+        @endsuperadmin
+        @sousadmin
+        <p>Bienvenue, sous Admin!</p>
+        @endsousadmin
           <div class="temp-div" >
             <table id="Table" class="table table-striped" style="width:100%">
                 <thead>
