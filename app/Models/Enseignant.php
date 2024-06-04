@@ -12,6 +12,8 @@ class Enseignant extends Model
     public function seances() {
         return $this->hasMany(Seance::class, 'cin_enseignant');
     }
+
+    
     protected $primaryKey = 'cin_enseignant';
     public $incrementing = false;
     protected $keyType = 'string';

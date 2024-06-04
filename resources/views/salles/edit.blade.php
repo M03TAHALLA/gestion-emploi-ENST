@@ -534,7 +534,7 @@ td{
             </div>
           </div>
           <div class="container">
-    
+
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -544,8 +544,8 @@ td{
                     </ul>
                 </div>
             @endif
-    
-            <form action="{{ route('salles.update', $salle->id) }}" method="POST" class="mt-5">
+
+            <form action="{{ route('salles.update', $salle->num_salle) }}" method="POST" class="mt-5">
                 @csrf
                 @method('PUT')
                 <div class="form-group">
@@ -556,8 +556,8 @@ td{
                     <label for="nom_departement">Nom du Département:</label>
                     <select id="nom_departement" name="nom_departement" required class="form-control">
                         @foreach($departements as $departement)
-                            <option value="{{ $departement->NomDepartement }}" {{ $salle->nom_departement == $departement->NomDepartement ? 'selected' : '' }}>
-                                {{ $departement->NomDepartement }}
+                            <option value="{{ $departement->nom_departement }}" {{ $salle->nom_departement == $departement->nom_departement ? 'selected' : '' }}>
+                                {{ $departement->nom_departement }}
                             </option>
                         @endforeach
                     </select>
@@ -575,10 +575,8 @@ td{
                     <input type="number" id="capacite" name="capacite" value="{{ $salle->capacite }}" required class="form-control">
                 </div>
                 <div class="form-group form-check">
-                    <input type="checkbox" id="disponibilite" name="disponibilite" value="1" {{ old('disponibilite') ? 'checked' : '' }} class="form-check-input mr-0">
-                    <label for="disponibilite" class="form-check-label ml-0">Disponible</label>
-                    <input type="checkbox" id="disponibilite" name="disponibilite" value="0" {{ old('disponibilite') ? 'checked' : '' }} class="form-check-input mr-0">
-                    <label for="disponibilite" class="form-check-label ml-0">Non Disponible</label>
+                    <input type="checkbox" id="disponibilite" name="disponibilite" value="{{ $salle->disponibilite }}" checked class="form-check-input mr-0">
+                    <label for="disponibilite" class="form-check-label ml-0">Disponible </label>
                 </div>
                 <div class="form-group">
                     <label for="annee_academique">Année Académique:</label>
@@ -587,7 +585,7 @@ td{
                 <button type="submit" class="btn edit-salle-button">Mettre à jour</button>
             </form>
         </div>
-        
+
         </section>
       </div>
       <!-- main-panel ends -->
