@@ -11,6 +11,8 @@ use App\Models\Seance;
 use App\Models\EmploiTemps;
 use App\Models\Departement;
 use App\Models\Horaire;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class SeanceController extends Controller
 {
@@ -100,10 +102,63 @@ class SeanceController extends Controller
         'cin_enseignant' => 'required|string',
     ]);
 
+    $seances = Seance::all();
+
+    $seanceExiste = Seance::where('num_salle', $validatedData['num_salle'])
+    ->where('jour', $validatedData['jour'])
+    ->where('heure_debut',$validatedData['heure_debut'])
+    ->where('heure_fin',$validatedData['heure_fin'])
+    ->exists();
+
+    if ($seanceExiste) {
+        return Redirect::back()->withErrors(['error' => 'La salle ' . $validatedData['num_salle'] . ' est déjà réservée pour ' . $validatedData['jour'] . ' de ' . $validatedData['heure_debut'] . ' à ' . $validatedData['heure_fin']]);
+    }
+
+
+    $id = EmploiTemps::where('id_filiere', $validatedData['id_filiere'])
+        ->where('semestre', $validatedData['semestre'])
+        ->where('groupe',  $validatedData['nom_groupe'])
+        ->first();
+
+
+
+    $Horairesdebut = Horaire::where('emploi_temps_id', $id->id)->pluck('heure_debut');
+    $Horairesfin = Horaire::where('emploi_temps_id', $id->id)->pluck('heure_fin');
+
+    $heuresDebut = $Horairesdebut->map(function ($heureDebut) {
+        return \Carbon\Carbon::parse($heureDebut)->format('H:i');
+    });
+
+
+    $heuresFin = $Horairesfin->map(function ($heureFin) {
+        return \Carbon\Carbon::parse($heureFin)->format('H:i');
+    });
+
+
+
+    if($heuresDebut->contains($validatedData['heure_debut']) &&  $heuresFin->contains($validatedData['heure_fin'])){
+
+    }else{
+        return redirect()->back()->withErrors(['error' => 'Les heures ne correspondent à aucun horaire de Emploi Temps']);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Vérifier si la séance existe déjà
     $existingSeance = Seance::where('id_filiere', $validatedData['id_filiere'])
         ->where('nom_groupe', $validatedData['nom_groupe'])
         ->where('jour', $validatedData['jour'])
+        ->where('semestre',$validatedData['semestre'])
         ->where('heure_debut', $validatedData['heure_debut'])
         ->where('heure_fin', $validatedData['heure_fin'])
         ->first();
@@ -149,8 +204,10 @@ class SeanceController extends Controller
     $jour = request()->query('jour');
 
     $nomfiliere = Filiere::where('id', $id_filiere)->first();
-    
-    $modules = Module::where('id_filiere', $id_filiere)->get();
+
+    $modules = Module::where('id_filiere', $id_filiere)
+                            ->where('semestre',$semestre)
+                            ->get();
 
 
     $salles = Salle::where('nom_departement', $nomfiliere->nom_departement)->get();
@@ -215,4 +272,21 @@ class SeanceController extends Controller
     {
         //
     }
+
+    public function getEnseignants($moduleId, $filiereId, $semestre)
+{
+    $module = Module::where('id', $moduleId)
+                    ->where('id_filiere', $filiereId)
+                    ->where('semestre', $semestre)
+                    ->first();
+
+    if ($module) {
+        $enseignants = $module->enseignants; // Assuming you have a relation defined in the Module model
+    } else {
+        $enseignants = [];
+    }
+
+    return response()->json($enseignants);
+}
+
 }

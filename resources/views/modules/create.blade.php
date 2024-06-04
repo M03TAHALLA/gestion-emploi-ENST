@@ -546,10 +546,16 @@ td{
                 </div>
                 <div class="form-group">
                     <label for="nom_filiere">Nom du Filiére</label>
-                    <select id="nom_filiere" name="nom_filiere" required class="form-control">
+                    <select id="nom_filiere" name="nom_filiere" required class="form-control" onchange="getSemesters()">
                         @foreach($filieres as $filiere)
                             <option value="{{ $filiere->nom_filiere }}">{{ $filiere->nom_filiere }}</option>
                         @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label class="formbold-form-label">Semestre</label>
+                    <select class="formbold-form-select" name="semestre" id="semestre">
+                      <option value="">Sélectionner un semestre</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -566,7 +572,7 @@ td{
                 </div>
                 <div class="form-group">
                     <label for="nom_enseignant">Nom d'enseignant</label>
-                    <select id="nom_enseignant" name="nom_enseignant" required class="form-control">
+                    <select id="nom_enseignant" name="cin_enseignant" required class="form-control">
                         <!-- This will be populated dynamically -->
                     </select>
                 </div>
@@ -619,6 +625,35 @@ td{
     // Trigger change event to load enseignants for the initially selected filiere
     filiereSelect.dispatchEvent(new Event('change'));
 });
+
+function getSemesters() {
+      const filliere = document.getElementById('nom_filiere').value;
+
+      // Réinitialiser la liste des semestres
+      const semestreSelect = document.getElementById('semestre');
+      semestreSelect.innerHTML = '<option value="">Sélectionner un semestre</option>';
+
+      // Si une filière est sélectionnée
+      if (filliere) {
+        fetch(`/get-semesters/${filliere}`)
+          .then(response => response.json())
+          .then(data => {
+            // Parcourir les semestres et les ajouter à la liste déroulante
+            data.forEach(semestre => {
+              const option = document.createElement('option');
+              option.value = semestre;
+              option.textContent = `Semestre ${semestre}`;
+              semestreSelect.appendChild(option);
+            });
+          })
+          .catch(error => {
+            console.error('Erreur lors de la récupération des semestres:', error);
+          });
+      }
+    }
+
+    
+
   </script>
 
   <!-- End plugin js for this page -->

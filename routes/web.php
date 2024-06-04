@@ -160,4 +160,7 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 // web.php
 Route::get('/getEnseignants/{filiere}', [App\Http\Controllers\ModuleController::class, 'getEnseignants']);
 
+Route::get('/get-enseignants/{moduleId}/{filiereId}/{semestre}', [SeanceController::class, 'getEnseignants']);
+
+
 

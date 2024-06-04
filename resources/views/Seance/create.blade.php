@@ -133,13 +133,13 @@
                                 <option value="Samedi" @if (isset($jour) && $jour === 'Samedi') selected @endif>Samedi</option>
                             </select>
                         </div>
-                        
+
                         <div>
                             <label class="formbold-form-label">Nom Module</label>
                             <select class="formbold-form-select" name="id_module" id="NomModule">
                                 <option value="">Select Nom Module</option>
-                                @foreach ($modules as $modules)
-                                <option value="{{ $modules->id }}">{{ $modules->nom_module }}</option>
+                                @foreach ($modules as $module)
+                                <option value="{{ $module->id }}">{{ $module->nom_module }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -169,12 +169,10 @@
                         </div>
                         <div>
                             <label class="formbold-form-label">Nom Complete Enseignant</label>
-                            <select class="formbold-form-select" name="cin_enseignant" id="nom_enseignant">
-                                <option value="">Selecter Votre Prof</option>
-                                @foreach ($enseignant as $enseignant)
-                                <option value="{{ $enseignant->cin_enseignant }}">{{ $enseignant->nom_enseignant }} {{ $enseignant->prenom_enseignant }}</option>
-                                @endforeach
-                            </select>
+                                <select class="formbold-form-select" name="cin_enseignant" id="nom_enseignant">
+                                    <option value="">Selecter Votre Prof</option>
+                                    <!-- Options will be populated dynamically -->
+                                </select>
                         </div>
 
                         <button type="submit" class="formbold-btn">Ajouter Dans Emploi Temps</button>
@@ -251,15 +249,41 @@
         setTimeout(function () {
             var messageElement = document.getElementById('error');
             if (messageElement) {
-                messageElement.style.transition = 'opacity 0.5s';
+                messageElement.style.transition = 'opacity 1s';
                 messageElement.style.opacity = '0';
                 setTimeout(function () {
                     messageElement.style.display = 'none';
                 }, 2000);
             }
         }, 3000);
+
+        document.getElementById('NomModule').addEventListener('change', function () {
+            const moduleId = this.value;
+            const filiereId = '{{ $id_filiere }}';
+            const semestre = '{{ $semestre }}';
+
+            if (moduleId) {
+                fetch(`/get-enseignants/${moduleId}/${filiereId}/${semestre}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const enseignantSelect = document.getElementById('nom_enseignant');
+                        enseignantSelect.innerHTML = '<option value="">Selecter Votre Prof</option>';
+                        data.forEach(enseignant => {
+                            const option = document.createElement('option');
+                            option.value = enseignant.cin_enseignant;
+                            option.textContent = `${enseignant.nom_enseignant} ${enseignant.prenom_enseignant}`;
+                            enseignantSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching enseignants:', error));
+            } else {
+                document.getElementById('nom_enseignant').innerHTML = '<option value="">Selecter Votre Prof</option>';
+            }
+        });
+
     </script>
     <!-- End custom js for this page-->
+
 </body>
 
 </html>

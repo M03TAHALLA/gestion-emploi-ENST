@@ -106,12 +106,23 @@ public function getSemesters($filiere)
     $nomFiliere = $request->input('nom_filiere');
     $semestre = $request->input('semestre');
     $filiere = Filiere::where('nom_filiere', $nomFiliere)
-                        ->where('semestre',$semestre)
+                        ->where('semestre', $semestre)
                         ->first();
 
     if (!$filiere) {
         // Si la filière n'est pas trouvée, vous pouvez retourner un message d'erreur ou gérer la situation selon vos besoins
         return redirect()->back()->with('error', 'La filière sélectionnée n\'existe pas.');
+    }
+
+    // Vérifier si un emploi du temps existe déjà pour cette combinaison de filière, semestre et groupe
+    $existingEmploiTemps = EmploiTemps::where('id_filiere', $filiere->id)
+                                      ->where('semestre', $semestre)
+                                      ->where('groupe', $request->input('groupe'))
+                                      ->first();
+
+    if ($existingEmploiTemps) {
+        // Si un emploi du temps existe déjà, retourner un message d'erreur
+        return redirect()->back()->with('error', 'Un emploi du temps existe déjà pour cette filière, ce semestre et ce groupe.');
     }
 
     // Créer un nouvel emploi du temps
@@ -139,6 +150,7 @@ public function getSemesters($filiere)
     // Rediriger avec un message de succès
     return redirect()->route('Emploitemps.index')->with('success', 'L\'emploi du temps a été ajouté avec succès.');
 }
+
 
     /**
      * Display the specified resource.

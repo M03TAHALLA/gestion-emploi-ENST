@@ -17,6 +17,11 @@ class Module extends Model
     return $this->belongsTo(Enseignant::class, 'cin_enseignant', 'cin');
 }
 
+public function enseignants()
+{
+    return $this->hasMany(Enseignant::class, 'cin_enseignant', 'cin_enseignant');
+}
+
 protected $fillable = [
     'nom_module',
     'id_filiere',

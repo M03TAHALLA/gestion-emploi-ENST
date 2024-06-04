@@ -102,14 +102,15 @@
                 />
             </div>
           </div>
-          
+
           <!-- Include table and other elements as in your original code -->
-          
+
           <table id="myTable" class="table table-striped mt-5">
               <thead>
                   <tr>
                       <th scope="col">Nom module</th>
                       <th scope="col">Nom Filiére</th>
+                      <th scope="col">Semestre</th>
                       <th scope="col">Volume horaire</th>
                       <th scope="col">Nature module</th>
                       <th scope="col">Nom enseignant</th>
@@ -122,6 +123,7 @@
                       <tr>
                           <td style="font-weight: bold">{{ $module->nom_module }}</td>
                           <td>{{ $module->nom_filiere }}</td>
+                          <td>{{ $module->semestre }}</td>
                           <td>{{ $module->volume_horaire }}</td>
                           <td>{{ $module->nature_module }}</td>
                           <td>{{ $module->nom_enseignant}}</td>
@@ -147,7 +149,7 @@
                   @endforeach
               </tbody>
           </table>
-          
+
         </section>
       </div>
       <!-- main-panel ends -->
@@ -180,7 +182,7 @@
                 const volumeHoraire = document.getElementById('VolumeHoraireInput').value;
                 const nomFiliere = document.getElementById('NomFiliereInput').value.toLowerCase();
                 const nomEnseignant = document.getElementById('NomEnseignantInput').value.toLowerCase();
-                
+
                 const table = document.getElementById('myTable').getElementsByTagName('tbody')[0];
                 const rows = table.getElementsByTagName('tr');
 

@@ -38,23 +38,25 @@ class ModuleController extends Controller
     $validatedData = $request->validate([
         'nom_module' => 'required|string',
         'volume_horaire' => 'required|integer',
+        'semestre'=>'required|integer',
         'nature_module' => 'required|in:Disciplinaire,Complémentaire',
         'nom_filiere' => 'required|string|exists:filieres,nom_filiere', // Ensure nom_filiere exists in filieres table
-        'nom_enseignant' => 'required|string|exists:enseignants,nom_enseignant', // Ensure cin_enseignant exists in enseignants table
+        'cin_enseignant' => 'required|string|exists:enseignants,cin_enseignant', // Ensure cin_enseignant exists in enseignants table
     ]);
-
     // Fetch id_filiere based on the nom_filiere entered by the user
-    $filiere = Filiere::where('nom_filiere', $validatedData['nom_filiere'])->firstOrFail();
+    $filiere = Filiere::where('nom_filiere', $validatedData['nom_filiere'])
+                        ->where('semestre',$validatedData['semestre'])
+                        ->firstOrFail();
     $id_filiere = $filiere->id;
 
     // Fetch cin_enseignant based on specific criteria
-    $enseignant = Enseignant::where('nom_enseignant', $validatedData['nom_enseignant'])->firstOrFail(); // Adjust the condition and value as needed
-    $cin_enseignant = $enseignant->cin_enseignant;
+    $cin_enseignant = $validatedData['cin_enseignant'];
 
     // Create a new Module instance and save it
     $module = new Module();
     $module->nom_module = $validatedData['nom_module'];
     $module->id_filiere = $id_filiere;
+    $module->semestre = $validatedData['semestre'];
     $module->volume_horaire = $validatedData['volume_horaire'];
     $module->nature_module = $validatedData['nature_module'];
     $module->cin_enseignant = $cin_enseignant;
@@ -93,9 +95,11 @@ class ModuleController extends Controller
         'nom_enseignant' => 'required|string|exists:enseignants,nom_enseignant', // Ensure cin_enseignant exists in enseignants table
     ]);
 
+
     // Fetch id_filiere based on the nom_filiere entered by the user
     $filiere = Filiere::where('nom_filiere', $validatedData['nom_filiere'])->firstOrFail();
     $id_filiere = $filiere->id;
+
 
     // Fetch cin_enseignant based on specific criteria
     $enseignant = Enseignant::where('nom_enseignant', $validatedData['nom_enseignant'])->firstOrFail();
@@ -145,9 +149,37 @@ class ModuleController extends Controller
         ->join('filieres', 'enseignants.nom_departement', '=', 'filieres.nom_departement')
         ->where('filieres.nom_filiere', $filiere)
         ->select('enseignants.cin_enseignant', 'enseignants.nom_enseignant', 'enseignants.prenom_enseignant')
+        ->distinct()
         ->get();
+
+
 
     return response()->json($enseignants);
 }
+public function getSemesters($filiere)
+{
+    // Récupérer tous les enregistrements correspondant au nom de filière donné
+    $filiereData = Filiere::where('nom_filiere', $filiere)->get();
+
+    // Vérifier si des enregistrements ont été trouvés
+    if ($filiereData->isEmpty()) {
+        return response()->json(['error' => 'Filière non trouvée'], 404);
+    }
+
+    // Initialiser un tableau pour stocker tous les semestres
+    $semesters = [];
+
+    // Parcourir chaque enregistrement et ajouter ses semestres à la liste
+    foreach ($filiereData as $record) {
+        $semesters = array_merge($semesters, explode(',', $record->semestre));
+    }
+
+    // Supprimer les doublons et réorganiser les indices du tableau
+    $semesters = array_values(array_unique($semesters));
+
+    return response()->json($semesters);
+}
+
+
 
 }
