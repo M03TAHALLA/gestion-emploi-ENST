@@ -66,7 +66,8 @@
 
         <div class="container-fluid">
           <div class="d-flex align-items-center">
-            <div class="site-logo mr-auto w-25"><img style="width: 30%;  margin-left:60px" src="/images/LOGO_ENS.png"></img></div>
+            <a href="{{ route('home') }}"> <div class="site-logo mr-auto w-25"><img style="width: 30%;  margin-left:60px" src="/images/LOGO_ENS.png"></img></div>
+            </a>
           </div>
         </div>
   
@@ -76,22 +77,22 @@
             <!-- Include the form here -->
             <form action="{{ route('password.update') }}" method="POST" class="form-box bg-light p-4 border rounded shadow-sm">
                 @csrf
-                <h3 class="h4 text-black mb-4">Reset Password</h3>
+                <h3 class="h4 text-black mb-4" style="text-align: center">Réinitialiser le mot de passe</h3>
                 <input type="hidden" name="token" value="{{ $token }}">
                 <div class="form-group">
                     <input type="email" class="form-control" name="email" placeholder="Email Address" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password" placeholder="Nouveau Password" required>
+                    <input type="password" class="form-control" name="password" placeholder="Nouveau mot de passe" required>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Nouveau Password" required>
+                    <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Nouveau mot de passe" required>
                 </div>
                 @error('email')
                 <span class="text-danger">{{ $message }}</span>
                 @enderror
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary btn-pill" value="Reset Password">
+                <div class="form-group" style="text-align: center">
+                    <input type="submit" class="btn btn-success pl-5 pr-5 pt-2 pb-2"  value="Réinitialiser">
                 </div>
             </form>
         </div>

@@ -16,4 +16,13 @@ class Role extends Model
     {
         return $this->belongsToMany(SousAdmin::class, 'sous_admins', 'role_id', 'id_sous_admin');
     }
+
+    public function rolesAdmins()
+    {
+        return $this->hasMany(RolesAdmin::class, 'role_id');
+    }
+    public function sousAdminsRoles()
+    {
+        return $this->belongsToMany(SousAdmin::class, 'roles_admins', 'role_id', 'id_sous_admin');
+    }
 }

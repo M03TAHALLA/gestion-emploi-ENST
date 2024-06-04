@@ -18,7 +18,7 @@ class AuthenticateSousAdmin
     public function handle(Request $request, Closure $next)
     {
         if (!Auth::guard('sous_admin')->check()) {
-            return redirect()->route('home'); // Rediriger vers la page de connexion pour le sous-administrateur
+            return redirect()->route('sous-admin.login'); // Rediriger vers la page de connexion pour le sous-administrateur
         }
 
         return $next($request);
