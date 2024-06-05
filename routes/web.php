@@ -13,6 +13,7 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmploiStockController;
 use App\Http\Controllers\EnseignantController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SeanceController;
 use App\Http\Controllers\SousAdminController;
@@ -122,7 +123,7 @@ Route::middleware('auth:sous_admin')->group(function () {
 });
 Route::middleware('auth:super_admin')->group(function(){
     Route::resource('/dashboard/admins', SousAdminController::class);
-    Route::resource('/dashboard/super_admins', SuperAdminController::class);
+
     Route::resource('/dashboard/super_admins/roles', RoleController::class);
     //Route::post('/assign-roles',  [SuperAdminController::class, 'assignRoles'])->name('assign.roles.submit');
     Route::post('/assign-roles', [RoleController::class, 'assignRoles'])->name('assign.roles.submit');
@@ -133,9 +134,17 @@ Route::middleware('auth:super_admin')->group(function(){
     Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 });
 
+Route::resource('/dashboard/super_admins', SuperAdminController::class);
 
 
 
+
+Route::get('/seancesedit/{id_filiere}/{groupe}/{semestre}/{seance}', [SeanceController::class, 'showedit'])->name('showedit');
+
+
+
+
+Route::get('generate-pdf',[PDFController::class,'generatePDF'])->name('PDF');
 
 
 
@@ -151,7 +160,7 @@ Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-//forget password 
+//forget password
 Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
 Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
 Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
