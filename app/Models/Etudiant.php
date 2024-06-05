@@ -8,6 +8,8 @@ class Etudiant extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'cin_etudiant';
+    public $incrementing = false;
     protected $fillable = [
         'cin_etudiant',
         'nom_etudiant',
