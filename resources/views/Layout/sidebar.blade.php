@@ -34,7 +34,7 @@
                 </li>
                 @elseif($role === 'gestion etudiants')
                 <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="{{ route('etudiants.index') }}">
                         <i class="mdi mdi-school menu-icon" style="font-size: 22px;"></i>
                         <span class="menu-title">{{ $role }}</span>
                     </a>
@@ -62,9 +62,9 @@
                 </li>
                 @endif
             @endforeach
-            
+
         </ul>
-        
+
     </nav>
     </div>
 @endif

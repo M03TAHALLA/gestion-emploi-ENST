@@ -23,8 +23,7 @@ use App\Models\Seance;
 use App\Models\SousAdmin;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AuthController;
-
-
+use App\Http\Controllers\EtudiantImportController;
 
 Route::get('/', function () {
     return view('index');
@@ -135,6 +134,15 @@ Route::middleware('auth:super_admin')->group(function(){
 });
 
 Route::resource('/dashboard/super_admins', SuperAdminController::class);
+
+
+
+Route::get('/import', function () {
+    return view('import');
+});
+
+Route::post('/import', [EtudiantImportController::class, 'import'])->name('etudiants.import');
+
 
 
 
