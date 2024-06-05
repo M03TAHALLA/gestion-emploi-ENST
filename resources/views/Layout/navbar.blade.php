@@ -71,7 +71,7 @@
             </a>
           </div>
         </li>
-        <li class="nav-item nav-profile dropdown">
+       <!-- <li class="nav-item nav-profile dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
             <img src="/images/faces/face28.jpg" alt="profile"/>
           </a>
@@ -79,16 +79,25 @@
               <a href="{{ route('Profile') }}" class="dropdown-item">
                   <i class="ti-user text-primary"></i>
                   Profile
-                </a>
-                <form action="{{ route('logout') }}" method="POST">
-                  @csrf
-                  <button type="submit">Logout</button>
-                </form>  
-
-                                              
-          </div>
+                </a>                        
+          </div>-->
+          <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            
+            <button type="submit" style="    
+               border-radius: 5px;
+                margin-top: 13px;
+                background-color: rgb(254, 83, 83);
+                border: none;
+                padding: 8px;
+                color: white;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+              <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+            </svg> Logout</button>
+        </form> 
         </li>
-        <li class="nav-item nav-settings d-none d-lg-flex">
+        <!--<li class="nav-item nav-settings d-none d-lg-flex">
           <a class="nav-link" href="#">
             <i class="icon-ellipsis"></i>
           </a>
@@ -96,7 +105,7 @@
       </ul>
       <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
         <span class="icon-menu"></span>
-      </button>
+      </button>-->
     </div>
   </nav>
   <!-- partial -->

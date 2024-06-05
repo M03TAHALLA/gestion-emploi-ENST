@@ -19,4 +19,9 @@ class SousAdmin extends Authenticatable
     {
         return $this->hasMany(RolesAdmin::class, 'id_sous_admin');
     }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'roles_admins', 'id_sous_admin', 'role_id');
+    
+}
 }

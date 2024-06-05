@@ -21,6 +21,10 @@ use App\Http\Controllers\SuperAdminController;
 use App\Models\Enseignant;
 use App\Models\Seance;
 use App\Models\SousAdmin;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AuthController;
+
+
 
 Route::get('/', function () {
     return view('index');
@@ -91,21 +95,49 @@ Route::get('/icons', function () {
 Route::get('users/create', [UserController::class, 'create'])->name('create');
 Route::post('users/store', [UserController::class, 'store'])->name('store');
 
-Route::post('dashboard/EmploiTemps-Rech', [EmploiTempsController::class, 'ResultatRecherche'])->name('ResultatRecherche');
 
 
 
+Route::middleware('auth:sous_admin')->group(function () {
+    Route::resource('fillieres', FiliereController::class);
+    Route::resource('etudiants', EtudiantController::class);
+    Route::resource('enseignant', EnseignantController::class);
+    Route::resource('departements', DepartementController::class);
+    Route::resource('Emploitemps', EmploiTempsController::class);
+    Route::resource('Seance', SeanceController::class);
+    Route::get('/seances/{id_filiere}/{groupe}/{semestre}', [SeanceController::class, 'show'])->name('Seance.show');
+    Route::resource('/dashboard/salles', SalleController::class)->parameters(['salles' => 'num_salle']);
+    Route::get('/recherche', [SalleController::class, 'recherche'])->name('salles.recherche');
+    Route::resource('/dashboard/modules', ModuleController::class);
+    Route::get('/get-semesters/{filliere}', [EmploiTempsController::class, 'getSemesters']);
+    Route::get('/get-groups/{filliere}/{semestre}', [EmploiTempsController::class, 'getGroups']);
+    Route::get('/get-filieres/{departement}', [EmploiTempsController::class, 'getFillieres']);
+    Route::get('/get-filieres/{departement}', [EmploiTempsController::class, 'getFilieres']);
+    Route::get('/get-semesters/{filiere}', [EmploiTempsController::class, 'getSemesters']);
+    Route::get('/get-groups/{filiere}/{semestre}', [EmploiTempsController::class, 'getGroups']);
+    Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+    Route::get('/getEnseignants/{filiere}', [App\Http\Controllers\ModuleController::class, 'getEnseignants']);
+    Route::post('dashboard/EmploiTemps-Rech', [EmploiTempsController::class, 'ResultatRecherche'])->name('ResultatRecherche');
+
+});
+Route::middleware('auth:super_admin')->group(function(){
+    Route::resource('/dashboard/admins', SousAdminController::class);
+
+    Route::resource('/dashboard/super_admins/roles', RoleController::class);
+    //Route::post('/assign-roles',  [SuperAdminController::class, 'assignRoles'])->name('assign.roles.submit');
+    Route::post('/assign-roles', [RoleController::class, 'assignRoles'])->name('assign.roles.submit');
+    Route::get('/assign-roles', [RoleController::class, 'showAssignRolesForm'])->name('assign.roles.form');
+    Route::post('/superadmin/assign-roles', [SuperAdminController::class, 'assignRoles']);
+    Route::post('/sous_admins/{id}/assign-roles', [SousAdminController::class, 'assignRoles'])->name('sous_admins.assignRoles');
+    Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+});
+
+Route::resource('/dashboard/super_admins', SuperAdminController::class);
 
 
-Route::resource('fillieres', FiliereController::class);
-Route::resource('etudiants', EtudiantController::class);
-Route::resource('enseignant', EnseignantController::class);
-Route::resource('departements', DepartementController::class);
-Route::resource('Emploitemps', EmploiTempsController::class);
-Route::resource('Seance', SeanceController::class);
-Route::put('/seance/{id}', [SeanceController::class, 'update'])->name('Seance.update');
 
-Route::get('/seances/{id_filiere}/{groupe}/{semestre}', [SeanceController::class, 'show'])->name('Seance.show');
 
 Route::get('/seancesedit/{id_filiere}/{groupe}/{semestre}/{seance}', [SeanceController::class, 'showedit'])->name('showedit');
 
@@ -118,52 +150,22 @@ Route::get('generate-pdf',[PDFController::class,'generatePDF'])->name('PDF');
 
 
 
-Route::resource('/dashboard/salles', SalleController::class)->parameters(['salles' => 'num_salle']);
-
-Route::get('/recherche', [SalleController::class, 'recherche'])->name('salles.recherche');
-
-Route::resource('/dashboard/modules', ModuleController::class);
-
-Route::resource('/dashboard/admins', SousAdminController::class);
-Route::resource('/dashboard/super_admins', SuperAdminController::class);
-Route::resource('/dashboard/super_admins/roles', RoleController::class);
-
-//Route::post('/assign-roles',  [SuperAdminController::class, 'assignRoles'])->name('assign.roles.submit');
-Route::post('/assign-roles', [RoleController::class, 'assignRoles'])->name('assign.roles.submit');
-Route::get('/assign-roles', [RoleController::class, 'showAssignRolesForm'])->name('assign.roles.form');
-
-Route::post('/superadmin/assign-roles', [SuperAdminController::class, 'assignRoles']);
-Route::post('/sous_admins/{id}/assign-roles', [SousAdminController::class, 'assignRoles'])->name('sous_admins.assignRoles');
-
-Route::get('/get-semesters/{filliere}', [EmploiTempsController::class, 'getSemesters']);
-Route::get('/get-groups/{filliere}/{semestre}', [EmploiTempsController::class, 'getGroups']);
-Route::get('/get-filieres/{departement}', [EmploiTempsController::class, 'getFillieres']);
-
-Route::get('/get-filieres/{departement}', [EmploiTempsController::class, 'getFilieres']);
-Route::get('/get-semesters/{filiere}', [EmploiTempsController::class, 'getSemesters']);
-
-Route::get('/get-groups/{filiere}/{semestre}', [EmploiTempsController::class, 'getGroups']);
 
 
 
-Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
-Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\SousAdminForgotPasswordController;
-use App\Http\Controllers\Auth\SousAdminResetPasswordController;
-use App\Http\Controllers\AuthController;
 
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-
+//forget password
 Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
 Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
 Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+
 
 // web.php
 Route::get('/getEnseignants/{filiere}', [App\Http\Controllers\ModuleController::class, 'getEnseignants']);
