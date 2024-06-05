@@ -13,6 +13,7 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmploiStockController;
 use App\Http\Controllers\EnseignantController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SeanceController;
 use App\Http\Controllers\SousAdminController;
@@ -102,9 +103,16 @@ Route::resource('enseignant', EnseignantController::class);
 Route::resource('departements', DepartementController::class);
 Route::resource('Emploitemps', EmploiTempsController::class);
 Route::resource('Seance', SeanceController::class);
+Route::put('/seance/{id}', [SeanceController::class, 'update'])->name('Seance.update');
+
 Route::get('/seances/{id_filiere}/{groupe}/{semestre}', [SeanceController::class, 'show'])->name('Seance.show');
 
+Route::get('/seancesedit/{id_filiere}/{groupe}/{semestre}/{seance}', [SeanceController::class, 'showedit'])->name('showedit');
 
+
+
+
+Route::get('generate-pdf',[PDFController::class,'generatePDF'])->name('PDF');
 
 
 

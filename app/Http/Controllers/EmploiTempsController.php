@@ -95,7 +95,7 @@ public function getSemesters($filiere)
         'nom_filiere' => 'required',
         'semestre' => 'required',
         'groupe' => 'required',
-        'nombre_seance' => 'required|integer|min:1', // Assurez-vous que le nombre de séances est un entier positif
+        'nombre_seance' => 'required|integer|min:1|max:7',
         'horaires_debut' => 'required|array', // Assurez-vous que les horaires de début sont un tableau
         'horaires_fin' => 'required|array', // Assurez-vous que les horaires de fin sont un tableau
         'horaires_debut.*' => 'required|date_format:H:i', // Assurez-vous que chaque horaire de début est au format valide
@@ -224,6 +224,7 @@ public function getSemesters($filiere)
         'nombreSeances'=>$nombreSeances,
         'Horaire'=>$Horaire,
         'countHoraire' => $countHoraire,
+        'idFiliere'=>$idFiliere
 
     ]);
     }
@@ -239,8 +240,14 @@ public function getSemesters($filiere)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy( $id)
     {
-        //
+        $EmploiTemps = EmploiTemps::findOrFail($id);
+
+        // Delete the Filiere instance
+        $EmploiTemps->delete();
+
+        return redirect()->route('Emploitemps.index')->with('success', 'Emploi Temps supprimée avec succès.');
+
     }
 }
