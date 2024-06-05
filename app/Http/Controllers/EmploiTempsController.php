@@ -95,7 +95,7 @@ public function getSemesters($filiere)
         'nom_filiere' => 'required',
         'semestre' => 'required',
         'groupe' => 'required',
-        'nombre_seance' => 'required|integer|min:1', // Assurez-vous que le nombre de séances est un entier positif
+        'nombre_seance' => 'required|integer|min:1|max:7',
         'horaires_debut' => 'required|array', // Assurez-vous que les horaires de début sont un tableau
         'horaires_fin' => 'required|array', // Assurez-vous que les horaires de fin sont un tableau
         'horaires_debut.*' => 'required|date_format:H:i', // Assurez-vous que chaque horaire de début est au format valide
@@ -106,12 +106,23 @@ public function getSemesters($filiere)
     $nomFiliere = $request->input('nom_filiere');
     $semestre = $request->input('semestre');
     $filiere = Filiere::where('nom_filiere', $nomFiliere)
-                        ->where('semestre',$semestre)
+                        ->where('semestre', $semestre)
                         ->first();
 
     if (!$filiere) {
         // Si la filière n'est pas trouvée, vous pouvez retourner un message d'erreur ou gérer la situation selon vos besoins
         return redirect()->back()->with('error', 'La filière sélectionnée n\'existe pas.');
+    }
+
+    // Vérifier si un emploi du temps existe déjà pour cette combinaison de filière, semestre et groupe
+    $existingEmploiTemps = EmploiTemps::where('id_filiere', $filiere->id)
+                                      ->where('semestre', $semestre)
+                                      ->where('groupe', $request->input('groupe'))
+                                      ->first();
+
+    if ($existingEmploiTemps) {
+        // Si un emploi du temps existe déjà, retourner un message d'erreur
+        return redirect()->back()->with('error', 'Un emploi du temps existe déjà pour cette filière, ce semestre et ce groupe.');
     }
 
     // Créer un nouvel emploi du temps
@@ -139,6 +150,7 @@ public function getSemesters($filiere)
     // Rediriger avec un message de succès
     return redirect()->route('Emploitemps.index')->with('success', 'L\'emploi du temps a été ajouté avec succès.');
 }
+
 
     /**
      * Display the specified resource.
@@ -212,6 +224,7 @@ public function getSemesters($filiere)
         'nombreSeances'=>$nombreSeances,
         'Horaire'=>$Horaire,
         'countHoraire' => $countHoraire,
+        'idFiliere'=>$idFiliere
 
     ]);
     }
@@ -227,8 +240,14 @@ public function getSemesters($filiere)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy( $id)
     {
-        //
+        $EmploiTemps = EmploiTemps::findOrFail($id);
+
+        // Delete the Filiere instance
+        $EmploiTemps->delete();
+
+        return redirect()->route('Emploitemps.index')->with('success', 'Emploi Temps supprimée avec succès.');
+
     }
 }

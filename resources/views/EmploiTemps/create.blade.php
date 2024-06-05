@@ -105,6 +105,12 @@
             </div>
         @endif
 
+        @if (session('error'))
+        <div id="message" class="alert alert-danger">
+          {{ session('error') }}
+        </div>
+        @endif
+
             <h2 style="margin-bottom: 5%;text-align:center" class=""> Emploi Temps</h2>
           <form action="{{ route('Emploitemps.store') }}" method="POST">
             @csrf
@@ -147,6 +153,7 @@
                         required
                     />
                 </div>
+                <div id="error-message" style="color: red; display: none;">Le nombre de séances ne doit pas dépasser 7.</div>
             <div id="horaires-container" style="margin-top: 2%" class="formbold-input-group">
                 <!-- Les inputs horaires générés apparaîtront ici -->
             </div>
@@ -275,9 +282,17 @@
     function generateHoraires() {
     const nombreSeance = document.getElementById('nombre_seance').value;
     const horairesContainer = document.getElementById('horaires-container');
+    const errorMessage = document.getElementById('error-message');
 
-    // Réinitialiser le conteneur d'horaires
+    // Réinitialiser le conteneur d'horaires et le message d'erreur
     horairesContainer.innerHTML = '';
+    errorMessage.style.display = 'none';
+
+    // Vérifier si le nombre de séances dépasse 7
+    if (nombreSeance > 7) {
+        errorMessage.style.display = 'block';
+        return;
+    }
 
     // Générer les champs horaires en fonction du nombre de séances
     for (let i = 0; i < nombreSeance; i++) {
@@ -313,7 +328,6 @@
         horairesContainer.appendChild(div);
     }
 }
-
 </script>
   <!-- End custom js for this page-->
 </body>

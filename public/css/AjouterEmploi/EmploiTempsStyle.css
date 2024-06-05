@@ -65,8 +65,7 @@
 .schedule-table table tbody td {
     vertical-align: middle;
     border: 1px solid #e4e4e4; /* Changed border color for clarity */
-    font-weight: 500;
-    padding: 10px; /* Reduced padding */
+    font-weight: 600;
     text-align: center;
     font-size: 14px; /* Smaller font size */
     min-width: 50px; /* Set a minimum width */

@@ -26,6 +26,7 @@ class SalleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'num_salle'=>'required|integer',
             'nom_departement' => 'required|string|max:255',
             'type_salle' => 'required|in:Salle,Amphi,Laboratoire',
             'capacite' => 'required|integer',
@@ -42,10 +43,15 @@ class SalleController extends Controller
         return view('salles.show', compact('salle'));
     }
 
-    public function edit(Salle $salle)
+    public function edit($num_salle)
 {
-    $departements = Departement::all(); // Récupérer tous les départements
-    return view('salles.edit', compact('salle', 'departements')); // Passer les départements à la vue
+    $departements = Departement::all();
+
+    $salle = Salle::where('num_salle',$num_salle)->first(); // Récupérer tous les départements
+    return view('salles.edit', [
+        'salle'=>$salle,
+        'departements'=>$departements
+    ]); // Passer les départements à la vue
 }
 
     public function update(Request $request, Salle $salle)

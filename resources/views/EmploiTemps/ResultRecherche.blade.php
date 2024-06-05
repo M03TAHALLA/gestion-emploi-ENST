@@ -37,6 +37,58 @@
     background-color: #e7e7e7;
     border-color: #e7e7e7;
 }
+.button-6 {
+  align-items: center;
+  background-color: #ff0000;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  margin: 0;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+}
+
+.button-6:hover,
+.button-6:focus {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+  background-color: #ffffff;
+
+  color: rgb(255, 0, 0);
+}
+
+#btn-delete:hover .trash-icon {
+        fill: red;
+    }
+
+.button-6:hover {
+  transform: translateY(-1px);
+}
+
+.button-6:active {
+  background-color: #F0F0F1;
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+  color: rgba(0, 0, 0, 0.65);
+  transform: translateY(0);
+}
   </style>
 </head>
 <body>
@@ -154,7 +206,7 @@
                   <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707z"></path>
                   <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"></path>
                 </svg>
-                <a href="" style="color:black">Exporter Emploi du temps par classe</a>
+                <a href="{{ route('PDF') }}" style="color:black">Exporter Emploi du temps PDF</a>
               </div>
             </div>
           </div>
@@ -201,6 +253,18 @@
 
 
 
+          <form action="{{ route('Emploitemps.destroy',$resultats->id) }}" method="POST" style="display: inline;">
+            @csrf
+            @method('DELETE')
+            <!-- HTML !-->
+            <button id="btn-delete" type="submit" class="button-6" role="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path class="trash-icon" d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                </svg>
+                 Suprimmer Emploi temps</button>
+            </form>
+
+
 
           <div id="Table">
 
@@ -229,10 +293,28 @@
                                           @if ($seances[$count]->jour == "Lundi")
                                                   @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
                                                   <h4>{{ $seances[$count]->module->nom_module }} </h4>
-                                                  <p>Salle {{ $seances[$count]->num_salle }}</p>
+                                                  <h4> {{$seances[$count]->type_seances}}</h4>
+                                                  <p>Salle {{ $seances[$count]->num_salle }} - {{ $seances[$count]->salle->type_salle }}</p>
                                                   <div class="hover">
-                                                  <h4>Mr . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
-                                                  <p> {{ $seances[$count]->salle->type_salle }}</p>
+                                                  <h4>P . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
+                                                  <p>{{ substr($seances[$count]->heure_debut,0,5) }} - {{ substr($seances[$count]->heure_fin,0,5)}}</p>
+                                                  <a href="{{ route('Seance.edit', $seances[$count]->id) }}" class="">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:10%" width="25" height="25" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
+                                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                                    </svg>
+                                                </a>
+
+                                                <form action="{{ route('Seance.destroy', $seances[$count]->id) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-link" style="padding: 0; background-color: transparent; border: none;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                                        </svg>
+                                                    </button>
+                                                </form>
+
                                                   @endif
                                           @endif
                                           @php
@@ -253,10 +335,29 @@
                                   @if ($seances[$count]->jour == "Mardi")
                                           @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
                                           <h4>{{ $seances[$count]->module->nom_module }} </h4>
-                                          <p>Salle {{ $seances[$count]->num_salle }}</p>
-                                          <div class="hover">
-                                          <h4>Mr . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
-                                          <p> {{ $seances[$count]->salle->type_salle }}</p>
+                                                  <h4>{{$seances[$count]->type_seances}}</h4>
+                                                  <p>Salle {{ $seances[$count]->num_salle }} - {{ $seances[$count]->salle->type_salle }}</p>
+                                                  <div class="hover">
+                                                  <h4>P . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
+                                                  <p>{{ substr($seances[$count]->heure_debut,0,5) }} - {{ substr($seances[$count]->heure_fin,0,5)}}</p>
+                                                  <a href="{{ route('Seance.edit', $seances[$count]->id) }}" class="">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:10%" width="25" height="25" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
+                                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                                    </svg>
+                                                </a>
+
+                                                <form action="{{ route('Seance.destroy', $seances[$count]->id) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-link" style="padding: 0; background-color: transparent; border: none;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                                        </svg>
+                                                    </button>
+                                                </form>
+
+
                                           @endif
                                   @endif
                                   @php
@@ -277,10 +378,28 @@
                           @if ($seances[$count]->jour == "Mercredi")
                                   @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
                                   <h4>{{ $seances[$count]->module->nom_module }} </h4>
-                                  <p>Salle {{ $seances[$count]->num_salle }}</p>
+                                  <h4>{{$seances[$count]->type_seances}}</h4>
+                                  <p>Salle {{ $seances[$count]->num_salle }} - {{ $seances[$count]->salle->type_salle }}</p>
                                   <div class="hover">
-                                  <h4>Mr . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
-                                  <p> {{ $seances[$count]->salle->type_salle }}</p>
+                                  <h4>P . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
+                                  <p>{{ substr($seances[$count]->heure_debut,0,5) }} - {{ substr($seances[$count]->heure_fin,0,5)}}</p>
+                                  <a href="{{ route('Seance.edit', $seances[$count]->id) }}" class="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:10%" width="25" height="25" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                    </svg>
+                                </a>
+
+                                <form action="{{ route('Seance.destroy', $seances[$count]->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-link" style="padding: 0; background-color: transparent; border: none;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                        </svg>
+                                    </button>
+                                </form>
+
                                   @endif
                           @endif
                           @php
@@ -301,10 +420,28 @@
                       @if ($seances[$count]->jour == "Jeudi")
                               @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
                               <h4>{{ $seances[$count]->module->nom_module }} </h4>
-                              <p>Salle {{ $seances[$count]->num_salle }}</p>
-                              <div class="hover">
-                              <h4>Mr . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
-                              <p> {{ $seances[$count]->salle->type_salle }}</p>
+                                                  <h4>{{$seances[$count]->type_seances}}</h4>
+                                                  <p>Salle {{ $seances[$count]->num_salle }} - {{ $seances[$count]->salle->type_salle }}</p>
+                                                  <div class="hover">
+                                                  <h4>P . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
+                                                  <p>{{ substr($seances[$count]->heure_debut,0,5) }} - {{ substr($seances[$count]->heure_fin,0,5)}}</p>
+                                                  <a href="{{ route('Seance.edit', $seances[$count]->id) }}" class="">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:10%" width="25" height="25" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
+                                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                                    </svg>
+                                                </a>
+
+                                                <form action="{{ route('Seance.destroy', $seances[$count]->id) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-link" style="padding: 0; background-color: transparent; border: none;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                                        </svg>
+                                                    </button>
+                                                </form>
+
                               @endif
                       @endif
                       @php
@@ -325,10 +462,28 @@
                       @if ($seances[$count]->jour == "Vendredi")
                               @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
                               <h4>{{ $seances[$count]->module->nom_module }} </h4>
-                              <p>Salle {{ $seances[$count]->num_salle }}</p>
-                              <div class="hover">
-                              <h4>Mr . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
-                              <p> {{ $seances[$count]->salle->type_salle }}</p>
+                                                  <h4>{{$seances[$count]->type_seances}}</h4>
+                                                  <p>Salle {{ $seances[$count]->num_salle }} - {{ $seances[$count]->salle->type_salle }}</p>
+                                                  <div class="hover">
+                                                  <h4>P . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
+                                                  <p>{{ substr($seances[$count]->heure_debut,0,5) }} - {{ substr($seances[$count]->heure_fin,0,5)}}</p>
+                                                  <a href="{{ route('Seance.edit', $seances[$count]->id) }}" class="">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:10%" width="25" height="25" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
+                                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                                    </svg>
+                                                </a>
+
+                                                <form action="{{ route('Seance.destroy', $seances[$count]->id) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-link" style="padding: 0; background-color: transparent; border: none;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                                        </svg>
+                                                    </button>
+                                                </form>
+
                               @endif
                       @endif
                       @php
@@ -349,10 +504,29 @@
                       @if ($seances[$count]->jour == "Samedi")
                               @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
                               <h4>{{ $seances[$count]->module->nom_module }} </h4>
-                              <p>Salle {{ $seances[$count]->num_salle }}</p>
+                              <h4>{{$seances[$count]->type_seances}}</h4>
+                              <p>Salle {{ $seances[$count]->num_salle }} - {{ $seances[$count]->salle->type_salle }}</p>
                               <div class="hover">
-                              <h4>Mr . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
-                              <p> {{ $seances[$count]->salle->type_salle }}</p>
+                              <h4>P . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</h4>
+                              <p>{{ substr($seances[$count]->heure_debut,0,5) }} - {{ substr($seances[$count]->heure_fin,0,5)}}</p>
+
+                            <a href="{{ route('Seance.edit', $seances[$count]->id) }}" class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="margin-right:10%" width="25" height="25" fill="green" class="bi bi-pencil-square mr-3" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                </svg>
+                            </a>
+
+                            <form action="{{ route('Seance.destroy', $seances[$count]->id) }}" method="POST" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-link" style="padding: 0; background-color: transparent; border: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                                    </svg>
+                                </button>
+                            </form>
+
                               @endif
                       @endif
                       @php

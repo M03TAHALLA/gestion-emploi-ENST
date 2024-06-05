@@ -23,6 +23,7 @@ public function salle()
 }
     protected $fillable = [
         'id_filiere',
+        'type_seances',
         'semestre',
         'nom_groupe',
         'id_module',
