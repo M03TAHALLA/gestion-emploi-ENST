@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('etudiants', function (Blueprint $table) {
-            $table->string('cin_etudiant')->primary();
-            $table->string('nom_etudiant');
-            $table->string('prenom_etudiant');
+            $table->string('cin')->primary();
+            $table->string('nom');
+            $table->string('prenom');
             $table->string('nom_departement');
             $table->unsignedBigInteger('id_filiere');
             $table->integer('semestre_actuel');
