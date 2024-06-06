@@ -23,5 +23,9 @@ class Filiere extends Model
     ];
 
     // Add any relationships or custom methods here
+    public function seances()
+    {
+        return $this->hasMany(Seance::class, 'id_filiere');
+    }
 }
 

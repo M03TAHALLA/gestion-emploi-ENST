@@ -78,7 +78,7 @@ class SalleController extends Controller
     }
     public function recherche()
     {
-        $seances = Seance::all();
+        $seances = Seance::with('filiere')->get();
         return view('recherche', compact('seances'));
     }
 }
