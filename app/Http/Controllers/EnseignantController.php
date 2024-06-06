@@ -84,11 +84,23 @@ class EnseignantController extends Controller
      */
     public function show(string $cin_enseignant)
     {
+        $enseignants = Enseignant::all();
         $enseignant = Enseignant::where('cin_enseignant', $cin_enseignant)->first();
+
+        // Tableau pour stocker le total des volumes horaires par enseignant
+    $total_volumes_horaires = [];
+
+    // Boucle à travers chaque enseignant
+    foreach ($enseignants as $enseignants) {
+        // Requête pour obtenir la somme des volumes horaires pour cet enseignant
+        $total_volumes_horaires[$enseignants->cin_enseignant] = Module::where('cin_enseignant', $enseignants->cin_enseignant)->sum('volume_horaire');
+    }
+    $total_horaire_enseignant =  $total_volumes_horaires[$cin_enseignant];
         $modules = Module::where('cin_enseignant',$cin_enseignant)->get();
         return view('Enseignant.show',[
             'enseignant'=>$enseignant,
-            'models'=>$modules
+            'models'=>$modules,
+            'total_horaire_enseignant'=>$total_horaire_enseignant
         ]);
     }
 

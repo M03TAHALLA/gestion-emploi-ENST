@@ -198,7 +198,7 @@
               </div>
               <div class="export-operation-second">
                 <i class="fa fa-file-pdf-o" style="font-size:25px;color:red"></i>
-                <a href="{{ route('PDF',['nom_departement' => $resultats->nom_departement,'id_filiere' => $resultats->id_filiere, 'groupe' => $resultats->groupe , 'semestre'=>$resultats->semestre]) }}" style="color:black">Exporter Emploi du temps PDF</a>
+                <a href="{{ route('PDF',['nom_departement' => $resultats->nom_departement,'id_filiere' => $resultats->id_filiere, 'groupe' => $resultats->groupe , 'semestre'=>$resultats->semestre]) }}" target="_blank" style="color:black">Exporter Emploi du temps PDF</a>
               </div>
             </div>
           </div>

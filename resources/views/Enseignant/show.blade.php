@@ -101,7 +101,7 @@
                     <label style="font-size: 20px" for="admin"><span style="font-weight: bold">Nom Departement : </span>{{ $enseignant->nom_departement }}</label>
                 </div>
                 <div class="form-group">
-                    <label style="font-size: 20px" for="admin"><span style="font-weight: bold">Horaire Totale: </span>{{ $enseignant->horaire_total }}</label>
+                    <label style="font-size: 20px" for="admin"><span style="font-weight: bold">Horaire Totale: </span>{{ $total_horaire_enseignant }}</label>
                 </div>
                 <div class="form-group">
                     <label style="font-size: 20px" for="admin">
