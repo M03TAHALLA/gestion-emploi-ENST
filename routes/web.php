@@ -24,6 +24,7 @@ use App\Models\SousAdmin;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EtudiantImportController;
+use App\Http\Controllers\ExportController;
 
 Route::get('/', function () {
     return view('index');
@@ -118,6 +119,9 @@ Route::middleware('auth:sous_admin')->group(function () {
     Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
     Route::get('/getEnseignants/{filiere}', [App\Http\Controllers\ModuleController::class, 'getEnseignants']);
     Route::post('dashboard/EmploiTemps-Rech', [EmploiTempsController::class, 'ResultatRecherche'])->name('ResultatRecherche');
+    Route::get('/generate-etd-pdfs', [EtudiantController::class, 'generatePDFs'])->name('etudiants.generate');
+    Route::get('/download-pdfs', [EtudiantController::class, 'downloadPDFs'])->name('etudiants.pdf');
+    Route::delete('/delete-pdf', [EtudiantController::class, 'deletePDF'])->name('delete-pdf');
 
 });
 Route::middleware('auth:super_admin')->group(function(){

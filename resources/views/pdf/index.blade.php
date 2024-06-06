@@ -1,3 +1,15 @@
+<!-- resources/views/pdf/index.blade.php -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des fichiers PDF</title>
+</head>
+<body>
+
+</body>
+</html>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -241,64 +253,29 @@ td{
             </div>
           </div>
           <div class="add-operation mt-2">
-                @if (session('success'))
-                <p>{{ session('success') }}</p>
-            @endif
-
-            <form action="{{ route('etudiants.import') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="d-flex align-items-center mt-3 mb-4">
-                  <input type="file" name="file" required class="form-control w-50 me-2" id="formFile">
-                  <button type="submit" class="btn btn-success form-control w-25" style="font-size: 16px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
-                      <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
-                      <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
-                    </svg>
-                    Import
-                  </button>
-                </div>
-            </form>
-            <a href="{{ route('etudiants.generate') }}">
-              <i class="mdi mdi-file-pdf"></i>
-              Télécharger les listes des étudiants par groupe </a>
-
-          </div>
-            @if (session('success'))
-                <div id="success-message" class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-        <div class="formbold-input-flex">
-            </div>
-            <div class="formbold-input-flex mt-5">
-                <div style="margin-top: 1%" class="formbold-input-group">
-                  <input type="text" id="searchInput" placeholder="Rechercher par CIN, Nom, Prenom, or Filiere" class="formbold-form-input">
-                  </div>
-                </div>
-
-          <table id="myTable" class="table table-striped mt-5">
-            <thead>
-              <tr>
-                <th style="text-align: center" scope="col">CIN</th>
-                <th style="text-align: center"  scope="col">Nom</th>
-                <th style="text-align: center"  scope="col">Prenom</th>
-                <th style="text-align: center"  scope="col">Filliere</th>
-                <th style="text-align: center"  scope="col">Semestre Actuelle</th>
-
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($etudiants as $e)
-                <tr>
-                    <td scope="col">{{ $e->cin_etudiant }}</td>
-                    <td scope="col">{{ $e->nom_etudiant }}</td>
-                    <td scope="col">{{ $e->prenom_etudiant }}</td>
-                    <td scope="col">{{ $e->id_filiere }} </td>
-                    <td scope="col">{{ $e->aac }}</td>
-                </tr>
-               @endforeach
-              </tbody>
-          </table>
+            <div class="container">
+                <h3 class="mt-5 mb-3">Liste des fichiers des étudiants PDF</h3>
+                <table class="table table-striped mt-3">
+                  <thead>
+                      <tr style="text-align: center">
+                          <th>Nom du fichier</th>
+                          <th>Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      @foreach ($pdfFiles as $pdfFile)
+                          @if (basename($pdfFile) !== '.gitignore')
+                              <tr id="file-{{ basename($pdfFile) }}">
+                                  <td>{{ basename($pdfFile) }}</td>
+                                  <td>
+                                      <a href="{{ asset(str_replace('public', 'storage', $pdfFile)) }}" class="btn btn-primary" download>Télécharger</a>
+                                      <button class="btn btn-danger" onclick="deleteFile('{{ basename($pdfFile) }}')">Supprimer</button>
+                                  </td>
+                              </tr>
+                          @endif
+                      @endforeach
+                  </tbody>
+              </table>
         </section>
       </div>
       <!-- main-panel ends -->
@@ -324,6 +301,31 @@ td{
             }
         });
     });
+  </script>
+  <script>
+    function deleteFile(fileName) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?')) {
+                $.ajax({
+                    url: '{{ route('delete-pdf') }}',
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        fileName: fileName
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert(response.message);
+                            $('#file-' + fileName).remove();
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr) {
+                        alert('Erreur lors de la suppression du fichier.');
+                    }
+                });
+            }
+        }
   </script>
   <!-- plugins:js -->
   <script src="/vendors/js/vendor.bundle.base.js"></script>
