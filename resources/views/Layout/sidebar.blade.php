@@ -11,6 +11,12 @@
                             <span class="menu-title">{{ $role }}</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('Emploitemps.create') }}">
+                            <i class="mdi mdi-calendar menu-icon" style="font-size: 22px;"></i>
+                            <span class="menu-title">Saisie emploi temps</span>
+                        </a>
+                    </li>
                 @elseif($role === 'gestion filieres')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('fillieres.index') }}">
@@ -46,17 +52,10 @@
                         <span class="menu-title">{{ $role }}</span>
                     </a>
                 </li>
-                @elseif($role === 'demandes annulation')
-                <li class="nav-item">
-                    <a class="nav-link" href="">
-                        <i class="mdi mdi-comment-text-outline menu-icon" style="font-size: 22px;"></i>
-                        <span class="menu-title">{{ $role }}</span>
-                    </a>
-                </li>
                 @elseif($role === 'gestion salles')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('salles.index') }}">
-                        <i class="mdi mdi mdi-information-outline menu-icon" style="font-size: 22px;"></i>
+                        <i class="mdi mdi mdi-home-variant menu-icon" style="font-size: 22px;"></i>
                         <span class="menu-title">{{ $role }}</span>
                     </a>
                 </li>
