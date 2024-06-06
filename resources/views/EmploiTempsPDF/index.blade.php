@@ -1,6 +1,6 @@
 <style>
     body {
-        margin-top: 2px;
+        margin-top: 0;
         font-family: Arial, sans-serif; /* Ensure a web-safe font for consistency */
     }
     .schedule-table table {
@@ -38,7 +38,7 @@
         font-weight: 500;
         padding: 5px; /* Reduced padding to fit the content */
         text-align: center;
-        font-size: 12px; /* Adjusted font size for better fit */
+        font-size: 50px; /* Adjusted font size for better fit */
     }
     .schedule-table table tbody td.day {
         font-size: 14px;
@@ -193,261 +193,183 @@
         page-break-inside: avoid;
     }
 </style>
+<title>Emploi Temps - {{ $nomFiliere }} Semestre {{ $semestre }}</title>
 <div class="container">
    <div class="w-95 w-md-75 w-lg-60 w-xl-55 mx-auto mb-6 text-center">
     <img style="width: 10%;margin-left:45%" src="images/ENStet.png" alt="">
+<div style="line-height: 10px">
+<p style="text-align: center">Université Abdelmalek Essaâdi</p>
+<p style="text-align: center">Ecole Normale Supérieure</p>
+<p style="text-align: center ;font-weight:bold">{{ $nomFiliere }} (Semestre {{ $semestre }}) (Groupe {{ $groupe }})  2024/2025</p>
 
-<p style="text-align: center">ENS TETOUAN</p>
+</div>
+
+
 
    </div>
    <div class="row">
        <div class="col-md-12">
            <div class="schedule-table">
-               <table class="table bg-white">
-                   <thead>
-                       <tr>
-                           <th>Routine</th>
-                           <th>10 am</th>
-                           <th>11 am</th>
-                           <th>03 pm</th>
-                           <th>05 pm</th>
-                           <th class="last">07 pm</th>
-                       </tr>
-                   </thead>
-                   <tbody>
-                       <tr>
-                           <td class="day">Sunday</td>
-                           <td class="active">
-                               <h4>Weight Loss</h4>
-                               <p>10 am - 11 am</p>
-                               <div class="hover">
-                                   <h4>Weight Loss</h4>
-                                   <p>10 am - 11 am</p>
-                                   <span>Wayne Ponce</span>
-                               </div>
-                           </td>
-                           <td></td>
-                           <td class="active">
-                               <h4>Yoga</h4>
-                               <p>03 pm - 04 pm</p>
-                               <div class="hover">
-                                   <h4>Yoga</h4>
-                                   <p>03 pm - 04 pm</p>
-                                   <span>Francisco Watt</span>
-                               </div>
-                           </td>
-                           <td class="active">
-                               <h4>Boxing</h4>
-                               <p>05 pm - 06 pm</p>
-                               <div class="hover">
-                                   <h4>Boxing</h4>
-                                   <p>05 pm - 06 pm</p>
-                                   <span>Charles King</span>
-                               </div>
-                           </td>
-                           <td></td>
-                       </tr>
-                       <tr>
-                           <td class="day">Monday</td>
-                           <td></td>
-                           <td class="active">
-                               <h4>Cardio</h4>
-                               <p>11 am - 12 am</p>
-                               <div class="hover">
-                                   <h4>Cardio</h4>
-                                   <p>11 am - 12 am</p>
-                                   <span>David Warner</span>
-                               </div>
-                           </td>
-                           <td class="active">
-                               <h4>Running</h4>
-                               <p>03 pm - 04 pm</p>
-                               <div class="hover">
-                                   <h4>Running</h4>
-                                   <p>03 pm - 04 pm</p>
-                                   <span>Sophia Fuller</span>
-                               </div>
-                           </td>
-                           <td class="active">
-                               <h4>Karate</h4>
-                               <p>05 pm - 06 pm</p>
-                               <div class="hover">
-                                   <h4>Karate</h4>
-                                   <p>05 pm - 06 pm</p>
-                                   <span>Sophia Fuller</span>
-                               </div>
-                           </td>
-                           <td class="active">
-                               <h4>Dance</h4>
-                               <p>07 pm - 08 pm</p>
-                               <div class="hover">
-                                   <h4>Dance</h4>
-                                   <p>07 pm - 08 pm</p>
-                                   <span>Joey Jackson</span>
-                               </div>
-                           </td>
-                       </tr>
-                       <tr>
-                           <td class="day">Tuesday</td>
-                           <td class="active">
-                               <h4>Dance</h4>
-                               <p>10 am - 11 am</p>
-                               <div class="hover">
-                                   <h4>Dance</h4>
-                                   <p>10 am - 11 am</p>
-                                   <span>William Brown</span>
-                               </div>
-                           </td>
-                           <td></td>
-                           <td class="active">
-                               <h4>Aerobics</h4>
-                               <p>03 pm - 04 pm</p>
-                               <div class="hover">
-                                   <h4>Aerobics</h4>
-                                   <p>03 pm - 04 pm</p>
-                                   <span>Charles King</span>
-                               </div>
-                           </td>
-                           <td></td>
-                           <td class="active">
-                               <h4>Boxing</h4>
-                               <p>07 pm - 08 pm</p>
-                               <div class="hover">
-                                   <h4>Boxing</h4>
-                                   <p>07 pm - 08 pm</p>
-                                   <span>David Warner</span>
-                               </div>
-                           </td>
-                       </tr>
-                       <tr>
-                           <td class="day">Wednesday</td>
-                           <td class="active">
-                               <h4>Fitness</h4>
-                               <p>10 am - 11 am</p>
-                               <div class="hover">
-                                   <h4>Fitness</h4>
-                                   <p>10 am - 11 am</p>
-                                   <span>Wayne Ponce</span>
-                               </div>
-                           </td>
-                           <td></td>
-                           <td></td>
-                           <td class="active">
-                               <h4>Fitness</h4>
-                               <p>05 pm - 06 pm</p>
-                               <div class="hover">
-                                   <h4>Fitness</h4>
-                                   <p>05 pm - 06 pm</p>
-                                   <span>Wayne Ponce</span>
-                               </div>
-                           </td>
-                           <td></td>
-                       </tr>
-                       <tr>
-                           <td class="day">Thursday</td>
-                           <td></td>
-                           <td class="active">
-                               <h4>Cardio</h4>
-                               <p>11 am - 12 am</p>
-                               <div class="hover">
-                                   <h4>Cardio</h4>
-                                   <p>11 am - 12 am</p>
-                                   <span>David Warner</span>
-                               </div>
-                           </td>
-                           <td class="active">
-                               <h4>Running</h4>
-                               <p>03 pm - 04 pm</p>
-                               <div class="hover">
-                                   <h4>Running</h4>
-                                   <p>03 pm - 04 pm</p>
-                                   <span>Sophia Fuller</span>
-                               </div>
-                           </td>
-                           <td class="active">
-                               <h4>Karate</h4>
-                               <p>05 pm - 06 pm</p>
-                               <div class="hover">
-                                   <h4>Karate</h4>
-                                   <p>05 pm - 06 pm</p>
-                                   <span>Sophia Fuller</span>
-                               </div>
-                           </td>
-                           <td class="active">
-                               <h4>Dance</h4>
-                               <p>07 pm - 08 pm</p>
-                               <div class="hover">
-                                   <h4>Dance</h4>
-                                   <p>07 pm - 08 pm</p>
-                                   <span>Joey Jackson</span>
-                               </div>
-                           </td>
-                       </tr>
-                       <tr>
-                           <td class="day">Friday</td>
-                           <td class="active">
-                               <h4>Fitness</h4>
-                               <p>10 am - 11 am</p>
-                               <div class="hover">
-                                   <h4>Fitness</h4>
-                                   <p>10 am - 11 am</p>
-                                   <span>Wayne Ponce</span>
-                               </div>
-                           </td>
-                           <td></td>
-                           <td></td>
-                           <td class="active">
-                               <h4>Fitness</h4>
-                               <p>05 pm - 06 pm</p>
-                               <div class="hover">
-                                   <h4>Fitness</h4>
-                                   <p>05 pm - 06 pm</p>
-                                   <span>Wayne Ponce</span>
-                               </div>
-                           </td>
-                           <td></td>
-                       </tr>
-                       <tr>
-                           <td class="day">Saturday</td>
-                           <td></td>
-                           <td class="active">
-                               <h4>Cardio</h4>
-                               <p>11 am - 12 am</p>
-                               <div class="hover">
-                                   <h4>Cardio</h4>
-                                   <p>11 am - 12 am</p>
-                                   <span>David Warner</span>
-                               </div>
-                           </td>
-                           <td class="active">
-                               <h4>Running</h4>
-                               <p>03 pm - 04 pm</p>
-                               <div class="hover">
-                                   <h4>Running</h4>
-                                   <p>03 pm - 04 pm</p>
-                                   <span>Sophia Fuller</span>
-                               </div>
-                           </td>
-                           <td class="active">
-                               <h4>Karate</h4>
-                               <p>05 pm - 06 pm</p>
-                               <div class="hover">
-                                   <h4>Karate</h4>
-                                   <p>05 pm - 06 pm</p>
-                                   <span>Sophia Fuller</span>
-                               </div>
-                           </td>
-                           <td class="active">
-                               <h4>Dance</h4>
-                               <p>07 pm - 08 pm</p>
-                               <div class="hover">
-                                   <h4>Dance</h4>
-                                   <p>07 pm - 08 pm</p>
-                                   <span>Joey Jackson</span>
-                               </div>
-                           </td>
-                       </tr>
-                   </tbody>
+            <table class="table bg-white">
+                <thead>
+                    <tr>
+                        <th><sup> Groupe {{ $resultats->groupe }}</sup></th>
+                        @for ($i = 0; $i < $countHoraire; $i++)
+                        <th>{{ substr($Horaire[$i]->heure_debut, 0, 5) }}h - {{ substr($Horaire[$i]->heure_fin, 0, 5) }}h</th>
+                    @endfor
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                        <td class="day">Lundi </td>
+                        @for ($l = 0; $l < $countHoraire; $l++)
+                        @php
+                        $count = 0;
+                      @endphp
+                    <td class="active">
+                      @while ($count < $nombreSeances)
+                            @if ($seances[$count]->jour == "Lundi")
+                            <div style="line-height: 1px">
+                                    @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
+                                    <h4>{{ $seances[$count]->module->nom_module }} - {{$seances[$count]->type_seances}} </h4>
+                                    <p>Prof . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</p>
+                                    <p>Salle {{ $seances[$count]->num_salle }} - {{ $seances[$count]->salle->type_salle }}</p>
+                            </div>
+                                    @endif
+                            @endif
+                            @php
+                            $count = $count+1;
+                          @endphp
+                        @endwhile
+                      </td>
+                    @endfor
+              </tr>
+              <tr>
+                <td class="day">Mardi </td>
+                @for ($l = 0; $l < $countHoraire; $l++)
+                @php
+                $count = 0;
+              @endphp
+            <td class="active">
+              @while ($count < $nombreSeances)
+                    @if ($seances[$count]->jour == "Mardi")
+                            @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
+                            <div style="line-height: 1px">
+
+                            <h4>{{ $seances[$count]->module->nom_module }} - {{$seances[$count]->type_seances}} </h4>
+                            <p>Prof . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</p>
+                            <p>Salle {{ $seances[$count]->num_salle }} - {{ $seances[$count]->salle->type_salle }}</p>
+                            </div>
+
+                            @endif
+                    @endif
+                    @php
+                    $count = $count+1;
+                  @endphp
+                @endwhile
+              </td>
+            @endfor
+      </tr>
+      <tr>
+        <td class="day">Mercredi </td>
+        @for ($l = 0; $l < $countHoraire; $l++)
+        @php
+        $count = 0;
+      @endphp
+    <td class="active">
+      @while ($count < $nombreSeances)
+            @if ($seances[$count]->jour == "Mercredi")
+                    @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
+                    <div style="line-height: 1px">
+                    <h4>{{ $seances[$count]->module->nom_module }} - {{$seances[$count]->type_seances}} </h4>
+                    <p>Prof . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</p>
+                    <p>Salle {{ $seances[$count]->num_salle }} - {{ $seances[$count]->salle->type_salle }}</p>
+                    </div>
+                    @endif
+            @endif
+            @php
+            $count = $count+1;
+          @endphp
+        @endwhile
+      </td>
+    @endfor
+  </tr>
+  <tr>
+    <td class="day">Jeudi </td>
+    @for ($l = 0; $l < $countHoraire; $l++)
+    @php
+    $count = 0;
+  @endphp
+  <td class="active">
+  @while ($count < $nombreSeances)
+        @if ($seances[$count]->jour == "Jeudi")
+                @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
+                <div style="line-height: 1px">
+                <h4>{{ $seances[$count]->module->nom_module }} - {{$seances[$count]->type_seances}} </h4>
+                <p>Prof . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</p>
+                <p>Salle {{ $seances[$count]->num_salle }} - {{ $seances[$count]->salle->type_salle }}</p>
+                </div>
+                @endif
+        @endif
+        @php
+        $count = $count+1;
+      @endphp
+    @endwhile
+  </td>
+  @endfor
+  </tr>
+  <tr>
+    <td class="day">Vendredi </td>
+    @for ($l = 0; $l < $countHoraire; $l++)
+    @php
+    $count = 0;
+  @endphp
+  <td class="active">
+  @while ($count < $nombreSeances)
+        @if ($seances[$count]->jour == "Vendredi")
+                @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
+                <div style="line-height: 1px">
+                <h4>{{ $seances[$count]->module->nom_module }} - {{$seances[$count]->type_seances}} </h4>
+                <p>Prof . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</p>
+                <p>Salle {{ $seances[$count]->num_salle }} - {{ $seances[$count]->salle->type_salle }}</p>
+                </div>
+                @endif
+        @endif
+        @php
+        $count = $count+1;
+      @endphp
+    @endwhile
+  </td>
+  @endfor
+  </tr>
+  <tr>
+    <td class="day">Samedi </td>
+    @for ($l = 0; $l < $countHoraire; $l++)
+    @php
+    $count = 0;
+  @endphp
+  <td class="active">
+  @while ($count < $nombreSeances)
+        @if ($seances[$count]->jour == "Samedi")
+                @if (substr($seances[$count]->heure_debut,0,5) == substr($Horaire[$l]->heure_debut, 0, 5) && substr($seances[$count]->heure_fin,0,5) == substr($Horaire[$l]->heure_fin, 0, 5))
+                <div style="line-height: 1px">
+                <h4>{{ $seances[$count]->module->nom_module }} - {{$seances[$count]->type_seances}} </h4>
+                <p>Prof . {{$seances[$count]->enseignant->nom_enseignant}} {{ $seances[$count]->enseignant->prenom_enseignant }}</p>
+                <p>Salle {{ $seances[$count]->num_salle }} - {{ $seances[$count]->salle->type_salle }}</p>
+                </div>
+                @endif
+        @endif
+        @php
+        $count = $count+1;
+      @endphp
+    @endwhile
+  </td>
+  @endfor
+  </tr>
+
+
+                </tbody>
+            </table>
                </table>
            </div>
        </div>

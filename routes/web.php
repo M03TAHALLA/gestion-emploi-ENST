@@ -152,7 +152,7 @@ Route::get('/seancesedit/{id_filiere}/{groupe}/{semestre}/{seance}', [SeanceCont
 
 
 
-Route::get('generate-pdf',[PDFController::class,'generatePDF'])->name('PDF');
+Route::get('generate-pdf/{nom_departement}/{id_filiere}/{groupe}/{semestre}',[PDFController::class,'generatePDF'])->name('PDF');
 
 
 
