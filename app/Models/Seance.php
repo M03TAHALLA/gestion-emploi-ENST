@@ -36,4 +36,8 @@ public function salle()
     ];
 
     // Add any relationships or custom methods here
+    public function filiere()
+    {
+        return $this->belongsTo(Filiere::class, 'id_filiere');
+    }
 }

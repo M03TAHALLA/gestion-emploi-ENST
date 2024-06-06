@@ -40,9 +40,6 @@ class SeanceController extends Controller
                 ->where('nom_groupe', $nom_groupe)
                 ->get();
 
-
-
-
     $nombreSeances = $seances->count();
 
     // Récupérer les résultats (si nécessaire)

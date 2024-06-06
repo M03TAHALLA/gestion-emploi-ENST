@@ -67,55 +67,38 @@ class EtudiantController extends Controller
         //
     }
     public function generatePDFs()
-{
-    // Récupérer tous les étudiants
-    $etudiants = Etudiant::all();
+    {
+        // Récupérer tous les étudiants
+        $etudiants = Etudiant::all();
 
-    // Récupérer toutes les filières
-    $filieres = Filiere::all();
-
-    foreach ($filieres as $filiere) {
-        // Filtrer les étudiants par filière
-        $etudiantsFiliere = $etudiants->where('id_filiere', $filiere->id);
-
-        // Vérifier s'il y a des étudiants dans la filière
-        if ($etudiantsFiliere->isEmpty()) {
-            continue; // Passer à la filière suivante
-        }
-
-        // Diviser les étudiants en groupes de manière équilibrée
-        $totalEtudiants = $etudiantsFiliere->count();
-        $groupSize = intval($totalEtudiants / $filiere->groupe);
-        $remainder = $totalEtudiants % $filiere->groupe;
+        // Récupérer toutes les filières
+        $filieres = Filiere::all();
 
         $groupedEtudiants = [];
-        $currentIndex = 0;
 
-        for ($i = 0; $i < $filiere->groupe; $i++) {
-            $currentGroupSize = $groupSize + ($remainder > 0 ? 1 : 0);
-            $groupedEtudiants[$i] = $etudiantsFiliere->slice($currentIndex, $currentGroupSize);
-            $currentIndex += $currentGroupSize;
-            $remainder--;
+        foreach ($filieres as $filiere) {
+            // Filtrer les étudiants par filière
+            $etudiantsFiliere = $etudiants->where('id_filiere', $filiere->id);
+
+            // Diviser les étudiants en groupes
+            $groupSize = ceil($etudiantsFiliere->count() / $filiere->groupe);
+            $groups = $etudiantsFiliere->chunk($groupSize);
+
+            $groupedEtudiants[$filiere->nom_filiere] = $groups;
         }
 
-        // Générer les fichiers PDF pour chaque groupe
-        foreach ($groupedEtudiants as $index => $group) {
-            if ($group->isEmpty()) {
-                continue; // Passer les groupes vides
+        foreach ($groupedEtudiants as $filiereName => $groups) {
+            foreach ($groups as $index => $group) {
+                $pdf = Pdf::loadView('pdf.etudiants', [
+                    'filiereName' => $filiereName,
+                    'groupIndex' => $index + 1,
+                    'etudiants' => $group,
+                ]);
+                $pdf->save(storage_path('app/public/etudiants_' . $filiereName . '_groupe' . ($index + 1) . '.pdf'));
             }
-            
-            $pdf = Pdf::loadView('pdf.etudiants', [
-                'filiereName' => $filiere->nom_filiere,
-                'groupIndex' => $index + 1,
-                'etudiants' => $group,
-            ]);
-            $pdf->save(storage_path('app/public/etudiants_' . $filiere->nom_filiere . '_groupe' . ($index + 1) . '.pdf'));
         }
+        return to_route('etudiants.pdf');
     }
-
-    return redirect()->route('etudiants.pdf');
-}
-
     public function downloadPDFs()
     {
         // Récupérer la liste des fichiers PDF dans le répertoire de stockage

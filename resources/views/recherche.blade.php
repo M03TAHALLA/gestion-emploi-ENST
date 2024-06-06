@@ -554,17 +554,23 @@ td{
                         <th >Par jour</th>
                         <th >heure début</th>
                         <th >heure fin</th>
+                        <th >filiere</th>
+                        <th>semestre </th>
+                        <th>groupe</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($seances as $seance)
-                        <tr>
-                            <td style="font-weight: bold">{{ $seance->num_salle }}</td>
-                            <td>{{ $seance->jour }}</td>
-                            <td>{{ $seance->heure_debut }}</td>
-                            <td>{{ $seance->heure_fin }}</td>
-                        </tr>
-                    @endforeach
+                  @foreach ($seances as $seance)
+                  <tr>
+                      <td style="font-weight: bold">{{ $seance->num_salle }}</td>
+                      <td>{{ $seance->jour }}</td>
+                      <td>{{ $seance->heure_debut }}</td>
+                      <td>{{ $seance->heure_fin }}</td>
+                      <td>{{ $seance->filiere->nom_filiere }}</td> <!-- Afficher le nom de la filière -->
+                      <td>{{ $seance->semestre }}</td>
+                      <td>{{ $seance->nom_groupe }}</td>
+                  </tr>
+              @endforeach
                 </tbody>
             </table>
             
