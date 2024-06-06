@@ -122,6 +122,14 @@ Route::middleware('auth:sous_admin')->group(function () {
     Route::get('/generate-etd-pdfs', [EtudiantController::class, 'generatePDFs'])->name('etudiants.generate');
     Route::get('/download-pdfs', [EtudiantController::class, 'downloadPDFs'])->name('etudiants.pdf');
     Route::delete('/delete-pdf', [EtudiantController::class, 'deletePDF'])->name('delete-pdf');
+    Route::get('/seancesedit/{id_filiere}/{groupe}/{semestre}/{seance}', [SeanceController::class, 'showedit'])->name('showedit');
+    Route::get('generate-pdf/{nom_departement}/{id_filiere}/{groupe}/{semestre}',[PDFController::class,'generatePDF'])->name('PDF');
+    Route::get('/import', function () {
+        return view('import');
+    });
+    Route::post('/import', [EtudiantImportController::class, 'import'])->name('etudiants.import');
+
+
 
 });
 Route::middleware('auth:super_admin')->group(function(){
@@ -141,22 +149,16 @@ Route::resource('/dashboard/super_admins', SuperAdminController::class);
 
 
 
-Route::get('/import', function () {
-    return view('import');
-});
-
-Route::post('/import', [EtudiantImportController::class, 'import'])->name('etudiants.import');
 
 
 
 
 
-Route::get('/seancesedit/{id_filiere}/{groupe}/{semestre}/{seance}', [SeanceController::class, 'showedit'])->name('showedit');
 
 
 
 
-Route::get('generate-pdf',[PDFController::class,'generatePDF'])->name('PDF');
+
 
 
 
