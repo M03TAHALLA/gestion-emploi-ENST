@@ -156,20 +156,35 @@
                         </div>
 
 
-                        <div class="flex flex-wrap formbold--mx-3">
-                            <div class="w-full sm:w-half formbold-px-3">
-                                <div class="formbold-mb-5 w-full">
-                                    <label for="HeurDebut" class="formbold-form-label">Heur Debut Seance</label>
-                                    <input type="time" name="heure_debut" value="{{ substr($seance->heure_debut,0,5) }}" id="HeurDebut" class="formbold-form-input" required />
-                                </div>
-                            </div>
-                            <div class="w-full sm:w-half formbold-px-3">
-                                <div class="formbold-mb-5">
-                                    <label for="HeurFin" class="formbold-form-label">Heur Fin Seance</label>
-                                    <input type="time" name="heure_fin" value="{{ substr($seance->heure_fin,0,5) }}" id="HeurFin" class="formbold-form-input" required />
-                                </div>
-                            </div>
-                        </div>
+                        <div>
+                            <label class="formbold-form-label">Heure debut</label>
+                           
+                        <select class="formbold-form-select" name="heure_debut" id="cars">
+                        @for ($l = 0; $l < $countHoraires; $l++)
+                        @php
+                        $count = 0;
+                        $barrerHoraire = false;
+                        @endphp
+                       
+                          <option value="{{ substr($Horaires[$l]->heure_debut, 0, 5) }}">{{ substr($Horaires[$l]->heure_debut, 0, 5) }}</option>
+    
+                        @endfor
+                    </select>
+                </div>
+                <div>
+                    <label class="formbold-form-label">Heure fin</label>
+                    <select class="formbold-form-select" name="heure_fin" id="cars">
+                        @for ($l = 0; $l < $countHoraires; $l++)
+                        @php
+                        $count = 0;
+                        $barrerHoraire = false;
+                        @endphp
+                       
+                          <option value="{{ substr($Horaires[$l]->heure_fin, 0, 5) }}">{{ substr($Horaires[$l]->heure_fin, 0, 5) }}</option>
+    
+                        @endfor
+                    </select>
+                </div>
                         <div>
                             <label class="formbold-form-label">Num Salle</label>
                             <select class="formbold-form-select" name="num_salle" id="NumSalle">

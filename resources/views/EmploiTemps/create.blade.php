@@ -78,7 +78,6 @@
             }
   </style>
 
-
   <!-- endinject -->
   <link rel="shortcut icon" href="/images/logo.png" />
 </head>
@@ -119,33 +118,44 @@
                 <select class="formbold-form-select" name="nom_departement" id="departement" onchange="getFiliere()">
                   <option value="">Sélectionner un département</option>
                   @foreach ($Departements as $Departement)
-                    <option value="{{ $Departement->nom_departement }}">{{ $Departement->nom_departement }}</option>
+                    <option value="{{ $Departement->nom_departement }}" {{ old('nom_departement') == $Departement->nom_departement ? 'selected' : '' }}>
+                      {{ $Departement->nom_departement }}
+                    </option>
                   @endforeach
                 </select>
               </div>
               <div>
                 <label class="formbold-form-label">Filière</label>
                 <select class="formbold-form-select" name="nom_filiere" id="filliere" onchange="getSemesters()">
-                  <option value="">Sélectionner une filière</option>
+                  <option >Sélectionner une filière</option>
+                  @if(old('nom_filiere'))
+                    <option value="{{ old('nom_filiere') }}" selected>{{ old('nom_filiere') }}</option>
+                  @endif
                 </select>
               </div>
             <div>
               <label class="formbold-form-label">Semestre</label>
               <select class="formbold-form-select" name="semestre" id="semestre" onchange="getGroups()">
                 <option value="">Sélectionner un semestre</option>
+                @if(old('semestre'))
+                    <option value="{{ old('semestre') }}" selected> Semestre {{ old('semestre') }}</option>
+                @endif
               </select>
             </div>
             <div>
               <label class="formbold-form-label">Groupe</label>
               <select class="formbold-form-select" name="groupe" id="groupe">
                 <option value="">Sélectionner un groupe</option>
+                @if(old('groupe'))
+                    <option value="{{ old('groupe') }}" selected>{{ old('groupe') }}</option>
+                @endif
               </select>
             </div>
                 <div style="margin-top: 2%" class="formbold-input-group">
                     <label for="nombre_seance">Nombre Seance</label>
                     <input
                         type="number"
-                        value=""
+                        value="{{ old('nombre_seance') }}"
                         class="formbold-form-input"
                         name="nombre_seance"
                         id="nombre_seance"
@@ -154,9 +164,26 @@
                     />
                 </div>
                 <div id="error-message" style="color: red; display: none;">Le nombre de séances ne doit pas dépasser 7.</div>
-            <div id="horaires-container" style="margin-top: 2%" class="formbold-input-group">
-                <!-- Les inputs horaires générés apparaîtront ici -->
-            </div>
+                <div id="horaires-container" style="margin-top: 2%" class="formbold-input-group">
+                  <!-- Les inputs horaires générés apparaîtront ici -->
+                  @if(old('horaires_debut'))
+                      @foreach(old('horaires_debut') as $key => $horaireDebut)
+                          <div class="formbold-mb-5">
+                              <label class="formbold-form-label">Horaire de début pour la séance {{ $key + 1 }}</label>
+                              <input type="time" name="horaires_debut[]" value="{{ $horaireDebut }}" class="formbold-form-input" required>
+                              @if ($errors->has("horaires_debut.$key"))
+                                  <span class="text-danger">{{ $errors->first("horaires_debut.$key") }}</span>
+                              @endif
+              
+                              <label class="formbold-form-label">Horaire de fin pour la séance {{ $key + 1 }}</label>
+                              <input type="time" name="horaires_fin[]" value="{{ old('horaires_fin')[$key] }}" class="formbold-form-input" required>
+                              @if ($errors->has("horaires_fin.$key"))
+                                  <span class="text-danger">{{ $errors->first("horaires_fin.$key") }}</span>
+                              @endif
+                          </div>
+                      @endforeach
+                  @endif
+              </div>
 
             <button class="formbold-btn">Ajouter Une Emploi Temps</button>
           </form>
@@ -312,6 +339,11 @@
         div.appendChild(labelDebut);
         div.appendChild(inputDebut);
 
+        const errorDebut = document.createElement('span');
+        errorDebut.classList.add('text-danger');
+        errorDebut.id = `error_horaires_debut_${i}`;
+        div.appendChild(errorDebut);
+
         const labelFin = document.createElement('label');
         labelFin.classList.add('formbold-form-label');
         labelFin.textContent = `Horaire de fin pour la séance ${i + 1}`;
@@ -325,8 +357,37 @@
         div.appendChild(labelFin);
         div.appendChild(inputFin);
 
+        const errorFin = document.createElement('span');
+        errorFin.classList.add('text-danger');
+        errorFin.id = `error_horaires_fin_${i}`;
+        div.appendChild(errorFin);
+
         horairesContainer.appendChild(div);
     }
+
+    // Pré-remplir les champs horaires si des valeurs existent
+    @if(old('horaires_debut'))
+        const oldHorairesDebut = @json(old('horaires_debut'));
+        const oldHorairesFin = @json(old('horaires_fin'));
+        const errors = @json($errors->toArray());
+
+        for (let i = 0; i < oldHorairesDebut.length; i++) {
+            const inputsDebut = document.querySelectorAll('input[name="horaires_debut[]"]');
+            const inputsFin = document.querySelectorAll('input[name="horaires_fin[]"]');
+            if (inputsDebut[i]) inputsDebut[i].value = oldHorairesDebut[i];
+            if (inputsFin[i]) inputsFin[i].value = oldHorairesFin[i];
+
+            // Afficher les erreurs s'il y en a
+            const errorDebut = document.getElementById(`error_horaires_debut_${i}`);
+            const errorFin = document.getElementById(`error_horaires_fin_${i}`);
+            if (errors[`horaires_debut.${i}`]) {
+                errorDebut.textContent = errors[`horaires_debut.${i}`];
+            }
+            if (errors[`horaires_fin.${i}`]) {
+                errorFin.textContent = errors[`horaires_fin.${i}`];
+            }
+        }
+    @endif
 }
 </script>
   <!-- End custom js for this page-->
