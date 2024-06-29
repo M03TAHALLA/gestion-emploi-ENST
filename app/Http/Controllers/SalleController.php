@@ -24,19 +24,20 @@ class SalleController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'num_salle'=>'required|integer',
-            'nom_departement' => 'required|string|max:255',
-            'type_salle' => 'required|in:Salle,Amphi,Laboratoire',
-            'capacite' => 'required|integer',
-        ]);
+{
+    $request->validate([
+        'num_salle' => 'required|integer|unique:salles,num_salle',
+        'nom_departement' => 'required|string|max:255',
+        'type_salle' => 'required|in:Salle,Amphi,Laboratoire',
+        'capacite' => 'required|integer',
+    ]);
 
-        Salle::create($request->all());
+    Salle::create($request->all());
 
-        return redirect()->route('salles.index')
-                        ->with('success', 'Salle créée avec succès.');
-    }
+    return redirect()->route('salles.index')
+                    ->with('success', 'Salle créée avec succès.');
+}
+
 
     public function show(Salle $salle)
     {

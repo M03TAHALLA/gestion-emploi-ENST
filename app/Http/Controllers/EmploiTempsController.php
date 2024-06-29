@@ -8,9 +8,10 @@ use App\Models\Filiere;
 use App\Models\EmploiTemps;
 use App\Models\Horaire;
 use App\Models\Seance;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\DB;
-
-
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session as FacadesSession;
 
 class EmploiTempsController extends Controller
 {
@@ -88,68 +89,118 @@ public function getSemesters($filiere)
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    // Valider les données du formulaire
-    $request->validate([
-        'nom_departement' => 'required',
-        'nom_filiere' => 'required',
-        'semestre' => 'required',
-        'groupe' => 'required',
-        'nombre_seance' => 'required|integer|min:1|max:7',
-        'horaires_debut' => 'required|array', // Assurez-vous que les horaires de début sont un tableau
-        'horaires_fin' => 'required|array', // Assurez-vous que les horaires de fin sont un tableau
-        'horaires_debut.*' => 'required|date_format:H:i', // Assurez-vous que chaque horaire de début est au format valide
-        'horaires_fin.*' => 'required|date_format:H:i', // Assurez-vous que chaque horaire de fin est au format valide
-    ]);
+    {
+        $validatedData = $request->validate([
+            'nom_departement' => 'required',
+            'nom_filiere' => 'required',
+            'semestre' => 'required',
+            'groupe' => 'required',
+            'nombre_seance' => 'required|integer|max:7',
+            'horaires_debut' => 'required|array',
+            'horaires_fin' => 'required|array',
+        ]);
+    
+        $horairesDebut = $request->input('horaires_debut');
+        $horairesFin = $request->input('horaires_fin');
+    
+        $errors = [];
+        foreach ($horairesDebut as $key => $horaireDebut) {
+            $horaireFin = $horairesFin[$key];
+    
+            if ($horaireDebut >= $horaireFin) {
+                // Collecter les erreurs spécifiques à chaque champ d'heure
+                $errors["horaires_debut.$key"] = 'L\'heure de début doit être inférieure à l\'heure de fin.';
+                $errors["horaires_fin.$key"] = 'L\'heure de fin doit être supérieure à l\'heure de début.';
+            }
+        }
+    
+        $filiere = Filiere::where('nom_filiere', $validatedData['nom_filiere'])
+            ->where('semestre', $validatedData['semestre'])
+            ->firstOrFail();
+        $id_filiere = $filiere->id;
+    
+        // Check if the schedule already exists
+        $existingEmploiTemps = EmploiTemps::where('nom_departement', $validatedData['nom_departement'])
+            ->where('id_filiere', $id_filiere)
+            ->where('semestre', $validatedData['semestre'])
+            ->where('groupe', $validatedData['groupe'])
+            ->first();
+    
+        if ($existingEmploiTemps) {
+            return Redirect::back()->withErrors(['emploi_temps' => 'Un emploi du temps pour cette combinaison existe déjà.'])->withInput();
+        }
+    
+        if (!empty($errors)) {
+            // Rediriger avec des messages d'erreur
+            return Redirect::back()->withErrors($errors)->withInput();
+        }
+    
+        // Création de l'emploi du temps
+        $emploiTemps = new EmploiTemps();
+        $emploiTemps->nom_departement = $validatedData['nom_departement'];
+        $emploiTemps->id_filiere = $id_filiere;
+        $emploiTemps->semestre = $validatedData['semestre'];
+        $emploiTemps->groupe = $validatedData['groupe'];
+        $emploiTemps->save();
+    
+        // Stocker les horaires
+        foreach ($horairesDebut as $key => $horaireDebut) {
+            $horaireFin = $horairesFin[$key];
+    
+            $horaire = new Horaire();
+            $horaire->emploi_temps_id = $emploiTemps->id;
+            $horaire->heure_debut = $horaireDebut;
+            $horaire->heure_fin = $horaireFin;
+            $horaire->save();
+        }
+        $resultats = EmploiTemps::where('id_filiere', $id_filiere)
+            ->where('semestre',  $validatedData['semestre'])
+            ->where('groupe', $validatedData['groupe'])
+            ->first();
 
-    // Trouver l'ID de la filière à partir de son nom
-    $nomFiliere = $request->input('nom_filiere');
-    $semestre = $request->input('semestre');
-    $filiere = Filiere::where('nom_filiere', $nomFiliere)
-                        ->where('semestre', $semestre)
-                        ->first();
+            $seances = Seance::with('module')
+                ->where('id_filiere', $id_filiere)
+                ->where('semestre',$validatedData['semestre'])
+                ->where('nom_groupe', $validatedData['groupe'])
+                ->get();
 
-    if (!$filiere) {
-        // Si la filière n'est pas trouvée, vous pouvez retourner un message d'erreur ou gérer la situation selon vos besoins
-        return redirect()->back()->with('error', 'La filière sélectionnée n\'existe pas.');
+
+            $nombreSeances = $seances->count();
+            $Departements = Departement::all();
+
+            $nomFiliere = $validatedData['nom_filiere'];
+            $semestre = $validatedData['semestre'];
+            $groupe = $validatedData['groupe'];
+
+            if ($resultats) {
+                $Horaire = Horaire::where('emploi_temps_id',$resultats->id)->get();
+                $countHoraire = $Horaire->count();
+                    }else{
+                        $Horaire = collect();
+                        $countHoraire = $Horaire->count();
+        
+                    }
+
+            
+
+
+    
+        // Rediriger avec un message de succès
+        FacadesSession::flash('success', 'Emploi du temps ajouté avec succès.');
+        return view('EmploiTemps.ResultRecherche',[
+        'resultats' => $resultats,
+         'seances' => $seances,
+         'Departements'=>$Departements,
+        'nomFiliere'=>$nomFiliere,
+        'semestre'=>$semestre,
+        'groupe'=>$groupe,
+        'nombreSeances'=>$nombreSeances,
+        'Horaire'=>$Horaire,
+        'countHoraire' => $countHoraire,
+        'idFiliere'=>$id_filiere
+        ]);
     }
-
-    // Vérifier si un emploi du temps existe déjà pour cette combinaison de filière, semestre et groupe
-    $existingEmploiTemps = EmploiTemps::where('id_filiere', $filiere->id)
-                                      ->where('semestre', $semestre)
-                                      ->where('groupe', $request->input('groupe'))
-                                      ->first();
-
-    if ($existingEmploiTemps) {
-        // Si un emploi du temps existe déjà, retourner un message d'erreur
-        return redirect()->back()->with('error', 'Un emploi du temps existe déjà pour cette filière, ce semestre et ce groupe.');
-    }
-
-    // Créer un nouvel emploi du temps
-    $emploiTemps = new EmploiTemps();
-    $emploiTemps->nom_departement = $request->input('nom_departement');
-    $emploiTemps->id_filiere = $filiere->id; // Utilisez l'ID de la filière trouvée
-    $emploiTemps->semestre = $request->input('semestre');
-    $emploiTemps->groupe = $request->input('groupe');
-    $emploiTemps->save();
-
-    // Récupérer les horaires de début et de fin de chaque séance et les associer à l'emploi du temps
-    $horairesDebut = $request->input('horaires_debut');
-    $horairesFin = $request->input('horaires_fin');
-
-    foreach ($horairesDebut as $key => $horaireDebut) {
-        $horaireFin = $horairesFin[$key];
-
-        $horaire = new Horaire();
-        $horaire->emploi_temps_id = $emploiTemps->id;
-        $horaire->heure_debut = $horaireDebut;
-        $horaire->heure_fin = $horaireFin;
-        $horaire->save();
-    }
-
-    // Rediriger avec un message de succès
-    return redirect()->route('Emploitemps.index')->with('success', 'L\'emploi du temps a été ajouté avec succès.');
-}
+    
 
 
     /**

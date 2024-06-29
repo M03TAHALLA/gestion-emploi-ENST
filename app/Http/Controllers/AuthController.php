@@ -43,16 +43,12 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request)
     {
-        // Point de débogage
-
 
         $request->validate([
             'token' => 'required',
             'email' => 'required|email|exists:sous_admins,email',
             'password' => 'required|confirmed|min:8',
         ]);
-
-        // Point de débogage
 
         $passwordReset = DB::table('password_resets')->updateOrInsert(
             ['email' => $request->email],
@@ -63,15 +59,11 @@ class AuthController extends Controller
             return back()->withErrors(['email' => 'Invalid token!']);
         }
 
-        // Point de débogage
-
         $sousAdmin = SousAdmin::where('email', $request->email)->first();
         $sousAdmin->password = Hash::make($request->password);
         $sousAdmin->save();
 
         DB::table('password_resets')->where('email', $request->email)->delete();
-
-        // Point de débogage
 
         return redirect()->route('home')->with('status', 'Password has been reset!');
     }
